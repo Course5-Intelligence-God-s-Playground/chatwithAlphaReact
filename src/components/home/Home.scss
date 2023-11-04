@@ -1,0 +1,230 @@
+$xxl: 1400px;
+
+//For Extra Extra Large
+@mixin xxl {
+  @media screen and (min-width: ($xxl)) {
+    @content;
+  }
+}
+
+$md: 768px;
+
+//For Medium
+@mixin md {
+  @media screen and (max-width: ($md)) {
+    @content;
+  }
+}
+
+.homePage {
+  background-color: #f5f6fa;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  font-family: 'Segoe UI';
+  font-size: small;
+  letter-spacing: 0.01vw;
+
+}
+
+.chatBot {
+  position: absolute;
+  bottom: 5vh;
+  right: 3vw;
+
+  @include md {
+    bottom: 10vh;
+  }
+
+}
+
+.chatBot-img {
+  cursor: pointer;
+  height: 10vh;
+}
+
+.homePage-main {
+  width: 100vw;
+  height: 90vh;
+}
+
+.chatmodalHold {
+  z-index: 99999;
+
+}
+
+.homePage-maincontent {
+  display: flex;
+  position: relative;
+  top: -2vh;
+
+  @include md {
+    height: 90vh;
+  }
+}
+
+.holdercup {
+  display: flex;
+  width: 94%;
+  left: 7%;
+  gap: 1vw;
+  height: 85vh;
+  @include md{
+    left: 0%;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+
+}
+.mainscnd,.maintrd{
+  width: 50%;
+}
+.mainfrst,
+.holdercup {
+  position: absolute;
+}
+
+.maintrd {
+  @include md{
+    width: 100%;
+  }
+ 
+}
+.mainscnd{
+ 
+  @include md{
+    width: 100%;
+    height: 50%;
+  }
+ 
+}
+.mainfrst {
+  height: 85vh;
+  transition: width 0.5s;
+  overflow: hidden;
+  z-index: 9999;
+
+  @include md {
+    height: 60vh;
+  }
+}
+
+
+
+// HomeStartOptions  component 
+
+.HomeStartOptions-container {
+  list-style: none;
+  min-height: 80vh;
+  width: 17vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  @include md {
+    min-height: 60vh;
+  }
+
+}
+
+.HomeStartOptions-option {
+  position: relative;
+  cursor: not-allowed;
+  left: -1vw;
+  border-bottom: 1px thin;
+
+  @include xxl {
+    //for larger screens
+    left: 0vw;
+  }
+
+  @include md {
+    // border: 1px solid ;
+    left: -8vw;
+    width: 100vw;
+    // border-bottom: 1px solid grey;
+    background-color: rgb(250, 250, 250);
+    border-radius: 5px;
+    margin-left: 2vw;
+  }
+}
+
+.HomeStartOption-cnt {
+  display: flex;
+  gap: 4vw;
+
+  &:hover {
+    background-color: rgb(248, 248, 248);
+
+    @include md {
+      background-color: transparent;
+
+    }
+
+  }
+}
+
+.HomeStartOption-hdng {
+  width: 9vw;
+  color: grey;
+  font-size: medium;
+  font-weight: 500;
+
+  @include md {
+    font-size: small;
+
+  }
+}
+
+.homelist {
+  border-left: 2px solid #27debf;
+  cursor: pointer;
+}
+
+.HomeStartOptionlasthdng {
+  font-size: small;
+}
+
+
+
+
+.HomeStartOptions-option {
+
+  transition: background-position 0.5s;
+}
+
+.HomeStartOptions-option::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -110%;
+  width: 100%;
+  height: 120%;
+  background: linear-gradient(90deg, transparent, white);
+  transform: skewX(-20deg);
+}
+
+.HomeStartOptions-option {
+
+  background-position: 100% 0;
+}
+
+.HomeStartOptions-option:hover::before {
+  animation: shine 1s linear;
+}
+
+@keyframes shine {
+  0% {
+    left: -110%;
+  }
+
+  50% {
+    left: 110%;
+  }
+
+  100% {
+    left: 110%;
+  }
+}

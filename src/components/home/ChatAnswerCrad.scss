@@ -1,0 +1,90 @@
+$md: 768px;
+//For Medium
+@mixin md {
+  @media screen and (max-width: ($md)) {
+    @content;
+  }
+}
+.suggestivesCnt{
+    background-color: #fafbfd;
+    display: flex;
+    flex-direction: row;
+    @include md{
+        flex-direction: column;
+        gap: 1vh;
+        // background-color: black;
+        width: 100%;
+        position: relative;
+        left: 2%;
+    }
+}
+.suggestion{
+    background-color: #0988e2;
+    font-size: small;
+    cursor: pointer;
+    color: white;
+    width: 35vw;
+    border-radius: 12px;
+    &:hover{
+    border: 1px solid grey;
+
+    }
+    @include md{
+    width: 100%;
+
+    }
+}
+.sugesttryaskTxt{
+    font-size: small;
+    font-weight: bold;
+}
+.ChartAndTableView{
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+   width: 80vw;
+   @include md{
+    gap: 2vh;
+   }
+}
+.ChatTableViewCnt{
+    display: flex;
+    flex-direction: column;
+    @include md{
+        width: 90%;
+        position: relative;
+        left: 5%;
+    }
+}
+.chartHolder{
+    @include md{
+        display: flex;
+    justify-content: end;
+    }
+}
+.ChartViewCnt{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    max-height: 50vh;
+    @include md{
+        width: 100%;
+    }
+}
+.chatAnswer{
+    font-family: 'Segoe UI';
+    font-weight: 400;
+}
+.bi-clipboard2-data{
+    cursor: pointer;
+    &:hover{
+        transform: scale(1.3);
+        color: #0988e2;
+    }
+}
+.chatAnswerLike{
+    svg{
+        cursor: not-allowed;
+        &:hover{
+           transform: scale(1.1);
+        }
+    }
+}

@@ -1,0 +1,78 @@
+$md: 768px;
+//For Medium
+@mixin md {
+  @media screen and (max-width: ($md)) {
+    @content;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+.bi-arrows-angle-expand{
+  cursor: pointer;
+  &:hover{
+color: #0dc3bb;  }
+}
+.table-container {
+  width: 45vw;
+  max-height: 45vh;
+  overflow: auto;
+    @include md{
+  width: 65vw;
+  // width:100%;
+      // padding-left: 6vw;
+    }
+   thead> tr{
+      background-color: #0dc3bb;
+      position: sticky;
+      z-index: 2;
+      top: 0;
+      text-wrap: nowrap;
+      
+    }
+    &::-webkit-scrollbar {
+      width:4px;
+      height: 1vh;
+      border-radius: 5px;
+  }
+  
+
+  &::-webkit-scrollbar-thumb {
+      border: 1px solid grey;
+      background-color: transparent;
+      border-radius: 5px;
+  }
+
+
+   
+  table {
+    border-collapse: collapse;
+border: 1px thin;
+
+    width: 100%;
+    font-size: small;
+    border-radius: 5px;
+}
+ td:first-child {
+  position: inherit;
+  left: -1px;
+}
+  th, td {
+    border: 1px solid #dddddd;
+      text-wrap: nowrap;
+      text-align: left;
+    padding: 8px;
+  }
+
+  .bi-arrows-angle-expand{
+    cursor: pointer;
+    
+
+  }
+  .seriesarrayFrstCol{
+    background-color: #0dc3bb;
+    text-wrap: nowrap;
+  }
+  }

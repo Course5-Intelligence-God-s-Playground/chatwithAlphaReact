@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+$md: 768px;
+
+//For Medium
+@mixin md {
+    @media screen and (max-width: ($md)) {
+        @content;
+    }
+}
+
+* {
+    padding: 0%;
+    margin: 0%;
+}
+
+.lg-cnt {
+    user-select: none;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    overflow-x: hidden;
+    background-image: url('../assets/Login/aiTheme.avif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 55% -505%;
+    
+}
+
+.loginBackgImage {
+   
+    width: 20vw;
+    mix-blend-mode: multiply;
+    @include md{
+        display: none;
+    }
+}
+
+.lg-body {
+    width: 35vw;
+    height: 90vh;
+    z-index: 999;
+    position: relative;
+    left: 25vw;
+
+}
+
+.lg-cardHold {
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background-color: white;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 25%;
+    height: 60vh;
+    @include md{
+        width: 90%;
+    }
+}
+
+.lg-loginCard {
+    gap: 5vh;
+    position: relative;
+    top: 8vh;
+    height: 60vh;
+
+}
+
+.logintxt{
+    top: 8vh;
+    font-size: 3vw;
+    padding-bottom: 3px;
+    background: -webkit-linear-gradient(90deg, rgba(3, 125, 193, 1) 0%, rgba(119, 30, 157, 1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include md{
+        font-size:x-large;
+    }
+}
+.lg-cardHold {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: rgba(3, 125, 193, 0.4) 0px 10px 20px ;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    input {
+        background-color: transparent;
+    }
+}
+
+.lg-btn {
+    background: linear-gradient(90deg, rgba(3, 125, 193, 1) 0%, rgba(119, 30, 157, 1) 100%);
+    color: aliceblue;
+}
+
+// .c5iLogo{
+//     position: absolute;
+//     bottom: 1vh;
+//     right: 1vw;
+//     width: 12vw;
+//     opacity: 0.8;
+//     z-index: 99999;
+// }
+
+.app-title{
+    position: absolute;
+    top: 2vh;
+    left: 1vw;
+    align-items: center;
+}
+
+.app-titleMain{
+    font-family: 'Noto Sans JP', sans-serif;
+    
+    background: linear-gradient(90deg, rgba(3, 125, 193, 1) 0%, rgba(119, 30, 157, 1) 100%);
+    -webkit-background-clip: text; /* For older webkit-based browsers */
+    background-clip: text; /* Specify that the background should clip around the text */
+    color: transparent;
+    font-size: 3vw;
+  /* Make the text transparent */
+    -webkit-background-clip: text; /* For older webkit-based browsers */
+    background-clip: text; 
+
+    @include md{
+        font-size: 7vw;
+    }
+}
+.app-titleSub{
+    font-size: 2vw;
+    font-weight: 100;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 2vw;
+    @include md{
+        font-size: 5vw;
+    }
+}
+
+#liveToast{
+    width: 50vw;
+    color: rebeccapurple;
+    font-weight: bold;
+    text-align: center;
+    @include md{
+        width: 100vw;
+    }
+}
+.toast-container{
+    left: 35%;
+    bottom: 40%;
+    @include md{
+        left: 0%;
+    }
+}

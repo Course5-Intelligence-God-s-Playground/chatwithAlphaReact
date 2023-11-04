@@ -1,0 +1,45 @@
+$md: 768px;
+//For Medium
+@mixin md {
+  @media screen and (max-width: ($md)) {
+    @content;
+  }
+}
+.chatQuestion,.chatAnswer{
+    width: 60ch;
+   
+    min-height: 10vh;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    font-family: "Segoe UI";
+    @include md{
+    width: 30ch;
+
+    }
+  
+}
+.chatAnswerHold{
+    align-self: flex-end;
+
+}
+.chatAnswer{
+    border-radius: 15px;
+    background-color: #d2ebfd;
+    font-size: 1vw;
+    white-space: pre-line;
+    font-size: 1vw;
+    width: 80ch;
+    @include md{
+    width: 30ch;
+    font-size: small;
+    }
+}
+
+.timeview{
+    font-size: small;
+}
+.chatQuestion{
+    font-size: 1vw;
+    @include md{
+        font-size: small;
+    }
+}

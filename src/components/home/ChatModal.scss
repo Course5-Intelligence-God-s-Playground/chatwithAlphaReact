@@ -1,0 +1,178 @@
+$md: 768px;
+//For Medium
+@mixin md {
+  @media screen and (max-width: ($md)) {
+    @content;
+  }
+}
+#offcanvasScrolling {
+    height: 85vh;
+    width: 93vw;
+    margin-top: 14vh;
+    font-family: 'Segoe UI';
+    @include md{
+        width: 100vw;
+    }
+}
+
+.offcanvas-selectLabel{
+    display: block;
+    @include md{
+        display: none;
+    }
+}
+.offcanvas-titleTxt {
+    font-size: smaller;
+    width: 10vw;
+}
+
+.bi-x-circle {
+    cursor: pointer;
+    color: red;
+    @include md{
+        position: relative;
+        top: 2px;
+    }
+}
+.modalClose,.clearchatbtn{
+    transform: scale(0.8);
+}
+.chatbody {
+    height: 100%;
+}
+.clearchatbtn{
+    @include md{
+        width: 25vw;
+        height: 3vh;
+        white-space: nowrap;       /* Prevent text from wrapping */
+        overflow: hidden;          /* Hide any overflowing text */
+        text-overflow: ellipsis;
+    }
+}
+.chatbodyqa {
+    height: 80%;
+    overflow: auto;
+    /* Customize the main scrollbar track */
+    &::-webkit-scrollbar {
+        width:5px;
+        border-radius: 5px;
+    }
+
+
+    &::-webkit-scrollbar-thumb {
+        background: #666;
+        border-radius: 5px;
+    }
+
+}
+
+.chatbodyinput {
+    // border: 1px solid red;
+    height: 75%;
+   .chatbodyinputSendIcon{
+    cursor: pointer;
+    transform: rotate(45deg);
+    &:active{
+        transform: scale(1.1);
+    }
+   }
+
+   
+}
+
+.chatbodyinput-txtarea {
+    width: 90%;
+    max-height: 100%;
+    min-height: 100%;
+    outline: none;
+    border: none;
+    background-color: #fafafa;
+    font-size: 1.1vw;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    font-family: "Segoe UI";
+    /* Customize the main scrollbar track */
+    &::-webkit-scrollbar {
+        width: 5px;
+        border-radius: 5px;
+    }
+
+
+    &::-webkit-scrollbar-thumb {
+        background: #666;
+        border-radius: 5px;
+    }
+    @include md{
+        font-size: small;
+    }
+}
+
+.spinner-border{
+    position: absolute;
+    top: 50vh;
+    left: 50%;
+}
+
+.chtbotSpinner{
+   position: absolute;
+   top: 60%;
+ 
+   left: 40%;
+   @include md{
+    top: 50%;
+   left: 40%;
+   }
+  
+}
+.chtbotSpinnerfox,.chtbotSpinner2{
+position: absolute;
+}
+.chtbotSpinnerfox{
+    width: 17vw;
+    transform: scale(2);
+    @include md{
+        transform: scale(8);
+
+    }
+}
+.chtbotSpinner2{
+    width: 17vw;
+    @include md{
+    width: 57vw;
+    position: relative;
+    left: -20vw;
+        
+    }
+}
+
+.nexusImgChat{
+    height: 2vh;
+    width: 9vw;
+    @include md{
+        height: 1.5vh;
+        width: 20vw;
+    }
+
+}
+.exceIcons > div > svg{
+    cursor: not-allowed;
+}
+
+.form-select{
+    width: 25vw;
+    @include md{
+        width: 40vw;
+    }
+}
+.offcanvas-headerSection1{
+    gap: 5%;
+   
+}
+.offcanvas-headerSection2{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    @include md{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

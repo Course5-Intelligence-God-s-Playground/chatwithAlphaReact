@@ -1,0 +1,56 @@
+$md: 768px;
+//For Medium
+@mixin md {
+  @media screen and (max-width: ($md)) {
+    @content;
+  }
+}
+.HomeMidCnt{
+    
+    // width: 60vw;
+    @include md{
+        height: fit-content;
+        width: 100vw;
+    }
+}
+.HomeMidCnt-frst{
+    height: 90%;
+    overflow: hidden;
+    svg{
+        cursor: not-allowed;
+    }
+}
+.HomeMidCnt-frsthdng{
+        cursor: not-allowed;
+        font-weight: 500;
+    opacity: 0.7;
+}
+.HomeMidCnt-frsthdngSel{
+        cursor: pointer;
+        border-bottom: 3px solid #27DEBF;
+    font-weight: 700;
+    opacity: 1;
+}
+
+.executiveInfo{
+    width: 100%;
+    height: 60vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    @include md{
+        height: fit-content;
+    }
+}
+.executiveInfonumber{
+    background-color: rgb(242, 242, 242);
+    font-size: small;
+}
+.executiveInfoScndLine,.executiveInfoThirdLine,.executiveInfoul{
+    font-size: small;
+}
+
+.executiveInfo-instrction{
+    @include md{
+        display: none;
+    }
+}
