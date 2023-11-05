@@ -1,38 +1,46 @@
 import React, { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil';
 import { ChatAnswerComponentData } from '../../utilites/ChatAnswerCradRecoilData';
+import ReactSanitizerParser from "react-sanitizer-parser";
 
 function TextAnimator({dynamicText}) {
-    const [displayedText, setDisplayedText] = useState('');
-    const [isAnswerFinished, setIsAnswerFinished] = useState(false);
-    const getChatAnswerComponentData = useRecoilValue(ChatAnswerComponentData)
+    // const [displayedText, setDisplayedText] = useState('');
+    // const [isAnswerFinished, setIsAnswerFinished] = useState(false);
+    // const getChatAnswerComponentData = useRecoilValue(ChatAnswerComponentData)
 
-    useEffect(() => {
-      if (dynamicText) {
-        if (getChatAnswerComponentData.ShowAnimation) {
-            streamText(dynamicText);
+    // useEffect(() => {
+    //   if (dynamicText) {
+    //     if (getChatAnswerComponentData.ShowAnimation) {
+    //         streamText(dynamicText);
 
-        }
-        else setDisplayedText(dynamicText)
-      }
-    }, [dynamicText]);
+    //     }
+    //     else setDisplayedText(dynamicText)
+    //   }
+    // }, [dynamicText]);
   
-    const streamText = (content) => {
-      let currentIndex = 0;
+    // const streamText = (content) => {
+    //   let currentIndex = 0;
   
-      const streamingInterval = setInterval(() => {
-        if (currentIndex < content.length) {
-          setDisplayedText(content.substring(0, currentIndex + 1));
-          currentIndex++;
-        } else {
-          clearInterval(streamingInterval);
-          setIsAnswerFinished(true);
-        }
-      }, 15); // Adjust the typing speed here (e.g., 15ms per character)
-    };
+    //   const streamingInterval = setInterval(() => {
+    //     if (currentIndex < content.length) {
+    //       setDisplayedText(content.substring(0, currentIndex + 1));
+    //       currentIndex++;
+    //     } else {
+    //       clearInterval(streamingInterval);
+    //       setIsAnswerFinished(true);
+    //     }
+    //   }, 15); // Adjust the typing speed here (e.g., 15ms per character)
+    // };
     return (
-        <div dangerouslySetInnerHTML={{ __html: displayedText }}></div>
- 
+        // <div dangerouslySetInnerHTML={{ __html: displayedText }}></div>
+        // <div>{ ReactHtmlParser(displayedText) }</div>
+      
+    
+      <div>
+         <ReactSanitizerParser>{dynamicText}</ReactSanitizerParser>
+      </div>
+    
+      //streaming is currently disabled , to enable streaming replace dynamiceText with displayText
       );
           
    
