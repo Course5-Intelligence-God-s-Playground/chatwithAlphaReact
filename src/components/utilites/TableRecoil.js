@@ -9,3 +9,8 @@ export const TableViewRecoil = atom({  //expanded table view state
     key: 'TableViewRecoil',
     default: false
 });
+
+export const ChartImageURL = atom({
+    key: 'ChartImageURL',
+    default: ''
+});

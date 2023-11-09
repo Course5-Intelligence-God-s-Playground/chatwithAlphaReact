@@ -88,3 +88,15 @@ $md: 768px;
         }
     }
 }
+
+.holf{
+    display: flex;
+}
+.cursor {
+    display: inline-block;
+    width: 10px; /* Adjust cursor width */
+    height: 20px; /* Adjust cursor height */
+    background: black;
+    /* Additional styling as needed */
+  }
+  

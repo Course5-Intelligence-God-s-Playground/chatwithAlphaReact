@@ -10,10 +10,9 @@ function ChatAnswerCrad(prop) {
   const [getChatAnswerComponentData, setChatAnswerComponentData] = useRecoilState(ChatAnswerComponentData)
   const [currentAnswer, setCurrentAnswer] = useState('');
   const [isAnswerFinished, setIsAnswerFinished] = useState(false);
-  
   const [displayedText, setDisplayedText] = useState('');
-
   const [showDesign, setshowDesign] = useState(false)
+
   useEffect(() => {
 
     let errorRespText = 'We apologize for any inconvenience. We were unable to determine exactly what you are seeking. Please rephrase your question and ask again.'
@@ -57,8 +56,6 @@ function ChatAnswerCrad(prop) {
     graph_data: prop.answer.graph_data
 
   }
-
-
   function showChartAndTableViewHandle() {
     setshowDesign(!showDesign)
   }
@@ -98,9 +95,6 @@ function ChatAnswerCrad(prop) {
         </div> : null}
 
       </div>}
-
-
-
 
       {/* suggestive questions  */}
       {prop.answer.suggestive.length != 0 ?
