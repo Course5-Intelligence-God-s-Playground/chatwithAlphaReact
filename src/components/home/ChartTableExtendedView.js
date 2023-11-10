@@ -19,7 +19,7 @@ function ChartTableExtendedView() {
   const headers = Object.keys(getTableDataRecoil.modelOutput);
 
   return (
-    
+
     <div className='d-flex justify-content-center gap-2'>
       <div className="Expandedtable-container pt-2 ps-2 ">
         {getTableDataRecoil.model_output_type == 'Dataframe' ?

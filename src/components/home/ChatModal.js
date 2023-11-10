@@ -3,8 +3,9 @@ import './ChatModal.scss'
 import Chats from './Chats'
 import { Server } from '../utilites/ServerUrl';
 import pocaAImg from '../assets/nexus.png'
-import spinnersImg from '../assets/spinners.gif'
-import loadingImg from '../assets/loading.gif'
+import AnswerLoader from './AnswerLoader'
+// import spinnersImg from '../assets/spinners.gif'
+// import loadingImg from '../assets/loading.gif'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { ChartImageURL, TableViewRecoil } from '../utilites/TableRecoil';
 import ChartTableExtendedView from './ChartTableExtendedView';
@@ -289,11 +290,11 @@ function ChatModal(prop) {
                                     </div>
                                 </div>
                             </div>
-                            {isloading &&
-                                <div className='d-flex flex-column chtbotSpinner justify-content-center'>
-                                    <img className='chtbotSpinnerfox' src={spinnersImg}></img>
-                                    <img className='chtbotSpinner2' src={loadingImg}></img>
-                                </div>
+                            {isloading &&<AnswerLoader value={fieldvalues.scoring_type}/>
+                                // <div className='d-flex flex-column chtbotSpinner justify-content-center'>
+                                //     <img className='chtbotSpinnerfox' src={spinnersImg}></img>
+                                //     <img className='chtbotSpinner2' src={loadingImg}></img>
+                                // </div>
                             }
                         </div></>
 
