@@ -58,7 +58,6 @@ $md: 768px;
         border-radius: 5px;
     }
 
-
     &::-webkit-scrollbar-thumb {
         background: #666;
         border-radius: 5px;
@@ -145,20 +144,15 @@ position: absolute;
 }
 
 .nexusImgChat{
-    height: 2vh;
-    width: 9vw;
+    height: 3vh;
+    // width: 9vw;
     @include md{
         height: 1.5vh;
         width: 20vw;
     }
 
 }
-.exceIcons > div > svg{
-    &:active{
-        transform: scale(1.1);
-       }
-       cursor: pointer !important;
-}
+
 
 .form-select{
     width: 25vw;
@@ -185,4 +179,13 @@ position: absolute;
     @include md{
         width: 100vw;
     }
+}
+.feedbkIcon,.readLoudIcon{
+    cursor: pointer;
+    &:active{
+        transform: scale(1.1);
+    }
+}
+.sendmailIcon:hover{
+    cursor: not-allowed !important;
 }

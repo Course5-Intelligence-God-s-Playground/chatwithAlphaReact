@@ -56,11 +56,11 @@ function Login() {
             <div className='mid-cnt-Hold w-100 d-flex justify-content-center align-items-center gap-3'>
                 <img className="loginBackgImage h-75" src={loginBackGrndImg} />
                 <div className="lg-cardHold h-75">
-                    <div className="login-card d-flex flex-column justify-content-between">
-                        <h6 className='text-center position-relative logintxt text-secondary'>Login</h6>
-                        <div className="lg-loginCard d-flex flex-column pt-5 px-3 align-items-center">
+                    <div className="login-card d-flex  flex-column justify-content-center">
+                        {/* <h6 className='text-center position-relative logintxt text-secondary'>Login</h6> */}
+                        <div className="lg-loginCard  d-flex flex-column gap-5 justify-content-center align-items-center">
 
-                            <div class="form-floating w-100">
+                            <div class="form-floating w-75 bg-white">
                                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" value={credValues.email} onChange={(e) => { setCredValues({ ...credValues, email: e.target.value }) }} />
                                 <label for="floatingInput">Email address</label>
                             </div>
@@ -70,7 +70,7 @@ function Login() {
                             </div>
 
                          
-                            <button disabled={loader ? true : false} className='lg-btn btn w-50 text-white' id='lg-btn'onClick={loginHandle} >{loader ? 'Please wait...' : 'Login'}</button>
+                            <button disabled={loader ? true : false} className='lg-btn btn  text-white' id='lg-btn'onClick={loginHandle} >{loader ? 'Please wait...' : 'SSO Login'}</button>
                         </div>
                     </div>
                 </div>

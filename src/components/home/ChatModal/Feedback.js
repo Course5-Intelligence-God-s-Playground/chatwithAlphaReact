@@ -7,8 +7,14 @@ function Feedback(prop) {
 
     function feedbackSubmitHandle() {
         setChatAnswerComponentData({ ...getChatAnswerComponentData, ShowAnimation: false })
-
         prop.setfeedbackEmailContainer(false)
+        
+    }
+
+    function feedbackCancelHandle(){
+        setChatAnswerComponentData({ ...getChatAnswerComponentData, ShowAnimation: false })
+        prop.setfeedbackEmailContainer(false)
+
     }
     return (
         <div className='feedBackCnt'>
@@ -24,7 +30,7 @@ function Feedback(prop) {
                         <textarea class="form-control" id="exampleFormControlTextarea1"></textarea>
                     </div>
                     <div className='d-flex justify-content-end'>
-                        <button className='btn btn-secondary' onClick={() => { prop.setfeedbackEmailContainer(false) }}>Cancel</button>
+                        <button className='btn btn-secondary' onClick={feedbackCancelHandle}>Cancel</button>
 
                         <button className='btn btn-success ms-3' onClick={feedbackSubmitHandle}>Submit</button>
                     </div>

@@ -5,12 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RecoilRoot } from 'recoil';
 import {HashRouter} from 'react-router-dom'
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
    <HashRouter>
    <RecoilRoot>
-   <App />
+
+          <App />
+ 
    </RecoilRoot>
    </HashRouter>
   </React.StrictMode>

@@ -58,11 +58,15 @@ $md: 768px;
 }
 
 .lg-loginCard {
-    gap: 5vh;
-    position: relative;
-    top: 8vh;
+    // gap: 5vh;
+    // position: relative;
+    // top: 8vh;
     height: 60vh;
-
+    border-radius: 15px;
+    background-image: url('../assets/Login/loginCardbg.png');
+    background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center;
 }
 
 .logintxt{
@@ -91,6 +95,7 @@ $md: 768px;
 .lg-btn {
     background: linear-gradient(90deg, rgba(3, 125, 193, 1) 0%, rgba(119, 30, 157, 1) 100%);
     color: aliceblue;
+    width: 65%;
 }
 
 // .c5iLogo{

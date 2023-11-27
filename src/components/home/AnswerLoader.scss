@@ -16,9 +16,9 @@ $md: 768px;
 
 .ansLoaderCnt {
     position: relative;
-    top: 14%;
+    top: 10%;
     left: 1%;
-
+  
     @include md {
         top: 0%;
         left: -5%;
@@ -27,17 +27,48 @@ $md: 768px;
 
 .ansLoaderCntTxt {
     font-family: 'Segoe UI';
-    background-color: rgb(252, 252, 252);
     width: 34%;
-
+    max-height: 25vh;
+    background-color:#f8f8fa;
     @include md {
         width: 90%;
-    }
-
-    // background-color: #0DC3BB;
-    // color: white;
+    }  
+  
 }
 
-.paraMainText {
-    // font-size: smaller;
+
+.shine {
+	position: relative;
+	overflow: hidden;
+
+	&::before {
+		background: linear-gradient(
+			to right,
+			fade_out(white, 1) 0%,
+			fade_out(white, 0) 100%
+		);
+		content: "";
+		display: block;
+		height: 100%;
+		left: -75%;
+		position: absolute;
+		top: 0;
+		transform: skewX(-25deg);
+		width: 80%;
+		z-index: 2;
+        animation: shine 3s   infinite  ;
+	}
+	@keyframes shine {
+		100% {
+			left: 125%;
+		}
+	}
+}
+
+.ansLoaderCntImg{
+	width: 15vw;
+	padding-bottom: 1vh;
+	@include md {
+        width: 60%;
+    } 
 }

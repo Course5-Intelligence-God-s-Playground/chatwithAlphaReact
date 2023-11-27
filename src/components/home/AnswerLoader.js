@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './AnswerLoader.scss'
-import spinnersImg from '../assets/spinners.gif'
+import spinnersImg from '../assets/spinner.gif'
 
 function AnswerLoader(prop) {
     const [paraText, setParaText] = useState('')
@@ -36,7 +36,7 @@ function AnswerLoader(prop) {
 
 
                     <p className=' text-muted rounded bg-white'>Generating response to your question...</p>
-                    <p className='ansLoaderCntTxt border rounded p-2  mt-3 text-center'><span className='text-secondary'>DID YOU KNOW?</span><br /><br /><span className='paraMainText'>{paraText}</span></p>
+                    <p className='ansLoaderCntTxt shine border rounded p-2  mt-3 text-center'><span className='text-secondary'>DID YOU KNOW?</span><br /><br /><span className='paraMainText'>{paraText}</span></p>
 
                 </div>
             </div>
