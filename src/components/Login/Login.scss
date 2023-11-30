@@ -58,15 +58,12 @@ $md: 768px;
 }
 
 .lg-loginCard {
-    // gap: 5vh;
-    // position: relative;
-    // top: 8vh;
     height: 60vh;
     border-radius: 15px;
-    background-image: url('../assets/Login/loginCardbg.png');
+    background-image: url('../assets/Login/loginCardbg4.png');
     background-repeat: no-repeat;
     background-size:cover;
-    background-position: center;
+    background-position:center;
 }
 
 .logintxt{
@@ -98,14 +95,6 @@ $md: 768px;
     width: 65%;
 }
 
-// .c5iLogo{
-//     position: absolute;
-//     bottom: 1vh;
-//     right: 1vw;
-//     width: 12vw;
-//     opacity: 0.8;
-//     z-index: 99999;
-// }
 
 .app-title{
     position: absolute;

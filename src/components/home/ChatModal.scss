@@ -144,11 +144,11 @@ position: absolute;
 }
 
 .nexusImgChat{
-    height: 3vh;
+    height: 4vh;
     // width: 9vw;
     @include md{
-        height: 1.5vh;
-        width: 20vw;
+        height:1.5vh;
+        // width: 20vw;
     }
 
 }
@@ -188,4 +188,17 @@ position: absolute;
 }
 .sendmailIcon:hover{
     cursor: not-allowed !important;
+}
+
+
+.toggleBtn{
+
+    .switchBtn{
+        transform: scale(0.7);
+    }
+    span{
+        @include md{
+            font-size: smaller;
+        }
+    }
 }

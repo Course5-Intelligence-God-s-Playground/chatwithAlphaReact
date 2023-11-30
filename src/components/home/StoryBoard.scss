@@ -16,15 +16,18 @@ $md: 768px;
 }
 
 .storybrdHdng-end {
-    cursor: not-allowed;
-    width: 12vw;
+    svg{
+        cursor: not-allowed;
+    }
+    // width: 12vw;
     // border: 1px solid;
     span {
         font-size: medium;
+        user-select: none;
     }
 
     @include md{
-        width: 32vw;
+        // width: 32vw;
     }
 
 }
@@ -121,5 +124,15 @@ $md: 768px;
 
     100% {
         left: 110%;
+    }
+}
+
+
+.radioItms{
+    input{
+        transform: scale(0.8);
+    }
+    span{
+        transform: scale(0.8);
     }
 }

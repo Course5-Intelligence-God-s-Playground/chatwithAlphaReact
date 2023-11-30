@@ -4,13 +4,13 @@ import Chats from './Chats'
 import { Server } from '../utilites/ServerUrl';
 import pocaAImg from '../assets/nexus.png'
 import AnswerLoader from './AnswerLoader'
-// import spinnersImg from '../assets/spinners.gif'
-// import loadingImg from '../assets/loading.gif'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { ChartImageURL, TableViewRecoil } from '../utilites/TableRecoil';
 import ChartTableExtendedView from './ChartTableExtendedView';
 import { ChatAnswerComponentData } from '../utilites/ChatAnswerCradRecoilData';
 import Feedback from './ChatModal/Feedback';
+import Switch from "react-switch";
+
 function ChatModal(prop) {
     const containerRef = useRef(null);
     const getTableViewRecoil = useRecoilValue(TableViewRecoil)
@@ -123,11 +123,6 @@ function ChatModal(prop) {
     }
 
 
-    function selectOnchangeHandle(e) {
-        setValues({ ...fieldvalues, scoring_type: e.target.value })
-
-    }
-
 
     // Scroll to bottom to show new chat when the component updates or the new chat is created changes
     useEffect(() => {
@@ -226,6 +221,42 @@ function ChatModal(prop) {
 //   window.location.href = mailtoLink;
         // }
     }
+
+    function switchChangehandle(){
+        let chatText;
+        if(fieldvalues.scoring_type==='Customer Journey POCA scoring (Discover, Learn, Buy & Engage)'){
+            setValues({ ...fieldvalues, scoring_type: 'Standard POCA scoring (Marketing, Omnichannel, Ecommerce & Subscription)' })
+            chatText='<b className=`fw-bold`>You have Selected: </b>Standard POCA scoring system (Marketing, Omnichannel, Ecommerce & Subscription)'
+        }
+        else {
+            setValues({ ...fieldvalues, scoring_type: 'Customer Journey POCA scoring (Discover, Learn, Buy & Engage)' })
+            chatText='<b className=`fw-bold`>You have Selected: </b>Customer Journey POCA scoring system (Discover, Learn, Buy & Engage)'
+        }
+        const currentDate = new Date()
+        let errorIdval = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000
+        let array = [
+
+            {
+                chat_text: chatText,
+                chat_type: "Answer",
+                time_stamp: currentDate,
+                new: true,
+                suggestive: [],
+                model_output: '',
+                model_output_type: '',
+                graph_data: '',
+                graph_type: '',
+                id: errorIdval,
+                scoretype: chatText,
+                general_question: true
+
+            }
+        ]
+
+        setqaChats((prevChats) => [...prevChats, ...array]);
+    }
+
+   
     return (
         <div class="offcanvas border offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
 
@@ -234,24 +265,26 @@ function ChatModal(prop) {
                 !getTableViewRecoil ?
                     <>
                         <div class="offcanvas-header border-bottom">
-                            <div className='offcanvas-headerSection1 d-flex w-75 align-items-center'>
+                            <div className='offcanvas-headerSection1 d-flex  align-items-center'>
                                 {/* <div class="offcanvas-title  w-25 d-flex align-items-center justify-content-between" id="offcanvasScrollingLabel"> */}
                                 <img src={pocaAImg} className='nexusImgChat'></img>
                                 {/* <div className='text-muted ps-2 offcanvas-titleTxt'>AI Assistant</div> */}
 
 
-                                <div className='offcanvas-headerSection2'>
-                                    <div className='text-muted offcanvas-selectLabel chatmodalNavSelectHdng fw-bold'>POCA scoring system:</div>
-                                    <select class="form-select form-select-sm ms-2" name='select' aria-label="Small select example" value={fieldvalues.scoring_type} onChange={selectOnchangeHandle}>
-                                        {/* <option value="POCA Scores" selected>POCA Scores</option> */}
-                                        <option value="Standard POCA scoring (Marketing, Omnichannel, Ecommerce & Subscription)">Standard POCA scoring (Marketing, Omnichannel, Ecommerce & Subscription)</option>
-
-                                        <option selected value="Customer Journey POCA scoring (Discover, Learn, Buy & Engage)">Customer Journey POCA scoring (Discover, Learn, Buy & Engage)</option>
-
-                                    </select>
-                                </div>
+                                {/* <div className='offcanvas-headerSection2'> */}
+                                    {/* <div className='text-muted offcanvas-selectLabel chatmodalNavSelectHdng fw-bold'>POCA scoring system:</div> */}
+                                    {/* here  */}
+                             
+                                {/* </div> */}
 
                             </div>
+
+                            <div className='toggleBtn d-flex align-items-center gap-1 ms-4'>
+                               <span className='fw-semibold'style={{color:'#612fa3'}}>Standard POCA</span>
+                               <Switch offColor='#612FA3' className='switchBtn' uncheckedIcon={false} checkedIcon={false} onChange={switchChangehandle} checked={fieldvalues.scoring_type=='Customer Journey POCA scoring (Discover, Learn, Buy & Engage)'?true:false} />
+                               <span className='fw-semibold text-success'>Customer POCA</span>
+                               </div>
+
                             <div className='d-flex align-items-center justify-content-end  w-25'>
                                 <button className='btn btn-outline-secondary btn-sm clearchatbtn d-flex align-items-center' onClick={clearAllChatsHandler}>Clear</button>
                                 <i class="bi bi-x-circle h4 modalClose mt-1" data-bs-dismiss="offcanvas" aria-label="Close" onClick={() => { prop.setChatboxShow(false) }}></i>
@@ -263,7 +296,7 @@ function ChatModal(prop) {
                                 <div className='chatbodyqa rounded pt-1' ref={containerRef}>
                                     {
                                         !getfeedbackEmailContainer ?
-                                            <Chats qaChats={qaChats} setValues={setValues} fieldvalues={fieldvalues} />
+                                            <Chats qaChats={qaChats} setValues={setValues} fieldvalues={fieldvalues} setqaChats={setqaChats}/>
                                             :
                                             <div className=' d-flex justify-content-center'>
                                                 <div className='feedbackEmailContainer'>

@@ -4,12 +4,13 @@ import './Login.scss'
 import loginBackGrndImg from '../assets/Login/aibk1.jpg'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
-import { loginState } from '../utilites/loginRecoil'
+import { loginMailId, loginState } from '../utilites/loginRecoil'
 import {Toast} from 'bootstrap'
 function Login() {
     const [loader, setLoader] = useState(false)
     const nav= useNavigate()
     const [getlogState,setLogState] = useRecoilState(loginState)
+    const [userMailId,setUserMailId] = useRecoilState(loginMailId)
     const [credValues, setCredValues] = useState({
         email: '',
         pass: ''
@@ -31,11 +32,12 @@ function Login() {
 
   
    function loginHandle(){  //logs in if creds match else shows a toast with message
-    if(credValues.email=='poca@course5i.com' && credValues.pass=='NextGenPoca@23'){
-        
-        setLogState(true)
-        nav('/home')
+    if ((credValues.email === 'poca@course5i.com' || credValues.email === 'raiyer@microsoft.com' || credValues.email === 'patrickkerin@microsoft.com') && credValues.pass === 'NextGenPoca@23') {
+        setLogState(true);
+        setUserMailId(credValues.email);
+        nav('/home');
     }
+    
     else {
       let  myToast= new Toast(document.getElementById('liveToast'));
         myToast.show()
@@ -60,17 +62,17 @@ function Login() {
                         {/* <h6 className='text-center position-relative logintxt text-secondary'>Login</h6> */}
                         <div className="lg-loginCard  d-flex flex-column gap-5 justify-content-center align-items-center">
 
-                            <div class="form-floating w-75 bg-white">
+                            <div class="form-floating border rounded w-75 bg-white">
                                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" value={credValues.email} onChange={(e) => { setCredValues({ ...credValues, email: e.target.value }) }} />
                                 <label for="floatingInput">Email address</label>
                             </div>
-                            <div class="form-floating w-100">
+                            <div class="form-floating w-75 bg-white">
                                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password" value={credValues.pass} onChange={(e) => { setCredValues({ ...credValues, pass: e.target.value }) }} />
                                 <label for="floatingPassword">Password</label>
                             </div>
 
                          
-                            <button disabled={loader ? true : false} className='lg-btn btn  text-white' id='lg-btn'onClick={loginHandle} >{loader ? 'Please wait...' : 'SSO Login'}</button>
+                            <button disabled={loader ? true : false} className='lg-btn btn  text-white' id='lg-btn'onClick={loginHandle} >{loader ? 'Please wait...' : 'Login'}</button>
                         </div>
                     </div>
                 </div>

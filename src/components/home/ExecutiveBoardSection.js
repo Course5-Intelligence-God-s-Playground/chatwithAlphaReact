@@ -23,7 +23,7 @@ function ExecutiveBoardSection() {
                             <ol className='executiveInfonumber border rounded py-2'>
                              <li> Who has the best POCA scores in FY24 in EMEA?</li>
                             <li>Which partners in Japan had the largest YoY differences in POCA scores?</li>
-                            <li>Which capabilities are strongest and weakest in Norway?</li>
+                            <li>Which capabilities are strongest and weakest in Norway in FY24?</li>
                             </ol>
                           
                         </div>

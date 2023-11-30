@@ -4,9 +4,9 @@ function DataFrameTable(prop) { //specific to 'dataframe' type of table other is
   const columns = Object.keys(prop.modelOutput);
   const rows = Object.keys(prop.modelOutput[columns[0]]);
   return (
-    <div >
+    <div className=''>
       <table >
-        <thead>
+        <thead className=''>
           <tr>
             <th></th>
             {columns.map(column => (
@@ -14,7 +14,7 @@ function DataFrameTable(prop) { //specific to 'dataframe' type of table other is
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className=''>
           {rows.map(row => (
             <tr key={row} >
 

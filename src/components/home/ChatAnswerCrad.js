@@ -27,7 +27,7 @@ function ChatAnswerCrad(prop) {
               :
               `Standard POCA score consists of four key metrics: Marketing, Omnichannel, E-Commerce and Subscription. \n\n${prop.answer.chat_text}`
              
-    setCurrentAnswer(content)
+    setCurrentAnswer(prop.answer.chat_text)
     if (getChatAnswerComponentData.ShowAnimation) {  //wether to show text animation or not 
          let currentIndex = 0;
               const streamingInterval = setInterval(() => {
