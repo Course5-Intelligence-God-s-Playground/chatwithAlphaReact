@@ -1,16 +1,35 @@
 import React, { useEffect } from 'react'
 import './Chats.scss'
 import ChatAnswerCrad from './ChatAnswerCrad'
+import { useRecoilValue } from 'recoil'
+import { loginMailId } from '../utilites/loginRecoil'
 
 function Chats(prop) {
+
+    const getloginMailIdValue = useRecoilValue(loginMailId)
+    
     useEffect(()=>{
-        console.log(prop.qaChats)
+        let userName ;
+        switch (getloginMailIdValue) {
+            case 'poca@course5i.com':
+                userName='George'
+                break;
+            case 'raiyer@microsoft.com':
+                userName='Ram Iyer'
+                break;
+            case 'patrickkerin@microsoft.com':
+                userName='Patrick'
+                break;
+            default:
+                break;
+        }
+        // console.log(prop.qaChats)
         if(prop.qaChats.length<1){
             const currentDate = new Date()
         let errorIdval = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000
         let array = [
             {
-                chat_text: `Hello <b>Patrick !</b><br/> I am Course5 Discovery, How can I assist you?`,
+                chat_text: `Hello <b>${userName} !</b><br/> I am Course5 Discovery, How can I assist you?`,
                 chat_type: "Answer",
                 time_stamp: currentDate,
                 new: true,
@@ -25,7 +44,7 @@ function Chats(prop) {
 
             }
             ,{
-                chat_text: `<b>You have Selected: </b>${prop.fieldvalues.scoring_type}`,
+                chat_text: `<b>You have Selected: </b>${prop.fieldvalues.scoring_type==='Customer Journey POCA scoring (Discover, Learn, Buy & Engage)'?'Customer Journey POCA scoring system (Discover, Learn, Buy & Engage)':'Standard POCA scoring system (Marketing, Omnichannel, Ecommerce & Subscription)'}`,
                 chat_type: "Answer",
                 time_stamp: currentDate,
                 new: true,
