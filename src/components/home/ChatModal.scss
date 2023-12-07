@@ -198,7 +198,7 @@ position: absolute;
     }
     span{
         @include md{
-            font-size: smaller;
+            font-size: x-small;
         }
     }
 }

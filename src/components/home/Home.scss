@@ -27,21 +27,6 @@ $md: 768px;
 
 }
 
-.chatBot {
-  position: absolute;
-  bottom: 5vh;
-  right: 3vw;
-
-  @include md {
-    bottom: 10vh;
-  }
-
-}
-
-.chatBot-img {
-  cursor: pointer;
-  height: 10vh;
-}
 
 .homePage-main {
   width: 100vw;
@@ -228,3 +213,40 @@ $md: 768px;
     left: 110%;
   }
 }
+
+
+.chatBot {
+  position: absolute;
+  bottom: 2vh;
+  left: 8vw;
+
+  @include md {
+    bottom:2vh;
+  }
+
+}
+
+
+.chatBot_Img{
+  mix-blend-mode: multiply;
+  position: relative;
+  width:12vw;
+  top: -2.2vh;
+  left: 1vw;
+  cursor: pointer;
+  @include md{
+  width:42vw;
+  left: -5vw;
+    // background-color: white;
+    // mix-blend-mode: initial;
+  }
+}
+
+// @keyframes chatBot_Img_ani {
+//   from {
+//     top: -11vh;
+//   }
+//   to {
+//       top: -7vh;
+//   }
+// }

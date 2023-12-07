@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import NavBarHome from './NavBarHome'
 import './Home.scss'
-import chatbot1 from '../assets/Home/chatbot1.png'
-import chatbot2 from '../assets/Home/chatbot2.png'
 import ChatModal from './ChatModal'
 import HomeStartOptions from './HomeStartOptions'
 import ExecutiveBoardSection from './ExecutiveBoardSection'
 import StoryBoard from './StoryBoard'
-
+import chatBot_text from '../assets/Home/chatPI.gif'
 function Home() {
     const [chatboxShow, setChatboxShow] = useState(false)
     const [menuHovered, setmenuHovered] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
     function normalChatBot() {
-        var img = document.getElementsByClassName('chatBot-img')[0]
-        img.src = chatbot1;
+        // var img = document.getElementsByClassName('chatBot-img')[0]
+        // img.src = chatbot1;
     }
     function hoverChatBot() {
-        var img = document.getElementsByClassName('chatBot-img')[0]
-        img.src = chatbot2;
+        // var img = document.getElementsByClassName('chatBot-img')[0]
+        // img.src = chatbot2;
     }
     function chatbotClickHandle() {
         setChatboxShow(true)
@@ -90,10 +88,13 @@ function Home() {
 
             </div>
 
-
-            <div className='chatBot' onMouseEnter={hoverChatBot} onMouseLeave={normalChatBot}>
-                <img className='chatBot-img' src={chatbot1} onClick={chatbotClickHandle} data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></img>
-            </div>
+            {/* chat bot icon  */}
+            <div className='chatBot' >
+            
+                <img src={chatBot_text} className='chatBot_Img'onMouseEnter={hoverChatBot} onMouseLeave={normalChatBot} onClick={chatbotClickHandle} data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></img>
+           
+           
+             </div>
 
             <div className='chatmodalHold'><ChatModal setChatboxShow={setChatboxShow} /></div>
 

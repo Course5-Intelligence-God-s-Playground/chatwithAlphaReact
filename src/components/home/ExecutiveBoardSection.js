@@ -15,7 +15,7 @@ function ExecutiveBoardSection() {
                     <li class="list-group-item">
                         <div className='executiveInfo d-flex flex-column gap-4 pt-3'>
                             <ol className='executiveInfo-instrction text-danger fw-bold'>Instructions:<li className='executiveInfo-instrctionSm fw-normal ps-1 ' style={{fontSize:'small'}}>Ensure clarity and specificity when framing your questions to receive swift and effective answers.</li>
-                            <li className='executiveInfo-instrctionSm fw-normal ps-1' style={{fontSize:'small'}}>Please choose the POCA Scoring System from the dropdown menu in the chat window; DLBE is selected by default.</li></ol>
+                            <li className='executiveInfo-instrctionSm fw-normal ps-1' style={{fontSize:'small'}}>Please choose the 'POCA Scoring System' option in the chat window's toggle feature, Note that 'DLBE' is the default selection.</li></ol>
                             <span className='executiveInfoScndLine '>Welcome to Chat with POCA! <br/>POCA is updated with FY24 data now. I'm your AI assistant and ask me anything about POCA.</span>
                       
                        <span className='executiveInfoThirdLine'>For starters, you can ask me questions such as :</span>

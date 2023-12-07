@@ -282,7 +282,7 @@ function ChatModal(prop) {
                             <div className='toggleBtn d-flex align-items-center gap-1 ms-4'>
                                <span className='fw-semibold'style={{color:'#612fa3'}}>Standard POCA</span>
                                <Switch offColor='#612FA3' className='switchBtn' uncheckedIcon={false} checkedIcon={false} onChange={switchChangehandle} checked={fieldvalues.scoring_type=='Customer Journey POCA scoring (Discover, Learn, Buy & Engage)'?true:false} />
-                               <span className='fw-semibold text-success'>Customer POCA</span>
+                               <span className='fw-semibold text-success'>Customer Journey POCA</span>
                                </div>
 
                             <div className='d-flex align-items-center justify-content-end  w-25'>
