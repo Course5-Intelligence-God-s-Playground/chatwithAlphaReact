@@ -80,14 +80,7 @@ $md: 768px;
         color: #0988e2;
     }
 }
-.chatAnswerLike{
-    svg{
-        cursor: not-allowed;
-        &:hover{
-           transform: scale(1.1);
-        }
-    }
-}
+
 
 .holf{
     display: flex;
@@ -100,3 +93,12 @@ $md: 768px;
     /* Additional styling as needed */
   }
   
+
+  .chatAnswerLikeIcon{
+    cursor: pointer;
+    // color: red;
+    &:active{
+        transform: scale(1);
+    }
+    transform: scale(0.8);
+  }
