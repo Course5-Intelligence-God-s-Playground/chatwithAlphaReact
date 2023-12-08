@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RecoilRoot } from 'recoil';
-import {HashRouter} from 'react-router-dom'
+import {BrowserRouter} from 'react-router-dom'
 
 import { PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
@@ -18,7 +18,7 @@ const publicClientApplication = new PublicClientApplication(config);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-   <HashRouter>
+   <BrowserRouter>
    <RecoilRoot>
 
    <MsalProvider instance={publicClientApplication}>
@@ -26,7 +26,7 @@ root.render(
         </ MsalProvider>
  
    </RecoilRoot>
-   </HashRouter>
+   </BrowserRouter>
   </React.StrictMode>
 );
 

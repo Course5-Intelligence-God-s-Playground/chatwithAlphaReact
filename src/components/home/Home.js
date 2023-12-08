@@ -5,7 +5,8 @@ import ChatModal from './ChatModal'
 import HomeStartOptions from './HomeStartOptions'
 import ExecutiveBoardSection from './ExecutiveBoardSection'
 import StoryBoard from './StoryBoard'
-import chatBot_text from '../assets/Home/chatPI.gif'
+import chatBot_text from '../assets/Home/chatbotani1.gif'
+import chatBot_image from '../assets/Home/chatBot_text.png'
 function Home() {
     const [chatboxShow, setChatboxShow] = useState(false)
     const [menuHovered, setmenuHovered] = useState(false)
@@ -69,7 +70,8 @@ function Home() {
                 <NavBarHome setmenuHovered={setmenuHovered} />
 
                 <div className='homePage-maincontent pt-2'>
-                <div className='mainfrst bg-white rounded border' onMouseEnter={startOptMouseEnterHandle} onMouseLeave={startOptMouseLeaveHandle}><HomeStartOptions /></div>
+                {/* <div className='mainfrst bg-white rounded border' onMouseEnter={startOptMouseEnterHandle} onMouseLeave={startOptMouseLeaveHandle}><HomeStartOptions /></div> */}
+                <div className='mainfrst bg-white rounded border'><HomeStartOptions /></div>
 
                     <div className='holdercup'>
 
@@ -92,8 +94,7 @@ function Home() {
             <div className='chatBot' >
             
                 <img src={chatBot_text} className='chatBot_Img'onMouseEnter={hoverChatBot} onMouseLeave={normalChatBot} onClick={chatbotClickHandle} data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></img>
-           
-           
+                <img src={chatBot_image} className='chatBot_text' onClick={chatbotClickHandle} data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></img>
              </div>
 
             <div className='chatmodalHold'><ChatModal setChatboxShow={setChatboxShow} /></div>

@@ -13,7 +13,7 @@ function HomeStartOptions() {
     return (
         <div className='whole rounded' >
         <ul className='HomeStartOptions-container'>
-            <li className='HomeStartOptions-option homelist' onClick={homeClickHandle}>
+            <li className='HomeStartOptions-option homelist mt-5' onClick={homeClickHandle}>
                 <div className='HomeStartOption-cnt py-2 ps-2'>
                   <svg width="20" height="20" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3.19274 7.96243L11.0838 1.83046C11.7763 1.29223 12.6286 1 13.506 1C14.3833 1 15.2357 1.29223 15.9282 1.83046L23.8207 7.96243C24.295 8.33095 24.6788 8.80289 24.9426 9.3422C25.2065 9.88152 25.3435 10.4739 25.3433 11.0742V21.718C25.3433 22.5021 25.0315 23.2541 24.4765 23.8086C23.9215 24.3631 23.1688 24.6746 22.3839 24.6746H4.62801C3.84315 24.6746 3.09043 24.3631 2.53545 23.8086C1.98047 23.2541 1.66869 22.5021 1.66869 21.718V11.0742C1.66869 9.85761 2.23096 8.70897 3.19274 7.96243Z" stroke="#929292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -22,7 +22,7 @@ function HomeStartOptions() {
                     <span className='HomeStartOption-hdng '>Home</span>
                 </div>
             </li>
-            <li className='HomeStartOptions-option'>
+            {/* <li className='HomeStartOptions-option'>
                 <div className='HomeStartOption-cnt py-2 ps-2'>
                 <svg width="20" height="20" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14.9865 1H17.2904C18.5628 1 19.5942 1.96271 19.5942 3.15027V4.2254C19.5942 5.41296 18.5628 6.37567 17.2904 6.37567H14.9865C13.7141 6.37567 12.6827 5.41296 12.6827 4.2254V3.15027C12.6827 1.96271 13.7141 1 14.9865 1Z" stroke="#84838F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -83,7 +83,7 @@ function HomeStartOptions() {
                     </svg>
                     <span className='HomeStartOption-hdng'>Settings</span>
                 </div>
-            </li>
+            </li> */}
           
         </ul>
         </div>

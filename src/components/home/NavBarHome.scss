@@ -25,9 +25,10 @@ $searhfieldColor: #3535b4;
     &:hover{
     background-color: $lightBackgroundColor;
     cursor: not-allowed;
-    } @include md{
-        display: none;
-    }
+    } 
+    // @include md{
+    //     display: none;
+    // }
 }
 
 .navHome-options {
@@ -154,9 +155,12 @@ $searhfieldColor: #3535b4;
     }
 }
 .nexusImg{
-    width: 8vw;
-    position: relative;
-    top: -0.5vh;
+    width: 10vw;
+    // position: relative;
+    // top: -0.5vh;
     transform: scale(1.4);
+    @include md{
+        width: 22vw;
+    }
 }
 

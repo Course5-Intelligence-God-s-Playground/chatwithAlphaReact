@@ -1,6 +1,6 @@
 import './App.css';
 import Home from './components/home/Home';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import Login from './components/Login/Login'
 import ProtectedRoute from './components/utilites/ProtectedRoute';
 
@@ -23,9 +23,9 @@ function App() {
 
 
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route element={<ProtectedRoute />}>
-      <Route path="/home" element={<Home />} />
+      {/* <Route path="/" element={<Login />} />
+      <Route element={<ProtectedRoute />}> */}
+      <Route path="/*" element={<Home />} />
 
         {/* <Route element={<ErrorBoundary />}>
           <Route path="/home" element={<MsalAuthenticationTemplate interactionType={InteractionType.Popup}
@@ -35,9 +35,9 @@ function App() {
 
         </Route> */}
 
-      </Route>
+      {/* </Route> */}
 
-
+      {/* <Route path="*" element={<Home/>}></Route> */}
     </Routes>
 
 
