@@ -25,6 +25,7 @@ function StoryBoard(prop) {
                     'Content-Type': 'application/json',
                     // You can add other headers as needed, e.g., authentication tokens
                 },
+             
                 body: JSON.stringify({ "region": getRegion })
             })
             let resp = await req.json()

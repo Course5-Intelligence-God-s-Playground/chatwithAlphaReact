@@ -29,7 +29,7 @@ function Chats(prop) {
         let errorIdval = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000
         let array = [
             {
-                chat_text: `Hello,<br/>I am <b>Pi</b>, your Partner Intelligence chat assistant. How may I assist you?`,
+                chat_text: `Hello!<br/>I am <b>Pi</b>, your Partner Intelligence chat assistant. How may I assist you?`,
                 chat_type: "Answer",
                 time_stamp: currentDate,
                 new: true,

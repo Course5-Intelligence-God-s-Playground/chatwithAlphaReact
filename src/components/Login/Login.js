@@ -15,34 +15,59 @@ function Login() {
         email: '',
         pass: ''
     })
+    const [errorState,setErrorState] = useState(false)
+const [isPowerBi,setIsPowerBi] = useState(false)
 
+//     useEffect(() => {  //logout user after 1hr of inactivity
+//     const timeoutId = setTimeout(() => {
+//         setLogState(false)
+//         nav('/',{replace:true})
+//     }, 15 * 60 * 1000 ); 
 
-
-    useEffect(() => {  //logout user after 1hr of inactivity
-    const timeoutId = setTimeout(() => {
-        setLogState(false)
-        nav('/',{replace:true})
-    }, 15 * 60 * 1000 ); 
-
-    return () => {
-        clearTimeout(timeoutId); 
+//     return () => {
+//         clearTimeout(timeoutId); 
       
-    };
-  }, []); 
+//     };
+//   }, []); 
 
-  
-   function loginHandle(){  //logs in if creds match else shows a toast with message
-    if ((credValues.email === 'poca@course5i.com' || credValues.email === 'raiyer@microsoft.com' || credValues.email === 'patrickkerin@microsoft.com') && credValues.pass === 'NextGenPoca@23') {
+  useEffect(() => {
+    // Check if the iframe is loaded within the Power BI service
+    // const isPowerBI = window.location.host.includes('powerbi');
+// console.log(window.top)
+setIsPowerBi(false)
+
+if(window.self==window.top){
+    setIsPowerBi(false)
+    }
+    else{
         setLogState(true);
-        setUserMailId(credValues.email);
         nav('/home');
+        setIsPowerBi(true)
     }
+  }, []);
+
+   function loginHandle(){  //logs in if creds match else shows a toast with message
+    // if ((credValues.email === 'poca@course5i.com' || credValues.email === 'raiyer@microsoft.com' || credValues.email === 'patrickkerin@microsoft.com') && credValues.pass === 'NextGenPoca@23') {
+    //     setLogState(true);
+    //     setUserMailId(credValues.email);
+    //     nav('/home');
+    // }
     
-    else {
-      let  myToast= new Toast(document.getElementById('liveToast'));
-        myToast.show()
-    }
-    
+    // else {
+    //   let  myToast= new Toast(document.getElementById('liveToast'));
+    //     myToast.show()
+    // }
+    setErrorState(false)
+
+        if(credValues.pass === '07d47749-9150-40a3-bad8-5e7db61bcf9f'){
+            setLogState(true);
+            nav('/home');
+
+        }
+        else{
+            setLogState(false);
+            setErrorState(true)
+        }
 }
 
     return (
@@ -62,17 +87,23 @@ function Login() {
                         {/* <h6 className='text-center position-relative logintxt text-secondary'>Login</h6> */}
                         <div className="lg-loginCard  d-flex flex-column gap-5 justify-content-center align-items-center">
 
-                            <div class="form-floating border rounded w-75 bg-white">
+                            {/* <div class="form-floating border rounded w-75 bg-white">
                                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" value={credValues.email} onChange={(e) => { setCredValues({ ...credValues, email: e.target.value }) }} />
                                 <label for="floatingInput">Email address</label>
+                            </div> */}
+                           {!isPowerBi? <div class="form-floating w-75 bg-white">
+                                <input type="password" class="form-control" id="floatingPassword" placeholder="Access Key" value={credValues.pass} onChange={(e) => { setCredValues({ ...credValues, pass: e.target.value }) }} />
+                                <label for="floatingPassword">Access Key</label>
                             </div>
-                            <div class="form-floating w-75 bg-white">
-                                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" value={credValues.pass} onChange={(e) => { setCredValues({ ...credValues, pass: e.target.value }) }} />
-                                <label for="floatingPassword">Password</label>
-                            </div>
-
+                          : <div class="form-floating w-75 bg-white">
+                                <input type="password" class="form-control" id="floatingPassword" placeholder="Access Key" value='07d47749-9150-40a3-bad8-5e7db61bcf9f'  />
+                                <label for="floatingPassword">Access Key</label>
+                            </div>}
                          
-                            <button disabled={loader ? true : false} className='lg-btn btn  text-white' id='lg-btn'onClick={loginHandle} >{loader ? 'Please wait...' : 'Login'}</button>
+                            <div className='d-flex flex-column align-items-center'>
+                            {/* <button disabled={loader ? true : false} className='lg-btn btn  text-white' id='lg-btn'onClick={loginHandle} >Login</button> */}
+                            <button className='btn btn-primary' onClick={loginHandle}>Login</button>
+                            {errorState  && <div className='text-danger'>Invalid Access Key</div>}                            </div>
                         </div>
                     </div>
                 </div>

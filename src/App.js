@@ -8,6 +8,7 @@ import ErrorBoundary from './components/utilites/ErrorBoundary';
 
 import { MsalAuthenticationTemplate, useMsal } from "@azure/msal-react";
 import { InteractionType } from "@azure/msal-browser";
+import { useEffect } from 'react';
 
 function App() {
   const navigate = useNavigate();
@@ -19,21 +20,24 @@ function App() {
     // Redirect to the home page or any other desired page
     navigate('/');
   };
+
+
+
   return (
 
 
     <Routes>
-      {/* <Route path="/" element={<Login />} />
-      <Route element={<ProtectedRoute />}> */}
-      <Route path="/*" element={<Home />} />
-
+    <Route path="/" element={<Login />} />
+         <Route element={<ProtectedRoute />}>
+      <Route path="/home" element={<Home />} />
+      </Route>
         {/* <Route element={<ErrorBoundary />}>
           <Route path="/home" element={<MsalAuthenticationTemplate interactionType={InteractionType.Popup}
             errorComponent={handleAuthenticationError}>
               <Home />
               </MsalAuthenticationTemplate>} />
 
-        </Route> */}
+      
 
       {/* </Route> */}
 

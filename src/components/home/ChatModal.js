@@ -23,7 +23,7 @@ function ChatModal(prop) {
     })
     const [getChatAnswerComponentData, setChatAnswerComponentData] = useRecoilState(ChatAnswerComponentData)
     const getChartImageURL = useRecoilValue(ChartImageURL)
-    const [lastResponse, setLastResponse] = useState('I am Course5 Discovery, How can I assist you?') //latest answer recived is stored to read out loud option
+    const [lastResponse, setLastResponse] = useState('Hello! I am Pi, your Partner Intelligence chat assistant. How may I assist you?') //latest answer recived is stored to read out loud option
 
 
     function textAreaChangeHandle(e) {//stores user entered query
@@ -157,7 +157,7 @@ function ChatModal(prop) {
 
             if (req.ok) {
                 setqaChats([])
-                setLastResponse('I am Course5 Discovery, How can I assist you?')
+                setLastResponse('Hello! I am Pi, your Partner Intelligence chat assistant. How may I assist you?')
             }
             setIsloading(false)
         } catch (error) {
