@@ -5,7 +5,8 @@ import { useRecoilState } from 'recoil'
 function Feedback(prop) {
     const [getChatAnswerComponentData, setChatAnswerComponentData] = useRecoilState(ChatAnswerComponentData)
 
-    function feedbackSubmitHandle() {
+    function feedbackSubmitHandle(e) {
+        e.preventDefault()
         setChatAnswerComponentData({ ...getChatAnswerComponentData, ShowAnimation: false })
         prop.setfeedbackEmailContainer(false)
         
@@ -19,22 +20,22 @@ function Feedback(prop) {
     return (
         <div className='feedBackCnt'>
             <div class="card feedBackCard">
-                <div class="card-body">
+                <form class="card-body" onSubmit={feedbackSubmitHandle}>
                     <h5 class="card-title">FeedBack</h5>
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
+                        <input type="email" class="form-control"required id="exampleFormControlInput1" placeholder="name@example.com" />
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Feedback</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1"></textarea>
+                        <textarea class="form-control" required id="exampleFormControlTextarea1"></textarea>
                     </div>
                     <div className='d-flex justify-content-end'>
                         <button className='btn btn-secondary' onClick={feedbackCancelHandle}>Cancel</button>
 
-                        <button className='btn btn-success ms-3' onClick={feedbackSubmitHandle}>Submit</button>
+                        <button className='btn btn-success ms-3' type='submit' >Submit</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     )
