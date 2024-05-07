@@ -82,7 +82,8 @@ function ChatModal(prop) {
                             graph_type: resp.graph_type,
                             id: idval,
                             scoretype: fieldvalues.scoring_type,
-                            general_question: resp.general_question
+                            general_question: resp.general_question,
+                            time_taken:resp.time_taken
                         }
                     ]
                     setChatAnswerComponentData({ ...getChatAnswerComponentData, scrollType: idval })
@@ -109,7 +110,8 @@ function ChatModal(prop) {
                         graph_type: '',
                         id: errorIdval,
                         scoretype: fieldvalues.scoring_type,
-                        general_question: true
+                        general_question: true,
+                        time_taken:''
 
                     }
                 ]
@@ -194,33 +196,6 @@ function ChatModal(prop) {
         setfeedbackEmailContainer(true)
     }
 
-    function sendMailHandle() {
-//         const email = 'recipient@example.com'; // Replace with the recipient's email address
-//         const subject = 'Subject of the email'; // Replace with your desired email subject
-
-
-//         // Open the email client with the mailto link
-       
-      
-//         if(qaChats.length!=0){
-//             let Stexts = ''
-//             qaChats[qaChats.length-1].suggestive.map((item)=>{Stexts=Stexts+'\n'+item})
-//             let strippedText = qaChats[qaChats.length-1].chat_text.replace(/<[^>]*>/g, '');
-           
-//             const body = `
-//     Question: ${qaChats[qaChats.length - 2].chat_text}
-//     Answer: ${strippedText}
-//     Suggested Questions:${Stexts}
-//   `;
-//   const recipientEmail = 'recipient@example.com';
-//   const subject = 'Check out this image';
-  
-
-//   const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}&attachment=${encodeURIComponent(attachmentUrl)}`;
-
-//   window.location.href = mailtoLink;
-        // }
-    }
 
     function switchChangehandle(){
         let chatText;
@@ -248,7 +223,8 @@ function ChatModal(prop) {
                 graph_type: '',
                 id: errorIdval,
                 scoretype: chatText,
-                general_question: true
+                general_question: true,
+                time_taken:''
 
             }
         ]
@@ -266,16 +242,8 @@ function ChatModal(prop) {
                     <>
                         <div class="offcanvas-header border-bottom">
                             <div className='offcanvas-headerSection1 d-flex  align-items-center'>
-                                {/* <div class="offcanvas-title  w-25 d-flex align-items-center justify-content-between" id="offcanvasScrollingLabel"> */}
                                 <img src={pocaAImg} className='nexusImgChat'></img>
-                                {/* <div className='text-muted ps-2 offcanvas-titleTxt'>AI Assistant</div> */}
-
-
-                                {/* <div className='offcanvas-headerSection2'> */}
-                                    {/* <div className='text-muted offcanvas-selectLabel chatmodalNavSelectHdng fw-bold'>POCA scoring system:</div> */}
-                                    {/* here  */}
-                             
-                                {/* </div> */}
+                              
 
                             </div>
 

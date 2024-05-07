@@ -81,8 +81,8 @@ function StoryBoard(prop) {
                                     <div className='storyboardCnt gap-2 justify-content-evenly'> {/*  card holder */}
                                         {
                                             val[Object.keys(val)].map((itm) => (
-                                                <div className='storyboardCard border rounded justify-content-around d-flex flex-column ' ref={divRef}>
-                                                    <div className='fw-medium storyboardCardTitle text-center pt-1'>
+                                                <div className='storyboardCard border rounded d-flex flex-column ' ref={divRef}>
+                                                    <div className='fw-medium storyboardCardTitle text-center'>
                                                         {itm.title}
                                                     </div>
                                                     <div className='storyboardCardEnd d-flex align-items-center justify-content-evenly'>

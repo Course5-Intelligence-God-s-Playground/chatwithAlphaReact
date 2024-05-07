@@ -108,7 +108,7 @@ function ChatAnswerCrad(prop) {
         style={{ color: dislikeColor }}/>
          </div>
         <span className='timeview text-muted ps-3'>{new Date(prop.answer.time_stamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
-
+        <span className=' ps-2 text-muted'>{prop?.answer?.time_taken?`${prop?.answer?.time_taken?.toFixed(3)} sec`:''}</span>
       </div>
       {/* table view/clipboard icon if there is either table or chart to show  */}
       {prop.answer.model_output_type != '' || prop.answer.graph_type != '' ?

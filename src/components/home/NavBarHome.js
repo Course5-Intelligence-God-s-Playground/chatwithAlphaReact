@@ -22,7 +22,10 @@ prop.setmenuHovered(true)
         <div className='navHome-container'>
             <ul className='navHome-options bg-white  d-flex align-items-center justify-content-between gap-5 ps-0'>
                 <li className='navHome-optionlogo d-flex align-items-center justify-content-between'>
-                    <span className='navHome-optionlogoMenu' onMouseEnter={logoMenuMouseEnterHandle} onMouseLeave={logoMenuMouseLeaveHandle}><svg width="56" height="45" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-ojjv62-MuiSvgIcon-root" fill="#A1A1A1" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SortIcon"><path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"></path></svg></span>
+                    <span className='navHome-optionlogoMenu' 
+                    // onMouseEnter={logoMenuMouseEnterHandle} onMouseLeave={logoMenuMouseLeaveHandle}
+                    >
+                        <svg width="56" height="45" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-ojjv62-MuiSvgIcon-root" fill="#A1A1A1" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SortIcon"><path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"></path></svg></span>
                     <img className='navHomeOptionTitle-img' src={HomeTitleImg} alt='Image of company Logo'></img>
                 </li>
                 {/* <li className='navHome-optionSearch  align-items-center justify-content-between ps-4'>
