@@ -6,7 +6,7 @@ function DataFrameTable(prop) { //specific to 'dataframe' type of table other is
   return (
     <div className=''>
       <table >
-        <thead className=''>
+        <thead className='thg'>
           <tr>
             <th></th>
             {columns.map(column => (

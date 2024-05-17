@@ -24,16 +24,16 @@ function Chats(prop) {
                 break;
         }
         // console.log(prop.qaChats)
-        if(prop.qaChats.length<1){
+        if(prop?.qaChats?.length<1){
             const currentDate = new Date()
         let errorIdval = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000
         let array = [
             {
                 chat_text: `Hello!<br/>I am <b>Pi</b>, your Partner Intelligence chat assistant. How may I assist you?`,
-                chat_type: "Answer",
+                chat_type: "msg",
                 time_stamp: currentDate,
                 new: true,
-                suggestive: [],
+                suggestive: '',
                 model_output: '',
                 model_output_type: '',
                 graph_data: '',
@@ -45,10 +45,10 @@ function Chats(prop) {
             }
             ,{
                 chat_text: `<b>You have Selected: </b>${prop.fieldvalues.scoring_type==='Customer Journey POCA scoring (Discover, Learn, Buy & Engage)'?'Customer Journey POCA scoring system (Discover, Learn, Buy & Engage)':'Standard POCA scoring system (Marketing, Omnichannel, Ecommerce & Subscription)'}`,
-                chat_type: "Answer",
+                chat_type: "msg",
                 time_stamp: currentDate,
                 new: true,
-                suggestive: [],
+                suggestive: '',
                 model_output: '',
                 model_output_type: '',
                 graph_data: '',
@@ -62,12 +62,13 @@ function Chats(prop) {
 
         prop.setqaChats([...array,...prop.qaChats]);
         }
+       
     },[prop.qaChats])
 
     return (
         <div className='chatsContainer px-5 pt-1'>
           
-            {   prop.qaChats.length==0?
+            {   prop?.qaChats?.length==0?
                
             <>
             {/* <div className='chatAnswerBotCnt d-flex justify-content-end'><div className='chatAnswer px-3 py-2  align-items-center'>Hello <b>Patrick !</b><br/> I am Course5 Discovery, How can I assist you?</div></div> */}

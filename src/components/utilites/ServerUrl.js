@@ -5,5 +5,6 @@ export  let Server = {
     getExecutiveInfo:'https://qa-discover-django.azurewebsites.net/home/executive-summary/',
     getStoryBoardsInfo:'https://qa-discover-django.azurewebsites.net/home/story-board/',
     // clearAllChats:'https://qa-discover-django.azurewebsites.net/home/delete-chat/',
-    clearAllChats:'https://qa-discover-django.azurewebsites.net/home/delete-updated-chat/'
+    clearAllChats:'https://qa-discover-django.azurewebsites.net/home/delete-updated-chat/',
+    recentChat:'https://qa-discover-django.azurewebsites.net/home/recent-chat/'
 }
