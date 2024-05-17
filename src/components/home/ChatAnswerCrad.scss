@@ -106,3 +106,18 @@ $md: 768px;
   .chartLoader{
     width: 3vw;
   }
+
+  .answerIcons{
+    height: 3vh;
+    
+    aspect-ratio: 1;
+    cursor: pointer;
+    &:active{
+        opacity: 0;
+    }
+  }
+  .voiceIcon{
+    opacity: 0.5;
+  }
+
+ 

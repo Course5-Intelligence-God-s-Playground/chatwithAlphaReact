@@ -23,7 +23,6 @@ function Chats(prop) {
             default:
                 break;
         }
-        // console.log(prop.qaChats)
         if(prop?.qaChats?.length<1){
             const currentDate = new Date()
         let errorIdval = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000
@@ -53,7 +52,7 @@ function Chats(prop) {
                 model_output_type: '',
                 graph_data: '',
                 graph_type: '',
-                id: errorIdval,
+                id: errorIdval+1,
                 scoretype: prop.fieldvalues.scoring_type,
                 general_question: true
 
@@ -71,7 +70,6 @@ function Chats(prop) {
             {   prop?.qaChats?.length==0?
                
             <>
-            {/* <div className='chatAnswerBotCnt d-flex justify-content-end'><div className='chatAnswer px-3 py-2  align-items-center'>Hello <b>Patrick !</b><br/> I am Course5 Discovery, How can I assist you?</div></div> */}
             <div className='chatAnswerBotCnt d-flex justify-content-end'><div className='chatAnswer px-3 py-2  align-items-center mt-5'><b >You have Selected: </b>{prop.fieldvalues.scoring_type}</div></div>
             </>
                 :

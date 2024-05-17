@@ -29,7 +29,7 @@ prop.setmenuHovered(true)
                         </span>
                     <div className=' d-flex align-items-center'>
                     <img className='navHomeOptionTitle-img ps-3' src={HomeTitleImg} alt='Image of company Logo'></img>
-                    <span className=' pt-2 fs-5 navHomeOptionTitle-text'>QuantaQuery</span>
+                    <span className=' pt-2 fs-5 navHomeOptionTitle-text'>Discovery</span>
                     </div>
                 </li>
                 {/* <li className='navHome-optionSearch  align-items-center justify-content-between ps-4'>
