@@ -82,7 +82,7 @@ function Chats(prop) {
                        </div>:
                     <div className='chatAnswerHold' id={item.id}>
                         {
-                            <ChatAnswerCrad answer={item} new={item.new} setValues={prop.setValues} fieldvalues={prop.fieldvalues}/>
+                            <ChatAnswerCrad getfeedbackEmailContainerHandler={prop.getfeedbackEmailContainerHandler} answer={item} new={item.new} setValues={prop.setValues} fieldvalues={prop.fieldvalues}/>
                         }
                     </div>
                     }

@@ -126,7 +126,10 @@ function ChatAnswerCrad(prop) {
 
   }, [])
 
-
+  function showFeedbackHandler(){
+    prop.getfeedbackEmailContainerHandler(prop?.answer?.id,true)
+   
+  }
   return (
     <div className='d-flex flex-column align-items-end'>
       <div className="chatAnswer px-3 py-2 d-flex align-items-center">
@@ -140,7 +143,8 @@ function ChatAnswerCrad(prop) {
       <div className='d-flex justify-content-end w-100'>
 
         <div className=' d-flex gap-3 align-items-center'>
-          <img src={FeedbackIcon} className='answerIcons'></img>
+       
+          <img src={FeedbackIcon} onClick={showFeedbackHandler} className='answerIcons feedBackIcon'></img>
           <ReadAloud answer={prop?.answer} />
 
         </div>
