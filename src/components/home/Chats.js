@@ -4,6 +4,7 @@ import ChatAnswerCrad from './ChatAnswerCrad'
 import { useRecoilValue } from 'recoil'
 import { loginMailId } from '../utilites/loginRecoil'
 
+import userImage from '../assets/chatpage/userImage.png'
 function Chats(prop) {
 
     const getloginMailIdValue = useRecoilValue(loginMailId)
@@ -39,7 +40,9 @@ function Chats(prop) {
                 graph_type: '',
                 id: errorIdval,
                 scoretype: prop.fieldvalues.scoring_type,
-                general_question: true
+                general_question: true,
+                suggestive_completed:false,
+                chart_completed:false
 
             }
             ,{
@@ -54,7 +57,9 @@ function Chats(prop) {
                 graph_type: '',
                 id: errorIdval+1,
                 scoretype: prop.fieldvalues.scoring_type,
-                general_question: true
+                general_question: true,
+                suggestive_completed:false,
+                chart_completed:false
 
             }
         ]
@@ -64,6 +69,7 @@ function Chats(prop) {
        
     },[prop.qaChats])
 
+  
     return (
         <div className='chatsContainer px-5 pt-1'>
           
@@ -76,11 +82,17 @@ function Chats(prop) {
 
                 prop.qaChats.map((item)=>(
                     <div className='chatSection d-flex flex-column gap-5 pb-5'>
-                       {item.chat_type=='Question'? <div>
+                       {item.chat_type=='Question'? 
+                      <div className=' d-flex gap-2'>
+                        <img className='userBotChatImg' src={userImage}/>
+                         <div>
                        <div className='chatQuestion rounded px-2 d-flex align-items-center'>{item.chat_text}</div>
                        <span className='timeview text-muted'>{ new Date(item.time_stamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit'})}</span>
-                       </div>:
+                       </div>
+                      </div>
+                       :
                     <div className='chatAnswerHold' id={item.id}>
+                     
                         {
                             <ChatAnswerCrad getfeedbackEmailContainerHandler={prop.getfeedbackEmailContainerHandler} answer={item} new={item.new} setValues={prop.setValues} fieldvalues={prop.fieldvalues}/>
                         }

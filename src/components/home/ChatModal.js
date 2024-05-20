@@ -10,7 +10,6 @@ import ChartTableExtendedView from './ChartTableExtendedView';
 import { ChatAnswerComponentData } from '../utilites/ChatAnswerCradRecoilData';
 import Feedback from './ChatModal/Feedback';
 import Switch from "react-switch";
-
 function ChatModal(prop) {
     const containerRef = useRef(null);
     const getTableViewRecoil = useRecoilValue(TableViewRecoil)
@@ -47,8 +46,6 @@ function ChatModal(prop) {
             sendQuestion()
         }
     }
-
-
     // Scroll to bottom to show new chat when the component updates or the new chat is created changes
 
     function updateErrorMessage(){
@@ -72,7 +69,9 @@ function ChatModal(prop) {
                 id: errorIdval,
                 scoretype: fieldvalues.scoring_type,
                 general_question: true,
-                time_taken: ''
+                time_taken: '',
+                suggestive_completed:false,
+                chart_completed:false
 
             }
         ]
@@ -113,13 +112,7 @@ function ChatModal(prop) {
                 const resp = await req.json()
                 if (req.ok) {
                     //on success i have to sent response to live server/ws/ai
-                    const websocketResponse = {
-                        question: "What are the top5 POCA Scores",
-                        scoring_type: "Standard POCA scoring (Marketing, Omnichannel, Ecommerce & Subscription)",
-                        recent_chat: []
-                    }
-                 
-                    webso(resp,currentDate)
+                     webso(resp,currentDate)
                 }
 
             } catch (error) { //if there is any error encountered , should be shown as 'normal' sorry chat reponse
@@ -132,7 +125,7 @@ function ChatModal(prop) {
 
     function webso(resp,currentDate) {
 
-        const ws = new WebSocket("wss://async-testing.azurewebsites.net/ws/chat/");
+        const ws = new WebSocket("wss://pocai-botbrainiacs.azurewebsites.net/ws/chat/");
 
         ws.onopen = function () {
             console.log("Ws");
@@ -145,52 +138,77 @@ function ChatModal(prop) {
         };
         
         ws.onmessage = function (e) {
-           
             const data = JSON.parse(e.data);
-    
+            const pulsingCursor = `<svg  width="16" height="16" fill="#0988e2" class="bi bi-circle-fill" viewBox="0 0 16 16">
+            <circle cx="8" cy="8" r="8"/>
+          </svg>`;
+        
             if (data.chunk && data.chunk != undefined && data.type == 'Answer') {
-                setIsloading(false)
+                setIsloading(false);
                
-                let newArray =  {
-                        chat_text: data.chunk,
-                        chat_type: "Answer",
-                        time_stamp: currentDate,
-                        new: false,
-                        id: resp.id,
-
-                        suggestive: '',
-                        model_output: '',
-                        model_output_type: '',
-                        graph_data: '',
-                        graph_type: '',
-                        scoretype: fieldvalues.scoring_type,
-                        general_question: isGeneralQue,
-                        time_taken:''
-                    }
+                let newArray = {
+                    chat_text: data.chunk,
+                    chat_type: "Answer",
+                    time_stamp: currentDate,
+                    new: false,
+                    id: resp.id,
+                    suggestive: '',
+                    model_output: '',
+                    model_output_type: '',
+                    graph_data: '',
+                    graph_type: '',
+                    scoretype: fieldvalues.scoring_type,
+                    general_question: isGeneralQue,
+                    time_taken: '',
+                    suggestive_completed:false,
+                    chart_completed:false
+                };
                 
                 setqaChats((prevChats) => {
+                    // Remove cursor from all chats
+                    const updatedChats = prevChats.map(chat => {
+                        return {
+                            ...chat,
+                            chat_text: chat.chat_text.replace(new RegExp(pulsingCursor + '$'), '') // Remove cursor if it exists
+                        };
+                    });
+        
+                    // Sanitize incoming chunk to remove any existing cursor
+                    const sanitizedChunk = newArray.chat_text.replace(new RegExp(pulsingCursor, 'g'), '');
+        
                     // Check if an object with the same id exists
-                    const index = prevChats.findIndex(chat => chat.id === newArray.id);
-                
+                    const index = updatedChats.findIndex(chat => chat.id === newArray.id);
+                    
                     if (index !== -1) {
                         // Update chat_text if id exists
-                        return prevChats.map(chat => {
-                            if (chat.id === newArray.id) {
-                                return {
-                                    ...chat,
-                                    chat_text: chat.chat_text + newArray.chat_text
-                                };
-                            }
-                            return chat;
-                        });
+                        const updatedChat = {
+                            ...updatedChats[index],
+                            chat_text: updatedChats[index].chat_text + sanitizedChunk + pulsingCursor // Add sanitized chunk and cursor
+                        };
+                        return updatedChats.map((chat, idx) => idx === index ? updatedChat : chat);
                     } else {
                         // Add new object if id doesn't exist
-                        return [...prevChats, newArray];
+                        newArray.chat_text = sanitizedChunk + pulsingCursor; // Add sanitized chunk and cursor to new entry
+                        return [...updatedChats, newArray];
                     }
                 });
-               
-               
             }
+        else if(data.type == 'answer_closed'){
+            const correctIcon = `<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="white" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+            <path d="m1.75 9.75 2.5 2.5m3.5-4 2.5-2.5m-4.5 4 2.5 2.5 6-6.5"/>
+            </svg>`
+            setqaChats((prevChats) => {
+                // Remove cursor from all chats
+                const updatedChats = prevChats.map(chat => {
+                    return {
+                        ...chat,
+                        chat_text: chat.chat_text.replace(new RegExp(pulsingCursor + '$'), correctIcon) // Remove cursor if it exists
+                    };
+                });
+                return updatedChats
+                
+            });
+        }
             else if(data.chunk && data.chunk != undefined && data.type == 'Suggestive_Questions'){
               
                 setqaChats((prevChats) => {
@@ -212,8 +230,14 @@ function ChatModal(prop) {
                     }
                 });
             }
-            else if(data.type == 'Data_output'){
-              
+            else if(data.type == 'Data_output'){ //excel and chart data
+                let isSingleEntry
+
+                if(Object.keys(data?.model_output).length >1){  
+                    isSingleEntry = false
+                }
+                else isSingleEntry = true
+
                 setqaChats((prevChats) => {
                             // Check if an object with the same id exists
                             const index = prevChats.findIndex(chat => chat.id === resp.id);
@@ -222,28 +246,78 @@ function ChatModal(prop) {
                                 // Update chat_text if id exists
                                 return prevChats.map(chat => {
                                     if (chat.id === resp.id) {
+                                       
                                         return {
                                             ...chat,
-                                            model_output: data?.model_output,
-                                            model_output_type: data?.model_output_type,
-                                            graph_data:  data?.graph_data,
-                                            graph_type: data?.graph_type,
+                                            model_output: isSingleEntry?'':data?.model_output,
+                                            model_output_type:  isSingleEntry?'':data?.model_output_type,
+                                            graph_data:   isSingleEntry?'':data?.graph_data,
+                                            graph_type:  isSingleEntry?'':data?.graph_type,
                                         };
                                     }
-                                    return chat;
+                                    else{
+                                        return chat;
+                                    }
+                                    
                                 });
                             }
-                        });
+                        });  
             }
-            else if(data.type == 'question_specificity'){
+            else if(data.type == 'chart_data_closed'){
+                setqaChats((prevChats) => {
+                    // Check if an object with the same id exists
+                    const index = prevChats.findIndex(chat => chat.id === resp.id);
+                
+                    if (index !== -1) {
+                        // Update chat_text if id exists
+                        return prevChats.map(chat => {
+                            if (chat.id === resp.id) {
+                               
+                                return {
+                                    ...chat,
+                                    chart_completed:true
+                                };
+                            }
+                            else{
+                                return chat;
+                            }
+                            
+                        });
+                    }
+                });
+            }
+            else if(data.type == 'suggestive_questions_closed'){
+                setqaChats((prevChats) => {
+                    // Check if an object with the same id exists
+                    const index = prevChats.findIndex(chat => chat.id === resp.id);
+                
+                    if (index !== -1) {
+                        // Update chat_text if id exists
+                        return prevChats.map(chat => {
+                            if (chat.id === resp.id) {
+                               
+                                return {
+                                    ...chat,
+                                    suggestive_completed:true
+                                };
+                            }
+                            else{
+                                return chat;
+                            }
+                            
+                        });
+                    }
+                });
+            }
+            else if(data.type == 'question_specificity'){ //i sgeneral question or not data
                 setIsGeneralQue(data.is_general_answer)
+               
                 localStorage.setItem(`${resp.id}SuccessTime`,new Date())
             // setWsTimeTaken({...wsnTimeTaken,endTime:new Date()})
             }
-            else if(data.error !=''){
-                // updateErrorMessage()
-                
-
+            else if(data.type =='error'){
+                updateErrorMessage()
+            
             }
             
         };
@@ -286,12 +360,17 @@ function ChatModal(prop) {
                 scrollableDiv.scrollTop = scrollableDiv.scrollHeight - 200;
 
             }
+            for (let I = 0; I < qaChats.length; I++) {
+                if(qaChats[I].id){
+
+                }
+                
+            }
         } catch (error) {
 
         }
 
     }, [qaChats]);
-
 
     async function clearAllChatsHandler() {  //delete all chats 
         setIsloading(true)
@@ -355,7 +434,8 @@ function ChatModal(prop) {
                 id: errorIdval,
                 scoretype: chatText,
                 general_question: true,
-                time_taken: ''
+                time_taken: '',
+                suggestive_completed:false
 
             }
         ]
@@ -387,7 +467,7 @@ function ChatModal(prop) {
                                 <Switch offColor='#612FA3' className='switchBtn' uncheckedIcon={false} checkedIcon={false} onChange={switchChangehandle} checked={fieldvalues.scoring_type == 'Customer Journey POCA scoring (Discover, Learn, Buy & Engage)' ? true : false} />
                                 <span className='fw-semibold text-success'>Customer Journey POCA</span>
                             </div>
-
+                           
                             <div className='d-flex align-items-center justify-content-end  w-25'>
                                 <button className='btn btn-outline-secondary btn-sm clearchatbtn d-flex align-items-center' onClick={clearAllChatsHandler}>Clear</button>
                                 <i class="bi bi-x-circle h4 modalClose mt-1" data-bs-dismiss="offcanvas" aria-label="Close" onClick={() => { prop.setChatboxShow(false) }}></i>

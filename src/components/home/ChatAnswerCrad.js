@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './ChatAnswerCrad.scss'
 import ChatTableView from './ChatTableView'
 import ChartView from './ChartView';
@@ -6,10 +6,12 @@ import { useRecoilState } from 'recoil';
 import { ChatAnswerComponentData } from '../utilites/ChatAnswerCradRecoilData';
 import TextAnimator from './Tables/TextAnimator';
 import lodingGif from '../assets/loading.gif'
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import FeedbackIcon from '../assets/chatpage/feedback.png'
 import { ReadAloud } from './ChatModal/ReadAloud';
+import { LikeDislikeComponent } from './ChatModal/LikeDislikeComponent';
+
+import botImage from '../assets/chatpage/botImage.png'
+import { saveResponseReceived } from './ChatModal/SaveOverallResponse';
 function ChatAnswerCrad(prop) {
 
   const [getChatAnswerComponentData, setChatAnswerComponentData] = useRecoilState(ChatAnswerComponentData)
@@ -18,9 +20,7 @@ function ChatAnswerCrad(prop) {
   const [displayedText, setDisplayedText] = useState('');
   const [showDesign, setshowDesign] = useState(false)
   const [readVoice, setReadVoice] = useState(true)
-  const [likeColor, setLikeColor] = useState('rgb(215, 213, 213)'); // Initial color for like icon
-  const [dislikeColor, setDislikeColor] = useState('rgb(215, 213, 213)'); // Initial color for dislike icon
-
+ 
   const [wsTimeDiff, setWsTimeDiff] = useState(null)
   useEffect(() => {
 
@@ -73,18 +73,7 @@ function ChatAnswerCrad(prop) {
     setChatAnswerComponentData({ ...getChatAnswerComponentData, closeBtnClick: !getChatAnswerComponentData.closeBtnClick })
   }, [])
 
-  const likeIconClickHandle = () => {
-    setLikeColor('green');
-    setDislikeColor('rgb(215, 213, 213)');
-    // Add any other logic you want to perform when like is clicked
-  };
-
-  const dislikeIconClickHandle = () => {
-    setLikeColor('rgb(215, 213, 213)');
-    setDislikeColor('red');
-    // Add any other logic you want to perform when dislike is clicked
-  };
-
+ 
 
   useEffect(() => {
     // Function to handle click event
@@ -130,45 +119,79 @@ function ChatAnswerCrad(prop) {
     prop.getfeedbackEmailContainerHandler(prop?.answer?.id,true)
    
   }
+
+  useEffect(()=>{ //save data to backend 
+ 
+    let isSaved = localStorage.getItem(`${prop?.answer?.id}detailsSaved`)
+   if(prop.answer.graph_data!='' && prop.answer.graph_type!=''){
+         
+        let dataFormated = {
+          response: {
+          chat_answer: prop?.answer?.chat_text,
+          id: prop?.answer?.id,
+          suggestive:prop?.answer?.suggestive,
+          model_output: prop?.answer?.model_output,
+          model_output_type:prop?.answer?.model_output_type,
+          graph_data:prop?.answer?.graph_data,
+          graph_type: prop?.answer?.graph_type ,
+          scoretype:prop?.answer?.scoretype,
+          general_question: prop?.answer?.general_question,
+          
+          }
+          }
+          if(!isSaved){
+            saveResponseReceived(dataFormated)
+          }
+          
+    }
+  },[prop?.answer?.chart_completed])
   return (
     <div className='d-flex flex-column align-items-end'>
+      <div className=' d-flex gap-2'>
+      <div>
       <div className="chatAnswer px-3 py-2 d-flex align-items-center">
-        <span className='newElement'> </span>
+        {/* <span className='newElement'> </span> */}
 
         {/* <TextAnimator dynamicText ={prop.new ? currentAnswer : prop.answer.chat_text}/> */}
         <div className='answerHolder' dangerouslySetInnerHTML={{ __html: prop?.answer?.chat_text }}></div>
-
+       
       </div>
-
       <div className='d-flex justify-content-end w-100'>
 
-        <div className=' d-flex gap-3 align-items-center'>
+        <div className=' d-flex gap-3 pt-1 align-items-center'>
        
-          <img src={FeedbackIcon} onClick={showFeedbackHandler} className='answerIcons feedBackIcon'></img>
+         { prop.answer?.chat_type == 'Answer' && <img src={FeedbackIcon} onClick={showFeedbackHandler} className='answerIcons feedBackIcon'></img>}
+         
           <ReadAloud answer={prop?.answer} />
 
         </div>
-        <div className='d-flex gap-1 chatAnswerLike'>
-          <ThumbUpIcon className='chatAnswerLikeIcon'
-            id='like'
-            onClick={likeIconClickHandle}
-            style={{ color: likeColor }} />
-          <ThumbDownAltIcon className='chatAnswerLikeIcon'
-            id='dislike'
-            onClick={dislikeIconClickHandle}
-            style={{ color: dislikeColor }} />
-        </div>
+
+       { prop.answer?.chat_type == 'Answer' && <LikeDislikeComponent answerID={prop?.answer?.id}/>}
+
         <span className='timeview text-muted ps-3'>{new Date(prop.answer.time_stamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
         <span className=' ps-2 text-muted'>{prop.answer.chat_type == 'Answer' ? wsTimeDiff : ''}</span>
       </div>
+      </div>
+      
+      <img src={botImage} className='userBotChatImg' />
+      </div>
+      
       {/* table view/clipboard icon if there is either table or chart to show  */}
       {prop.answer.model_output_type != '' || prop.answer.graph_type != '' ?
-        <i class="bi bi-clipboard2-data" onClick={showChartAndTableViewHandle}></i> : prop.answer?.chat_type == 'msg' ? '' : <img src={lodingGif} className='chartLoader'></img>
+       <div className=' d-flex'>
+        <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="white" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+            <path d="m1.75 9.75 2.5 2.5m3.5-4 2.5-2.5m-4.5 4 2.5 2.5 6-6.5"/>
+            </svg>
+         <i class="bi bi-clipboard2-data" onClick={showChartAndTableViewHandle}></i>
+       </div> : prop.answer?.chat_type == 'msg' ? '' : !prop?.answer?.chart_completed?<div>
+       <span className='text-secondary fw-bold'>Generating visuals</span>
+       <img src={lodingGif} className='chartLoader'></img>
+       </div>:''
       }
       {/* show table and chart section  */}
       {showDesign && <div className='ChartAndTableView justify-content-between'>
         <div></div>
-        <div className='ChartViewCnt  rounded'><ChartView propChartView={propChartView} /></div>
+        <div className='ChartViewCnt  rounded'><ChartView propChartView={propChartView} answer={prop?.answer}/></div>
         {prop.answer.model_output != '' ? <div className='ChatTableViewCnt rounded'>
           <div className='chartHolder'><ChatTableView modelOutput={prop.answer.model_output} model_output_type={prop.answer.model_output_type} ids={prop.answer.id} />
           </div>
@@ -179,12 +202,27 @@ function ChatAnswerCrad(prop) {
       {/* suggestive questions  */}
       {prop?.answer?.suggestive != '' ?
 
-        <div className='suggestivesCnt justify-content-between px-3 mt-3 rounded py-3'>
+        <div>
+          <div className='suggestivesCnt justify-content-between px-3 mt-3 rounded py-3'>
           <div> <i class="bi bi-lightbulb sugesttxt"></i><span className='text-muted px-3 sugesttryaskTxt'>Try Asking</span>
           </div>
           <div className='suggestiveHolder' dangerouslySetInnerHTML={{ __html: prop?.answer?.suggestive.replaceAll('"', '').replaceAll('className', 'class') }}>
 
           </div>
+        </div>
+        <div className=' d-flex justify-content-end'>
+                {
+                  prop?.answer?.suggestive_completed?
+                  <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="white" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+            <path d="m1.75 9.75 2.5 2.5m3.5-4 2.5-2.5m-4.5 4 2.5 2.5 6-6.5"/>
+            </svg>
+                  :
+                 <div>
+                   <span className='text-secondary fw-bold'>Generating follow-up questions</span>
+                  <img src={lodingGif} className='chartLoader'></img>
+                 </div>
+                }
+        </div>
         </div>
         :
         null

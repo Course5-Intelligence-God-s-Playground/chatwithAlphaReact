@@ -51,7 +51,7 @@ export const ReadAloud = (prop) => {
         //last response is read using browser default text to speech service
     }
     return (
-        <div className='d-flex pe-3 align-items-center relative' id={prop?.answer?.id}>
+        <div className='d-flex  align-items-center relative' id={prop?.answer?.id}>
 
             <img src={muteIcon} id='unmute' onClick={readLoudHandler} className={`answerIcons unmute voiceIcon ${prop?.answer?.id}unmute`}></img>
             <img src={unmuteIcon} id='mute' onClick={readLoudHandler} className={`answerIcons voiceIcon mute ${prop?.answer?.id}mute d-none`}></img>

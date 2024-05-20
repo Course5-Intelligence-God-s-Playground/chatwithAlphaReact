@@ -8,7 +8,7 @@ function DataFrameTable(prop) { //specific to 'dataframe' type of table other is
       <table >
         <thead className='thg'>
           <tr>
-            <th></th>
+            {/* <th></th> */}
             {columns.map(column => (
               <th key={column} className='text-center'>{column}</th>
             ))}
@@ -18,11 +18,11 @@ function DataFrameTable(prop) { //specific to 'dataframe' type of table other is
           {rows.map(row => (
             <tr key={row} >
 
-              <td className='text-center'>
+              {/* <td className='text-center'>
 
 
                 {isNaN(Number(row)) ? row : ''}
-              </td>
+              </td> */}
 
 
               {columns.map(column => (

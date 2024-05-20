@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Chart from "react-apexcharts";
+import { saveResponseReceived } from './ChatModal/SaveOverallResponse';
 
 function ChartView(prop) {
  
@@ -15,20 +16,25 @@ function ChartView(prop) {
     else setChartSize(300)
   },[])
 
- 
 
+
+
+  
   return (
     <div className='chartCnt'>
       <div className="app">
         <div className="row">
           <div className="mixed-chart">
             {prop.propChartView.graph_data!='' && prop.propChartView.graph_type!='' ? (
-             <div ref={chartRef}> <Chart
+             <div ref={chartRef}>
+               <Chart
                 options={chartState.options}
                 series={chartState.series}
                 type={prop.propChartView.graph_type}
                 width={chartSize}
               />
+
+
               </div>
             ) : (
               <div style={{display:'none'}}>No data available</div>
