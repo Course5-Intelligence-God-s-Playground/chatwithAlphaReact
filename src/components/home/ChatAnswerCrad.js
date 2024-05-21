@@ -20,7 +20,7 @@ function ChatAnswerCrad(prop) {
   const [displayedText, setDisplayedText] = useState('');
   const [showDesign, setshowDesign] = useState(false)
   const [readVoice, setReadVoice] = useState(true)
- 
+  const suggestiveHolderRef = useRef(null);
   const [wsTimeDiff, setWsTimeDiff] = useState(null)
   useEffect(() => {
 
@@ -60,7 +60,7 @@ function ChatAnswerCrad(prop) {
   }, [currentAnswer, isAnswerFinished, prop.answer]);
   const showCursor = currentAnswer?.length < prop?.answer?.length;
 
-  let propChartView = {//props
+  let propChartView = {//prop
     graph_type: prop.answer.graph_type,
     graph_data: prop.answer.graph_data
 
@@ -76,25 +76,33 @@ function ChatAnswerCrad(prop) {
  
 
   useEffect(() => {
-    // Function to handle click event
     const handleClick = (event) => {
-
-      prop.setValues({ ...prop.fieldvalues, question: event.target.textContent })
+        prop.setValues({ ...prop.fieldvalues, question: event.target.textContent });
     };
 
-    // Select the div element with the class 'suggestiveHolder'
-    const suggestiveHolder = document.getElementsByClassName('suggestiveHolder')[0];
+    const suggestiveHolder = suggestiveHolderRef.current;
 
-    // Select all the p tags inside the 'suggestiveHolder' div
-    const suggestions = suggestiveHolder?.getElementsByTagName('p');
+    // Clean up existing event listeners
+    const cleanup = () => {
+        const suggestions = suggestiveHolder?.getElementsByTagName('p');
+        if (suggestions) {
+            for (let i = 0; i < suggestions.length; i++) {
+                suggestions[i].removeEventListener('click', handleClick);
+            }
+        }
+    };
 
-    // Add event listeners to each p tag
-    for (let i = 0; i < suggestions?.length; i++) {
-      suggestions[i].addEventListener('click', handleClick);
+    // Add new event listeners
+    if (suggestiveHolder) {
+        const suggestions = suggestiveHolder.getElementsByTagName('p');
+        for (let i = 0; i < suggestions.length; i++) {
+            suggestions[i].addEventListener('click', handleClick);
+        }
     }
 
-
-  }, [prop?.answer?.suggestive]);
+    // Cleanup on unmount or when dependencies change
+    return cleanup;
+}, [prop?.answer?.suggestive]);
 
   useEffect(() => {
     const successTime = localStorage.getItem(`${prop?.answer?.id}SuccessTime`)
@@ -206,9 +214,13 @@ function ChatAnswerCrad(prop) {
           <div className='suggestivesCnt justify-content-between px-3 mt-3 rounded py-3'>
           <div> <i class="bi bi-lightbulb sugesttxt"></i><span className='text-muted px-3 sugesttryaskTxt'>Try Asking</span>
           </div>
-          <div className='suggestiveHolder' dangerouslySetInnerHTML={{ __html: prop?.answer?.suggestive.replaceAll('"', '').replaceAll('className', 'class') }}>
+          <div
+            className="suggestiveHolder"
+            ref={suggestiveHolderRef}
+            dangerouslySetInnerHTML={{ __html: prop?.answer?.suggestive.replaceAll('"', '').replaceAll('className', 'class') }}
+        />
 
-          </div>
+        
         </div>
         <div className=' d-flex justify-content-end'>
                 {

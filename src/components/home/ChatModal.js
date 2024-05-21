@@ -287,6 +287,7 @@ function ChatModal(prop) {
                 });
             }
             else if(data.type == 'suggestive_questions_closed'){
+               
                 setqaChats((prevChats) => {
                     // Check if an object with the same id exists
                     const index = prevChats.findIndex(chat => chat.id === resp.id);
