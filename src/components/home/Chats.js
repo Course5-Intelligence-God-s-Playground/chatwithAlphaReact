@@ -83,7 +83,7 @@ function Chats(prop) {
                 prop.qaChats.map((item)=>(
                     <div className='chatSection d-flex flex-column gap-5 pb-5'>
                        {item.chat_type=='Question'? 
-                      <div className=' d-flex gap-2'>
+                      <div className=' d-flex gap-2 chatQuestionSection'>
                         <img className='userBotChatImg' src={userImage}/>
                          <div>
                        <div className='chatQuestion rounded px-2 d-flex align-items-center'>{item.chat_text}</div>
@@ -94,7 +94,9 @@ function Chats(prop) {
                     <div className='chatAnswerHold' id={item.id}>
                      
                         {
-                            <ChatAnswerCrad getfeedbackEmailContainerHandler={prop.getfeedbackEmailContainerHandler} answer={item} new={item.new} setValues={prop.setValues} fieldvalues={prop.fieldvalues}/>
+                            <ChatAnswerCrad 
+                            sendQuestion={prop?.sendQuestion}
+                            getfeedbackEmailContainerHandler={prop.getfeedbackEmailContainerHandler} answer={item} new={item.new} setValues={prop.setValues} fieldvalues={prop.fieldvalues}/>
                         }
                     </div>
                     }

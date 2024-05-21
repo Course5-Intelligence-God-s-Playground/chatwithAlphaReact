@@ -114,6 +114,10 @@ $md: 768px;
     &:active{
         opacity: 0;
     }
+    @include md{
+        height: 2vh;
+
+    }
   }
   .voiceIcon{
     opacity: 0.5;
@@ -121,4 +125,12 @@ $md: 768px;
 
  .modal-dialog{
     z-index: 99999;
+ }
+
+ .bi-arrow-clockwise{
+    cursor: pointer;
+    color: grey;
+    &:active{
+        opacity: 0;
+    }
  }

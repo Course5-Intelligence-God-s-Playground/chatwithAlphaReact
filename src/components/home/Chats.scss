@@ -6,7 +6,7 @@ $md: 768px;
   }
 }
 .chatQuestion,.chatAnswer{
-    width: 60ch;
+    // width: 60ch;
    
     min-height: 10vh;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -29,7 +29,7 @@ $md: 768px;
     font-size: 1vw;
     width: 80ch;
     @include md{
-    width: 30ch;
+    width: 40ch;
     font-size: small;
     }
 }
@@ -40,10 +40,17 @@ $md: 768px;
 .chatQuestion{
     font-size: 1vw;
     @include md{
+    width: 40ch;
+
         font-size: small;
     }
 }
-
+.chatQuestionSection{
+    @include md{
+        position: relative;
+        left: -2vw;
+        }
+}
 .userBotChatImg{
     border-radius: 50%;
     height: 6vh;

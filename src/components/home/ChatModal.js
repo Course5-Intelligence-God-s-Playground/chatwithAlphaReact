@@ -25,6 +25,7 @@ function ChatModal(prop) {
 
     
     // websocket 
+    const [isRenerate,setIsRegenerate] = useState(false)
     const [isGeneralQue,setIsGeneralQue] = useState(false)
     const [wsnTimeTaken,setWsTimeTaken] = useState({
         startTime:null,
@@ -80,24 +81,25 @@ function ChatModal(prop) {
         setqaChats((prevChats) => [...prevChats, ...array]);
       
     }
-    async function sendQuestion() {  //sends query to backnd which is to be sent to live server/ai
-
-        if (fieldvalues.question != '') {
+    async function sendQuestion(isRegenerate,oldQuestionId) {  //sends query to backnd which is to be sent to live server/ai
+        
+        if (fieldvalues.question != '' || isRegenerate==true) {
+            setIsRegenerate(isRegenerate)
             //storing question
             const currentDate = new Date()
             setWsTimeTaken({...wsnTimeTaken,startTime:currentDate})
-            let qarray =
-            {
-                chat_text: fieldvalues.question,
-                chat_type: "Question",
-                time_stamp: currentDate,
-                
-            }
-
-            setqaChats([...qaChats, qarray]);
-            setValues({ ...fieldvalues, question: '' })
             setIsloading(true)
-
+            let recentChatBody
+            if(isRegenerate==true){
+                let oldQuestionArr = qaChats.filter(itm=>itm.id == oldQuestionId)
+                recentChatBody = {
+                    question: oldQuestionArr[0]?.chat_text,
+                    scoring_type: fieldvalues.scoring_type,
+                    regenerate:"True"
+                }
+            }
+            else recentChatBody = fieldvalues
+            console.log(recentChatBody)
             //sending answer to backend
             try {
                 const req = await fetch(Server.recentChat, {
@@ -105,17 +107,33 @@ function ChatModal(prop) {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(fieldvalues)
+                    body: JSON.stringify(recentChatBody)
                 });
                 
 
                 const resp = await req.json()
                 if (req.ok) {
+                    //store question into array if new question
+                    
+                    if(!isRegenerate){
+                        let qarray =
+                    {
+                        chat_text: fieldvalues.question,
+                        chat_type: "Question",
+                        time_stamp: currentDate,
+                        id:resp.id+'question'
+                    }
+                        setqaChats([...qaChats, qarray]);
+                        setValues({ ...fieldvalues, question: '' })
+                    }
+                  
                     //on success i have to sent response to live server/ws/ai
-                     webso(resp,currentDate)
+                     webso(resp,currentDate,isRegenerate)
                 }
+                
 
             } catch (error) { //if there is any error encountered , should be shown as 'normal' sorry chat reponse
+               
                 updateErrorMessage()
                 console.error(error);
             }
@@ -123,8 +141,9 @@ function ChatModal(prop) {
         }
     }
 
-    function webso(resp,currentDate) {
+    function webso(resp,currentDate,isRegenerate) {
 
+        // const ws = new WebSocket("ws://0.tcp.in.ngrok.io:18820/ws/chat/");
         const ws = new WebSocket("wss://pocai-botbrainiacs.azurewebsites.net/ws/chat/");
 
         ws.onopen = function () {
@@ -134,15 +153,50 @@ function ChatModal(prop) {
                 "scoring_type": resp.scoring_type,
                 "recent_chat": resp.data
             }));
+            if(isRegenerate){
+                setqaChats((prevChats) => {
+                    // Check if an object with the same id exists
+                    const index = prevChats.findIndex(chat => chat.id === resp.id);
+                    let  newRegenerativeArray = {
+                        chat_text:'',
+                        chat_type: "Answer",
+                        time_stamp: currentDate,
+                        new: false,
+                        id: resp.id,
+                        suggestive: '',
+                        model_output: '',
+                        model_output_type: '',
+                        graph_data: '',
+                        graph_type: '',
+                        scoretype: fieldvalues.scoring_type,
+                        general_question: false,
+                        time_taken: '',
+                        suggestive_completed:false,
+                        chart_completed:false
+                    };
+                    if (index !== -1) {
+                        // Update chat_text if id exists
+                        return prevChats.map(chat => {
+                            if (chat.id == resp.id) {
+                                return newRegenerativeArray;
+                               
+                            }
+                            return chat
+                            
+                        });
+                    }
+                });
+            }
           
         };
         
         ws.onmessage = function (e) {
+           try {
             const data = JSON.parse(e.data);
             const pulsingCursor = `<svg  width="16" height="16" fill="#0988e2" class="bi bi-circle-fill" viewBox="0 0 16 16">
             <circle cx="8" cy="8" r="8"/>
           </svg>`;
-        
+            
             if (data.chunk && data.chunk != undefined && data.type == 'Answer') {
                 setIsloading(false);
                
@@ -262,6 +316,7 @@ function ChatModal(prop) {
                                 });
                             }
                         });  
+            
             }
             else if(data.type == 'chart_data_closed'){
                 setqaChats((prevChats) => {
@@ -285,6 +340,8 @@ function ChatModal(prop) {
                         });
                     }
                 });
+            setIsRegenerate(false)
+            
             }
             else if(data.type == 'suggestive_questions_closed'){
                
@@ -320,6 +377,10 @@ function ChatModal(prop) {
                 updateErrorMessage()
             
             }
+           } catch (error) {
+            setIsloading(false)
+            // updateErrorMessage()
+           }
             
         };
         ws.onerror = function(e){
@@ -348,18 +409,17 @@ function ChatModal(prop) {
     useEffect(() => {
 
         try {
-            let lastReq = qaChats[qaChats.length - 1]
+           
+                let lastReq = qaChats[qaChats.length - 1]
             const scrollableDiv = document.getElementsByClassName('chatbodyqa')[0]
             if (lastReq.chat_type == 'Question') {
 
-
                 // Scroll to the end of the scrollable div
                 scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
-
             }
             else {
+            
                 scrollableDiv.scrollTop = scrollableDiv.scrollHeight - 200;
-
             }
             for (let I = 0; I < qaChats.length; I++) {
                 if(qaChats[I].id){
@@ -367,6 +427,7 @@ function ChatModal(prop) {
                 }
                 
             }
+            
         } catch (error) {
 
         }
@@ -409,6 +470,7 @@ function ChatModal(prop) {
     }
 
     function switchChangehandle() {
+        
         let chatText;
         if (fieldvalues.scoring_type === 'Customer Journey POCA scoring (Discover, Learn, Buy & Engage)') {
             setValues({ ...fieldvalues, scoring_type: 'Standard POCA scoring (Marketing, Omnichannel, Ecommerce & Subscription)' })
@@ -441,7 +503,11 @@ function ChatModal(prop) {
             }
         ]
 
-        setqaChats((prevChats) => [...prevChats, ...array]);
+        setqaChats((prevChats) => {
+            const updatedChats = [...prevChats, ...array];
+         
+            return updatedChats;
+        });
     }
 
     function getfeedbackEmailContainerHandler(respId,feedBackState){
@@ -449,6 +515,7 @@ function ChatModal(prop) {
         setfeedbackEmailContainer(feedBackState)
      
     }
+   
     return (
         <div class="offcanvas border offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
 
@@ -480,7 +547,9 @@ function ChatModal(prop) {
                                 <div className='chatbodyqa rounded pt-1' ref={containerRef}>
                                     {
                                         !getfeedbackEmailContainer ?
-                                            <Chats getfeedbackEmailContainerHandler={getfeedbackEmailContainerHandler} qaChats={qaChats} setValues={setValues} fieldvalues={fieldvalues} setqaChats={setqaChats} />
+                                            <Chats 
+                                             sendQuestion={sendQuestion}
+                                            getfeedbackEmailContainerHandler={getfeedbackEmailContainerHandler} qaChats={qaChats} setValues={setValues} fieldvalues={fieldvalues} setqaChats={setqaChats} />
                                             :
                                             <div className=' d-flex justify-content-center'>
                                                 <div className='feedbackEmailContainer'>
@@ -503,7 +572,7 @@ function ChatModal(prop) {
                                     {/* type question here  */}
                                     <div className='chatbodyinput w-100 d-flex align-items-center gap-4'>
                                         <textarea className='chatbodyinput-txtarea ps-2' placeholder='Ask me anything...' value={fieldvalues.question} onChange={textAreaChangeHandle} onKeyDown={!isloading ? sendHandleonEnterKey : null} autoFocus={true} disabled={getfeedbackEmailContainer}></textarea>
-                                        <i class="bi bi-send fs-4 text-primary chatbodyinputSendIcon" onClick={!isloading ? () => { sendQuestion() } : null}></i>
+                                        <i class="bi bi-send fs-4 text-primary chatbodyinputSendIcon" onClick={!isloading ? () => { sendQuestion(false,null) } : null}></i>
                                     </div>
                                 </div>
                             </div>

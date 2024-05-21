@@ -41,7 +41,7 @@ export const LikeDislikeComponent = (prop) => {
             }
       }
     return (
-        <div className='d-flex gap-1 chatAnswerLike ps-3'>
+        <div className='d-flex gap-1 chatAnswerLike'>
         <ThumbUpIcon className='chatAnswerLikeIcon'
           id='like'
           onClick={likeIconClickHandle}

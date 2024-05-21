@@ -73,36 +73,36 @@ function ChatAnswerCrad(prop) {
     setChatAnswerComponentData({ ...getChatAnswerComponentData, closeBtnClick: !getChatAnswerComponentData.closeBtnClick })
   }, [])
 
- 
+
 
   useEffect(() => {
     const handleClick = (event) => {
-        prop.setValues({ ...prop.fieldvalues, question: event.target.textContent });
+      prop.setValues({ ...prop.fieldvalues, question: event.target.textContent });
     };
 
     const suggestiveHolder = suggestiveHolderRef.current;
 
     // Clean up existing event listeners
     const cleanup = () => {
-        const suggestions = suggestiveHolder?.getElementsByTagName('p');
-        if (suggestions) {
-            for (let i = 0; i < suggestions.length; i++) {
-                suggestions[i].removeEventListener('click', handleClick);
-            }
+      const suggestions = suggestiveHolder?.getElementsByTagName('p');
+      if (suggestions) {
+        for (let i = 0; i < suggestions.length; i++) {
+          suggestions[i].removeEventListener('click', handleClick);
         }
+      }
     };
 
     // Add new event listeners
     if (suggestiveHolder) {
-        const suggestions = suggestiveHolder.getElementsByTagName('p');
-        for (let i = 0; i < suggestions.length; i++) {
-            suggestions[i].addEventListener('click', handleClick);
-        }
+      const suggestions = suggestiveHolder.getElementsByTagName('p');
+      for (let i = 0; i < suggestions.length; i++) {
+        suggestions[i].addEventListener('click', handleClick);
+      }
     }
 
     // Cleanup on unmount or when dependencies change
     return cleanup;
-}, [prop?.answer?.suggestive]);
+  }, [prop?.answer?.suggestive]);
 
   useEffect(() => {
     const successTime = localStorage.getItem(`${prop?.answer?.id}SuccessTime`)
@@ -123,83 +123,91 @@ function ChatAnswerCrad(prop) {
 
   }, [])
 
-  function showFeedbackHandler(){
-    prop.getfeedbackEmailContainerHandler(prop?.answer?.id,true)
-   
+  function showFeedbackHandler() {
+    prop.getfeedbackEmailContainerHandler(prop?.answer?.id, true)
+
   }
 
-  useEffect(()=>{ //save data to backend 
- 
+  useEffect(() => { //save data to backend 
+
     let isSaved = localStorage.getItem(`${prop?.answer?.id}detailsSaved`)
-   if(prop.answer.graph_data!='' && prop.answer.graph_type!=''){
-         
-        let dataFormated = {
-          response: {
+    if (prop.answer.graph_data != '' && prop.answer.graph_type != '') {
+
+      let dataFormated = {
+        response: {
           chat_answer: prop?.answer?.chat_text,
           id: prop?.answer?.id,
-          suggestive:prop?.answer?.suggestive,
+          suggestive: prop?.answer?.suggestive,
           model_output: prop?.answer?.model_output,
-          model_output_type:prop?.answer?.model_output_type,
-          graph_data:prop?.answer?.graph_data,
-          graph_type: prop?.answer?.graph_type ,
-          scoretype:prop?.answer?.scoretype,
+          model_output_type: prop?.answer?.model_output_type,
+          graph_data: prop?.answer?.graph_data,
+          graph_type: prop?.answer?.graph_type,
+          scoretype: prop?.answer?.scoretype,
           general_question: prop?.answer?.general_question,
-          
-          }
-          }
-          if(!isSaved){
-            saveResponseReceived(dataFormated)
-          }
-          
+
+        }
+      }
+      if (!isSaved) {
+        saveResponseReceived(dataFormated)
+      }
+
     }
-  },[prop?.answer?.chart_completed])
+  }, [prop?.answer?.chart_completed])
+
+  function regenerateHandle(){
+    
+    let questionId = prop?.answer?.id+'question'
+    prop?.sendQuestion(true,questionId)
+  
+  }
   return (
     <div className='d-flex flex-column align-items-end'>
       <div className=' d-flex gap-2'>
-      <div>
-      <div className="chatAnswer px-3 py-2 d-flex align-items-center">
-        {/* <span className='newElement'> </span> */}
+        <div>
+          <div className="chatAnswer px-3 py-2 d-flex align-items-center">
+            {/* <span className='newElement'> </span> */}
 
-        {/* <TextAnimator dynamicText ={prop.new ? currentAnswer : prop.answer.chat_text}/> */}
-        <div className='answerHolder' dangerouslySetInnerHTML={{ __html: prop?.answer?.chat_text }}></div>
-       
-      </div>
-      <div className='d-flex justify-content-end w-100'>
+            {/* <TextAnimator dynamicText ={prop.new ? currentAnswer : prop.answer.chat_text}/> */}
+            <div className='answerHolder' dangerouslySetInnerHTML={{ __html: prop?.answer?.chat_text }}></div>
 
-        <div className=' d-flex gap-3 pt-1 align-items-center'>
-       
-         { prop.answer?.chat_type == 'Answer' && <img src={FeedbackIcon} onClick={showFeedbackHandler} className='answerIcons feedBackIcon'></img>}
-         
-          <ReadAloud answer={prop?.answer} />
+          </div>
+          <div className='d-flex justify-content-end w-100 gap-3 align-items-center'>
+            {/* regenerate icon*/}
+           { prop.answer?.chat_type == 'Answer' &&  <svg xmlns="http://www.w3.org/2000/svg" onClick={regenerateHandle} width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
+              <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
+            </svg> }
 
+            {prop.answer?.chat_type == 'Answer' && <img src={FeedbackIcon} onClick={showFeedbackHandler} className='answerIcons feedBackIcon'></img>}
+
+            <ReadAloud answer={prop?.answer} />
+
+            {prop.answer?.chat_type == 'Answer' && <LikeDislikeComponent answerID={prop?.answer?.id} />}
+
+            <span className='timeview text-muted'>{new Date(prop.answer.time_stamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
+            <span className='text-muted'>{prop.answer.chat_type == 'Answer' ? wsTimeDiff : ''}</span>
+          </div>
         </div>
 
-       { prop.answer?.chat_type == 'Answer' && <LikeDislikeComponent answerID={prop?.answer?.id}/>}
+        <img src={botImage} className='userBotChatImg' />
+      </div>
 
-        <span className='timeview text-muted ps-3'>{new Date(prop.answer.time_stamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
-        <span className=' ps-2 text-muted'>{prop.answer.chat_type == 'Answer' ? wsTimeDiff : ''}</span>
-      </div>
-      </div>
-      
-      <img src={botImage} className='userBotChatImg' />
-      </div>
-      
       {/* table view/clipboard icon if there is either table or chart to show  */}
       {prop.answer.model_output_type != '' || prop.answer.graph_type != '' ?
-       <div className=' d-flex'>
-        <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="white" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-            <path d="m1.75 9.75 2.5 2.5m3.5-4 2.5-2.5m-4.5 4 2.5 2.5 6-6.5"/>
-            </svg>
-         <i class="bi bi-clipboard2-data" onClick={showChartAndTableViewHandle}></i>
-       </div> : prop.answer?.chat_type == 'msg' ? '' : !prop?.answer?.chart_completed?<div>
-       <span className='text-secondary fw-bold'>Generating visuals</span>
-       <img src={lodingGif} className='chartLoader'></img>
-       </div>:''
+        <div className=' d-flex'>
+          <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="white" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+            <path d="m1.75 9.75 2.5 2.5m3.5-4 2.5-2.5m-4.5 4 2.5 2.5 6-6.5" />
+          </svg>
+          <i class="bi bi-clipboard2-data" onClick={showChartAndTableViewHandle}></i>
+        </div> : prop.answer?.chat_type == 'msg' ? '' : !prop?.answer?.chart_completed ? <div>
+          <span className='text-secondary fw-bold'>Generating visuals</span>
+          <img src={lodingGif} className='chartLoader'></img>
+        </div> : ''
       }
       {/* show table and chart section  */}
       {showDesign && <div className='ChartAndTableView justify-content-between'>
         <div></div>
-        <div className='ChartViewCnt  rounded'><ChartView propChartView={propChartView} answer={prop?.answer}/></div>
+        <div className='ChartViewCnt  rounded'><ChartView propChartView={propChartView} answer={prop?.answer} /></div>
         {prop.answer.model_output != '' ? <div className='ChatTableViewCnt rounded'>
           <div className='chartHolder'><ChatTableView modelOutput={prop.answer.model_output} model_output_type={prop.answer.model_output_type} ids={prop.answer.id} />
           </div>
@@ -212,29 +220,29 @@ function ChatAnswerCrad(prop) {
 
         <div>
           <div className='suggestivesCnt justify-content-between px-3 mt-3 rounded py-3'>
-          <div> <i class="bi bi-lightbulb sugesttxt"></i><span className='text-muted px-3 sugesttryaskTxt'>Try Asking</span>
-          </div>
-          <div
-            className="suggestiveHolder"
-            ref={suggestiveHolderRef}
-            dangerouslySetInnerHTML={{ __html: prop?.answer?.suggestive.replaceAll('"', '').replaceAll('className', 'class') }}
-        />
+            <div> <i class="bi bi-lightbulb sugesttxt"></i><span className='text-muted px-3 sugesttryaskTxt'>Try Asking</span>
+            </div>
+            <div
+              className="suggestiveHolder"
+              ref={suggestiveHolderRef}
+              dangerouslySetInnerHTML={{ __html: prop?.answer?.suggestive.replaceAll('"', '').replaceAll('className', 'class') }}
+            />
 
-        
-        </div>
-        <div className=' d-flex justify-content-end'>
-                {
-                  prop?.answer?.suggestive_completed?
-                  <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="white" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-            <path d="m1.75 9.75 2.5 2.5m3.5-4 2.5-2.5m-4.5 4 2.5 2.5 6-6.5"/>
-            </svg>
-                  :
-                 <div>
-                   <span className='text-secondary fw-bold'>Generating follow-up questions</span>
+
+          </div>
+          <div className=' d-flex justify-content-end'>
+            {
+              prop?.answer?.suggestive_completed ?
+                <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="white" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                  <path d="m1.75 9.75 2.5 2.5m3.5-4 2.5-2.5m-4.5 4 2.5 2.5 6-6.5" />
+                </svg>
+                :
+                <div>
+                  <span className='text-secondary fw-bold'>Generating follow-up questions</span>
                   <img src={lodingGif} className='chartLoader'></img>
-                 </div>
-                }
-        </div>
+                </div>
+            }
+          </div>
         </div>
         :
         null
