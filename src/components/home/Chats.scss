@@ -1,59 +1,88 @@
 $md: 768px;
+$xxl: 1400px;
+$mob: 576px;
+$lg: 992px;
 //For Medium
 @mixin md {
   @media screen and (max-width: ($md)) {
     @content;
   }
 }
+@mixin lg {
+    @media screen and (max-width: ($lg)) {
+      @content;
+    }
+  }
+@mixin mob {
+    @media screen and (max-width: ($mob)) {
+      @content;
+    }
+  }
+  @mixin xxl {
+    @media screen and (min-width: $xxl) {
+      @content;
+    }
+  }
 .chatQuestion,.chatAnswer{
     // width: 60ch;
    
     min-height: 10vh;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     font-family: "Segoe UI";
-    @include md{
-    width: 30ch;
-
-    }
+   
+    
   
 }
 .chatAnswerHold{
     align-self: flex-end;
-
+    padding-right: 5vw;
+@include mob{
+    padding-right: 0vw;
+   overflow-x: hidden;
+}
 }
 .chatAnswer{
-    border-radius: 15px;
     background-color: #d2ebfd;
-    font-size: 1vw;
+
+}
+.chatAnswer,.chatQuestion{
+    border-radius: 15px;
+    
+    // font-size: 1vw;
     white-space: pre-line;
-    font-size: 1vw;
+    // font-size: 1vw;
     width: 80ch;
+    font-size: 0.9vw;
+   
+   
+    @include xxl{
+      font-size: medium;
+        
+    }
+    @include lg{
+        font-size: x-small;
+
+    }
     @include md{
-    width: 40ch;
-    font-size: small;
+        font-size: x-small;
+
+    }
+    @include mob{
+        width: 40ch;
+        font-size: small;
     }
 }
 
 .timeview{
     font-size: small;
 }
-.chatQuestion{
-    font-size: 1vw;
-    @include md{
-    width: 40ch;
 
-        font-size: small;
-    }
-}
-.chatQuestionSection{
-    @include md{
-        position: relative;
-        left: -2vw;
-        }
-}
 .userBotChatImg{
     border-radius: 50%;
     height: 6vh;
+   @include xxl{
+    height: 4vh;
+   }
     border: 1px solid rgb(225, 223, 223);
     padding: 1px;
     aspect-ratio: 1/1;

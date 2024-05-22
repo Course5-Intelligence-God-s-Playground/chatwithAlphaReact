@@ -24,16 +24,7 @@ function Home() {
         setChatboxShow(true)
     }
 
-    useEffect(() => {
-        let element = document.getElementsByClassName('chatBot')[0]
-        
-        if (chatboxShow) {
-            element.style.display = 'none'
-
-        }
-        else element.style.display = 'block'
-
-    }, [chatboxShow])
+   
 
 
     function startOptMouseEnterHandle() {
@@ -73,7 +64,7 @@ function Home() {
                 {/* <div className='mainfrst bg-white rounded border' onMouseEnter={startOptMouseEnterHandle} onMouseLeave={startOptMouseLeaveHandle}><HomeStartOptions /></div> */}
                 <div className='mainfrst bg-white rounded border'><HomeStartOptions /></div>
 
-                    <div className='holdercup'>
+                    <div className='holdercup' style={!chatboxShow?{opacity:1}:{opacity:0}}>
 
                       
                        <div className='mainscnd bg-white border rounded' >
@@ -91,11 +82,11 @@ function Home() {
             </div>
 
             {/* chat bot icon  */}
-            <div className='chatBot' >
+           {!chatboxShow && <div className='chatBot' >
             
                 <img src={chatBot_text} className='chatBot_Img'onMouseEnter={hoverChatBot} onMouseLeave={normalChatBot} onClick={chatbotClickHandle} data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></img>
                 <img src={chatBot_image} className='chatBot_text' onClick={chatbotClickHandle} data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></img>
-             </div>
+             </div>}
 
             <div className='chatmodalHold'><ChatModal setChatboxShow={setChatboxShow} /></div>
 

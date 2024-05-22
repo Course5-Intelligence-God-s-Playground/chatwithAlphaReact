@@ -78,16 +78,16 @@ function StoryBoard(prop) {
                             {
                                 <div> {/* section*/}
                                     <div className='my-2 fw-bold cardSectionTitle' >{Object.keys(val)[0]}</div>
-                                    <div className='storyboardCnt gap-2 justify-content-evenly'> {/*  card holder */}
+                                    <div className='storyboardCnt  justify-content-evenly'> {/*  card holder */}
                                         {
                                             val[Object.keys(val)].map((itm) => (
-                                                <div className='storyboardCard border rounded d-flex flex-column ' ref={divRef}>
+                                                <div className='storyboardCard border rounded d-flex flex-column justify-content-evenly' ref={divRef}>
                                                     <div className='fw-medium storyboardCardTitle text-center'>
                                                         {itm.title}
                                                     </div>
                                                     <div className='storyboardCardEnd d-flex align-items-center justify-content-evenly'>
                                                         <div className='d-flex flex-column align-items-center'>
-                                                            <div className='storybrdNum fs-6' >{itm.value1}%</div>
+                                                            <div className='storybrdNum ' >{itm.value1}%</div>
                                                             <div className='storybrdNum' style={itm.value2 >= 0 ? { color: 'green' } : { color: 'red' }}>
                                                                 {
                                                                     itm.value2 >= 0 ? <>+{itm.value2}%</> : <>-{itm.value2}%</>

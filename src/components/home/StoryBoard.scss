@@ -1,14 +1,21 @@
 $md: 768px;
-
+$xxl: 1400px;
 //For Medium
 @mixin md {
-    @media screen and (max-width: ($md)) {
-        @content;
-    }
+  @media screen and (max-width: ($md)) {
+    @content;
+  }
 }
-
+  @mixin xxl {
+    @media screen and (min-width: $xxl) {
+      @content;
+    }
+  }
 .storybrdHdng-StartTime {
     font-size: smaller;
+    @include xxl{
+        font-size: medium;
+    }
 }
 
 .storybrdHdng-StartText {
@@ -34,6 +41,8 @@ $md: 768px;
 
 .storyboardCnt {
     display: flex;
+    column-gap: 1vw;
+    row-gap: 3vh;
     flex-wrap: wrap;
 }
 .storyCardSectionContainer{
@@ -63,13 +72,16 @@ $md: 768px;
 
 .storyboardCardTitle {
     text-wrap: nowrap;
-    font-size: small;
+    font-size: smaller;
 
 }
 
-.storybrdNum {
-    font-size: small;
+.storybrdNum ,.cardSectionTitle{
+    font-size: smaller;
     font-weight: bold;
+    @include xxl{
+        font-size: large;
+    }
 }
 
 .storyBoardImage {
@@ -85,7 +97,9 @@ $md: 768px;
     background-repeat: no-repeat;
     border: none;
     padding: 5px 20px;
-    font-size: 16px;
+    @include xxl{
+        font-size:1vw;
+    }
     cursor: pointer;
     position: relative;
     overflow: hidden;

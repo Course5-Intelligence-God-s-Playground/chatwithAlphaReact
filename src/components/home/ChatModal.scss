@@ -1,20 +1,99 @@
 $md: 768px;
+$xxl: 1400px;
+$mob: 576px;
+
+$lg: 992px;
 //For Medium
 @mixin md {
   @media screen and (max-width: ($md)) {
     @content;
   }
 }
+@mixin lg {
+    @media screen and (max-width: ($lg)) {
+      @content;
+    }
+  }
+@mixin mob {
+    @media screen and (max-width: ($mob)) {
+      @content;
+    }
+  }
+  @mixin xxl {
+    @media screen and (min-width: $xxl) {
+      @content;
+    }
+  }
+
+
 #offcanvasScrolling {
     height: 85vh;
     width: 93vw;
     margin-top: 14vh;
     font-family: 'Segoe UI';
+    border-radius: 1.5vw 0 1.5vw 1.5vw;
     @include md{
         width: 100vw;
+       
+
+    }
+    @include xxl{
+        margin-top: 12.5vh;
+        border-radius: 1vw 0 1vw 1vw;
+    }
+   
+}
+.offcanvas-header{
+    // background-color: red;
+    display: flex;
+   
+    // height: 20vh;
+    @include mob{
+        
+        flex-direction: column;
+    }
+  
+}
+.answer-feature-iconhold{
+    transform: scale(0.9);
+}
+.offcanvas-right{
+    display: flex;
+  
+    
+   width: 50%;
+    
+    @include md{
+        flex-direction: row;
+        width: 50%;
+    }
+    @include lg{
+        width: 60%;
+    }
+    @include xxl{
+        flex-direction: row;
+        width: 50%;
+    }
+    @include mob{
+        width: 100%;
+        
     }
 }
-
+.nexusImgChat{
+    height: 5vh;
+    @include mob{
+        height: 1vh;
+    }
+    @include md{
+        height: 3vh;
+    }
+    @include xxl{
+        height: 5vh;
+    }
+}
+.offcanvas-header-frst{
+    
+}
 .offcanvas-selectLabel{
     display: block;
     @include md{
@@ -36,6 +115,10 @@ $md: 768px;
 }
 .modalClose,.clearchatbtn{
     transform: scale(0.8);
+    @include xxl{
+        transform: scale(1);
+        margin-left: 1vw;
+    }
 }
 .chatbody {
     height: 100%;
@@ -143,15 +226,7 @@ position: absolute;
     }
 }
 
-.nexusImgChat{
-    height: 4vh;
-    // width: 9vw;
-    @include md{
-        height:1.5vh;
-        // width: 20vw;
-    }
 
-}
 
 
 .form-select{
@@ -192,8 +267,12 @@ position: absolute;
         transform: scale(0.7);
     }
     span{
+       
         @include md{
-            font-size: x-small;
+            font-size: small;
+        }
+        @include xxl{
+            font-size: medium;
         }
     }
 }

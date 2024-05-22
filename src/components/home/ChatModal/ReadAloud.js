@@ -24,6 +24,10 @@ export const ReadAloud = (prop) => {
 
         }
         const speechSynthesis = window.speechSynthesis;
+       
+
+      
+        
         if (speechSynthesis.speaking || speechSynthesis.pending) {
             speechSynthesis.cancel(); // Stop existing speech
         }
@@ -34,8 +38,32 @@ export const ReadAloud = (prop) => {
             userClickedunmuteElement?.classList?.add('d-none')
             let strippedText = prop?.answer?.chat_text.replace(/<[^>]*>/g, '');
             const utterance = new SpeechSynthesisUtterance(strippedText);
-            utterance.rate = 1.75; // Increase the rate to 1.5 for faster speech
+            let voices = speechSynthesis.getVoices();
+
+            // If voices are not available yet, wait for the 'voiceschanged' event
+            if (voices.length === 0) {
+                speechSynthesis.onvoiceschanged = () => {
+                    
+                    const enUSVoices = voices.filter(voice => (voice.lang == 'en-US' || voice.name.includes('English' || voice.name.includes('United States'))));
+            console.log(enUSVoices)
+                    const selectedVoice = enUSVoices.length > 0 ? enUSVoices[0] : null;
+    
+           
+            utterance.rate = 1.95; // Increase the rate to 1.5 for faster speech
+            utterance.voice = selectedVoice;
             speechSynthesis.speak(utterance);
+                };
+            } else {
+                  
+                    const enUSVoices = voices.filter(voice => (voice.lang == 'en-US' || voice.name.includes('English' || voice.name.includes('United States'))));
+            const selectedVoice = enUSVoices.length > 0 ? enUSVoices[0] : null;
+    
+           
+            utterance.rate = 1.95; // Increase the rate to 1.5 for faster speech
+            utterance.voice = selectedVoice;
+            speechSynthesis.speak(utterance);
+            }
+            
             utterance.onend = () => {
                 userClickedElement?.classList?.add('d-none')
                 userClickedunmuteElement?.classList?.remove('d-none')

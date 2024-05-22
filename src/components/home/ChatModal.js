@@ -154,7 +154,7 @@ function ChatModal(prop) {
 
     function webso(resp,currentDate,isRegenerate) {
 
-        // const ws = new WebSocket("ws://0.tcp.in.ngrok.io:18820/ws/chat/");
+        // const ws = new WebSocket("ws://0.tcp.in.ngrok.io:14182/ws/chat/");
         const ws = new WebSocket("wss://pocai-botbrainiacs.azurewebsites.net/ws/chat/");
 
         ws.onopen = function () {
@@ -539,22 +539,23 @@ function ChatModal(prop) {
                 !getTableViewRecoil ?
                     <>
                         <div class="offcanvas-header border-bottom">
-                            <div className='offcanvas-headerSection1 d-flex  align-items-center'>
-                                <img src={pocaAImg} className='nexusImgChat'></img>
-
-
-                            </div>
-
-                            <div className='toggleBtn d-flex align-items-center gap-1 ms-4'>
+                          
+                          <img src={pocaAImg} className='nexusImgChat'></img>
+                          <div className='offcanvas-right justify-content-between'>
+                
+                          <div className='toggleBtn d-flex align-items-center gap-1 ms-4'>
                                 <span className='fw-semibold' style={{ color: '#612fa3' }}>Standard POCA</span>
                                 <Switch offColor='#612FA3' className='switchBtn' uncheckedIcon={false} checkedIcon={false} onChange={switchChangehandle} checked={fieldvalues.scoring_type == 'Customer Journey POCA scoring (Discover, Learn, Buy & Engage)' ? true : false} />
                                 <span className='fw-semibold text-success'>Customer Journey POCA</span>
                             </div>
-                           
-                            <div className='d-flex align-items-center justify-content-end  w-25'>
+                          <div className='d-flex align-items-center gap-2 justify-content-end  w-25 offcanvas-header-buttons'>
                                 <button className='btn btn-outline-secondary btn-sm clearchatbtn d-flex align-items-center' onClick={clearAllChatsHandler}>Clear</button>
                                 <i class="bi bi-x-circle h4 modalClose mt-1" data-bs-dismiss="offcanvas" aria-label="Close" onClick={() => { prop.setChatboxShow(false) }}></i>
                             </div>
+                        
+                          </div>
+                         
+
                         </div>
                         <div class="offcanvas-body">
                             <div className='chatbody d-flex flex-column'>
@@ -585,7 +586,7 @@ function ChatModal(prop) {
 
                                     </li>
                                     {/* type question here  */}
-                                    <div className='chatbodyinput w-100 d-flex align-items-center gap-4'>
+                                    <div className='chatbodyinput w-100 d-flex align-items-center justify-content-center gap-4'>
                                         <textarea className='chatbodyinput-txtarea ps-2' placeholder='Ask me anything...' value={fieldvalues.question} onChange={textAreaChangeHandle} onKeyDown={!isloading ? sendHandleonEnterKey : null} autoFocus={true} disabled={getfeedbackEmailContainer}></textarea>
                                         <i class="bi bi-send fs-4 text-primary chatbodyinputSendIcon" onClick={!isloading ? () => { sendQuestion(false,null) } : null}></i>
                                     </div>

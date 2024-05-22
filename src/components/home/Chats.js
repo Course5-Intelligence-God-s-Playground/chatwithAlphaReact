@@ -71,7 +71,7 @@ function Chats(prop) {
 
   
     return (
-        <div className='chatsContainer px-5 pt-1'>
+        <div className='chatsContainer pt-1'>
           
             {   prop?.qaChats?.length==0?
                
