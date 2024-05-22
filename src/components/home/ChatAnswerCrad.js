@@ -106,7 +106,7 @@ function ChatAnswerCrad(prop) {
 
   useEffect(() => {
     const successTime = localStorage.getItem(`${prop?.answer?.id}SuccessTime`)
-
+    
     const timeDifferenceInSeconds = ((new Date(successTime)) - (new Date(prop.answer.time_stamp))) / 1000;
 
     let timeDisplay;
@@ -164,7 +164,7 @@ function ChatAnswerCrad(prop) {
     <div className='d-flex flex-column align-items-end'>
       <div className=' d-flex gap-2'>
         <div>
-          <div className="chatAnswer px-3 py-2 d-flex align-items-center">
+          <div className="chatAnswer ps-3 p-2 d-flex align-items-center">
             {/* <span className='newElement'> </span> */}
 
             {/* <TextAnimator dynamicText ={prop.new ? currentAnswer : prop.answer.chat_text}/> */}

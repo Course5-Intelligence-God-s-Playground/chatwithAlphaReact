@@ -86,7 +86,7 @@ function Chats(prop) {
                       <div className=' d-flex gap-2 chatQuestionSection'>
                         <img className='userBotChatImg' src={userImage}/>
                          <div>
-                       <div className='chatQuestion rounded px-2 d-flex align-items-center'>{item.chat_text}</div>
+                       <div className='chatQuestion rounded p-2 d-flex align-items-center'>{item.chat_text}</div>
                        <span className='timeview text-muted'>{ new Date(item.time_stamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit'})}</span>
                        </div>
                       </div>

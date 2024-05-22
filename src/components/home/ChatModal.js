@@ -110,7 +110,6 @@ function ChatModal(prop) {
                 }
             }
             else recentChatBody = fieldvalues
-            console.log(recentChatBody)
             //sending answer to backend
             try {
                 const req = await fetch(Server.recentChat, {
@@ -380,7 +379,7 @@ function ChatModal(prop) {
             }
             else if(data.type == 'question_specificity'){ //i sgeneral question or not data
                 setIsGeneralQue(data.is_general_answer)
-               
+                localStorage.removeItem(`${resp.id}SuccessTime`)
                 localStorage.setItem(`${resp.id}SuccessTime`,new Date())
             // setWsTimeTaken({...wsnTimeTaken,endTime:new Date()})
             }
@@ -541,7 +540,7 @@ function ChatModal(prop) {
                         <div class="offcanvas-header border-bottom">
                           
                           <img src={pocaAImg} className='nexusImgChat'></img>
-                          <div className='offcanvas-right justify-content-between'>
+                          <div className='offcanvas-right justify-content-end'>
                 
                           <div className='toggleBtn d-flex align-items-center gap-1 ms-4'>
                                 <span className='fw-semibold' style={{ color: '#612fa3' }}>Standard POCA</span>
@@ -587,7 +586,7 @@ function ChatModal(prop) {
                                     </li>
                                     {/* type question here  */}
                                     <div className='chatbodyinput w-100 d-flex align-items-center justify-content-center gap-4'>
-                                        <textarea className='chatbodyinput-txtarea ps-2' placeholder='Ask me anything...' value={fieldvalues.question} onChange={textAreaChangeHandle} onKeyDown={!isloading ? sendHandleonEnterKey : null} autoFocus={true} disabled={getfeedbackEmailContainer}></textarea>
+                                        <textarea className='chatbodyinput-txtarea p-2 border rounded' placeholder='Ask me anything...' value={fieldvalues.question} onChange={textAreaChangeHandle} onKeyDown={!isloading ? sendHandleonEnterKey : null} autoFocus={true} disabled={getfeedbackEmailContainer}></textarea>
                                         <i class="bi bi-send fs-4 text-primary chatbodyinputSendIcon" onClick={!isloading ? () => { sendQuestion(false,null) } : null}></i>
                                     </div>
                                 </div>

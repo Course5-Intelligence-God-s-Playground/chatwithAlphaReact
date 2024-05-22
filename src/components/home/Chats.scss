@@ -26,7 +26,7 @@ $lg: 992px;
 .chatQuestion,.chatAnswer{
     // width: 60ch;
    
-    min-height: 10vh;
+    // min-height: 10vh;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     font-family: "Segoe UI";
    
@@ -79,9 +79,9 @@ $lg: 992px;
 
 .userBotChatImg{
     border-radius: 50%;
-    height: 6vh;
+    height: 5vh;
    @include xxl{
-    height: 4vh;
+    height: 3vh;
    }
     border: 1px solid rgb(225, 223, 223);
     padding: 1px;

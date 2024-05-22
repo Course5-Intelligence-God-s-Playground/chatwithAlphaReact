@@ -1,5 +1,11 @@
 $md: 768px;
 //For Medium
+$xxl: 1400px;
+@mixin xxl {
+    @media screen and (min-width: $xxl) {
+      @content;
+    }
+  }
 @mixin md {
   @media screen and (max-width: ($md)) {
     @content;
@@ -9,11 +15,12 @@ $md: 768px;
     background-color: #fafbfd;
     display: flex;
     flex-direction: row;
+    
     @include md{
         flex-direction: column;
         gap: 1vh;
         // background-color: black;
-        width: 100%;
+        // width: 100%;
         position: relative;
         left: 2%;
     }
@@ -28,6 +35,9 @@ $md: 768px;
     &:hover{
     border: 1px solid grey;
 
+    }
+    @include xxl{
+        width: 25vw;
     }
     @include md{
     width: 100%;

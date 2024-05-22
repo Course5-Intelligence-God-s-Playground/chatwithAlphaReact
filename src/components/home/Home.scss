@@ -251,6 +251,7 @@ $md: 768px;
   left: 6vw;
   transform: scale(0.8);
   cursor: pointer;
+  mix-blend-mode: multiply;
   @include md{
   left: 2vw;
   bottom: 0vh;
