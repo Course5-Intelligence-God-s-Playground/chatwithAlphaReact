@@ -25,7 +25,7 @@ function ChatModal(prop) {
 
     
     // websocket 
-    const [isRenerate,setIsRegenerate] = useState(false)
+    const [isRegnerate,setIsRegenerate] = useState(false)
     const [isGeneralQue,setIsGeneralQue] = useState(false)
     const [wsnTimeTaken,setWsTimeTaken] = useState({
         startTime:null,
@@ -82,9 +82,20 @@ function ChatModal(prop) {
       
     }
     async function sendQuestion(isRegenerate,oldQuestionId) {  //sends query to backnd which is to be sent to live server/ai
-        
+       
         if (fieldvalues.question != '' || isRegenerate==true) {
-            setIsRegenerate(isRegenerate)
+            if(isRegenerate){
+                setIsRegenerate(true)
+                setChatAnswerComponentData( {
+                    scrollType:oldQuestionId.replace('question',''),//stores user current scroll position in chatbot page so to retun to same spot after user returns from expanded table view
+                    ShowAnimation:true, //chatbot answer text animation state, animation will appear only once and not after user enters from expanded table view page
+                    closeBtnClick:!getChatAnswerComponentData.closeBtnClick //when user clicks close expanded table view button 
+                })
+            }
+            else{
+                setIsRegenerate(false)
+            }
+            
             //storing question
             const currentDate = new Date()
             setWsTimeTaken({...wsnTimeTaken,startTime:currentDate})
@@ -340,7 +351,7 @@ function ChatModal(prop) {
                         });
                     }
                 });
-            setIsRegenerate(false)
+            // setIsRegenerate(false)
             
             }
             else if(data.type == 'suggestive_questions_closed'){
@@ -409,9 +420,11 @@ function ChatModal(prop) {
     useEffect(() => {
 
         try {
-           
-                let lastReq = qaChats[qaChats.length - 1]
+            let lastReq = qaChats[qaChats.length - 1]
             const scrollableDiv = document.getElementsByClassName('chatbodyqa')[0]
+            console.log(isRegnerate)
+           if(!isRegnerate){
+           
             if (lastReq.chat_type == 'Question') {
 
                 // Scroll to the end of the scrollable div
@@ -423,11 +436,13 @@ function ChatModal(prop) {
             }
             for (let I = 0; I < qaChats.length; I++) {
                 if(qaChats[I].id){
-
+    
                 }
                 
             }
-            
+           }
+        
+           
         } catch (error) {
 
         }
@@ -470,7 +485,7 @@ function ChatModal(prop) {
     }
 
     function switchChangehandle() {
-        
+        setIsRegenerate(false)
         let chatText;
         if (fieldvalues.scoring_type === 'Customer Journey POCA scoring (Discover, Learn, Buy & Engage)') {
             setValues({ ...fieldvalues, scoring_type: 'Standard POCA scoring (Marketing, Omnichannel, Ecommerce & Subscription)' })
