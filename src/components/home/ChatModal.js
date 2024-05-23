@@ -560,7 +560,7 @@ function ChatModal(prop) {
             {
                 !getTableViewRecoil ?
                     <>  
-                    {/* <NavBarHome /> */}
+                 
                         <div class="offcanvas-header border-bottom">
                           
                           <img src={pocaAImg} className='nexusImgChat'></img>

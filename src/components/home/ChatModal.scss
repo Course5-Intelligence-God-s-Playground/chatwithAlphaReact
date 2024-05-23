@@ -278,7 +278,7 @@ position: absolute;
     span{
        
         @include md{
-            font-size: small;
+            font-size: smaller;
         }
         @include xxl{
             font-size: medium;
