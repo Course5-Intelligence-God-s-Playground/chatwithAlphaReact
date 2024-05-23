@@ -43,21 +43,31 @@ $xxl: 1400px;
     height: 60vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow: hidden;
+    padding-top: 1vh;
+    gap: 3vh;
     @include md{
-        height: fit-content;
+     padding-top: 0vh;
+        gap: 0.5vh;
     }
+    @include xxl{
+        padding-top: 3vh;
+        gap: 3vh;
+    } 
 }
 .executiveInfonumber{
     background-color: rgb(242, 242, 242);
-    font-size: smaller;
+    font-size: small;
     @include xxl{
         font-size: medium;
     } 
  
+    @include md{
+        font-size: smaller;
     
+        }
 }
 .executiveInfoScndLine,.executiveInfoThirdLine,.executiveInfoul,.executiveInfo-instrction{
-    font-size: smaller;
+    font-size: small;
     @include md{
     font-size: smaller;
 

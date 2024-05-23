@@ -27,11 +27,14 @@ $xxl: 1400px;
 }
 .suggestion{
     background-color: #0988e2;
-    font-size: small;
+    font-size: smaller;
     cursor: pointer;
     color: white;
     width: 35vw;
     border-radius: 12px;
+    &:active{
+        opacity: 0;
+    }
     &:hover{
     text-decoration: underline;
 
@@ -41,7 +44,7 @@ $xxl: 1400px;
     }
     @include md{
     width: 100%;
-
+        font-size: x-small;
     }
 }
 .sugesttryaskTxt{
@@ -54,6 +57,8 @@ $xxl: 1400px;
     position: relative;
    width: 80vw;
    @include md{
+   width: 100%;
+
     gap: 2vh;
    }
 }
@@ -61,15 +66,16 @@ $xxl: 1400px;
     display: flex;
     flex-direction: column;
     @include md{
-        width: 90%;
+     width: 100%;
+        
         position: relative;
-        left: 5%;
+        // left: -15%;
     }
 }
 .chartHolder{
     @include md{
         display: flex;
-    justify-content: end;
+    // justify-content: end;
     }
 }
 .ChartViewCnt{

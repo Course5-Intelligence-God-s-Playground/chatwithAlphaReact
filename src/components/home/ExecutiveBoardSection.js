@@ -13,7 +13,7 @@ function ExecutiveBoardSection() {
                       
                     </li>
                     <li class="list-group-item">
-                        <div className='executiveInfo d-flex flex-column gap-4 pt-3'>
+                        <div className='executiveInfo d-flex flex-column'>
                             <ol className='executiveInfo-instrction text-danger fw-bold'>Instructions:<li className='executiveInfo-instrctionSm fw-normal ps-1 '>Ensure clarity and specificity when framing your questions to receive swift and effective answers.</li>
                             <li className='executiveInfo-instrctionSm fw-normal ps-1'>Please choose the 'POCA Scoring System' option in the chat window's toggle feature, Note that 'DLBE' is the default selection.</li></ol>
                             <span className='executiveInfoScndLine '>Welcome to Chat with Pi! <br/>POCA is updated with FY24 data now. I'm your AI assistant and ask me anything about POCA.</span>

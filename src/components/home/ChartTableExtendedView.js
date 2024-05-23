@@ -35,7 +35,9 @@ function ChartTableExtendedView() {
                       <tr>
                         {
                           getTableDataRecoil.modelOutput[oph].map((items) => (
-                            <td className='text-center' style={typeof items == 'number' ? items >= 0 ? {} : { color: 'red' } : {}}>{typeof items == 'number' ? <b>{items + '%'}</b> : items}</td>
+                            <td className='text-center' style={typeof items == 'number' ? items >= 0 ? {} : { color: 'red' } : {}}>{typeof items == 'number' ? 
+                            oph.toLowerCase().includes('rank')?<b>{items}</b>:<b>{items + '%'}</b> 
+                            : items}</td>
                           ))
                         }
                       </tr>
@@ -51,7 +53,9 @@ function ChartTableExtendedView() {
                   {headers.map((val, index) => (
                     <tr>
                       <td key={index} className='seriesarrayFrstCol fw-semibold text-white w-50'>{val}</td>
-                      <td key={index} className='text-center' style={typeof getTableDataRecoil.modelOutput[val] == 'number' ? getTableDataRecoil.modelOutput[val] >= 0 ? {} : { color: 'red' } : {}}>{typeof getTableDataRecoil.modelOutput[val] == 'number' ? <b>{getTableDataRecoil.modelOutput[val] + '%'}</b> : getTableDataRecoil.modelOutput[val]}</td></tr>
+                      <td key={index} className='text-center' style={typeof getTableDataRecoil.modelOutput[val] == 'number' ? getTableDataRecoil.modelOutput[val] >= 0 ? {} : { color: 'red' } : {}}>{typeof getTableDataRecoil.modelOutput[val] == 'number' ? 
+                     val.toLowerCase().includes('rank')? <b>{getTableDataRecoil.modelOutput[val] }</b> : <b>{getTableDataRecoil.modelOutput[val]+ '%' }</b> 
+                      : getTableDataRecoil.modelOutput[val]}</td></tr>
                   ))}
                 </tbody>
               </table>

@@ -10,6 +10,7 @@ import ChartTableExtendedView from './ChartTableExtendedView';
 import { ChatAnswerComponentData } from '../utilites/ChatAnswerCradRecoilData';
 import Feedback from './ChatModal/Feedback';
 import Switch from "react-switch";
+import NavBarHome from './NavBarHome';
 function ChatModal(prop) {
     const containerRef = useRef(null);
     const getTableViewRecoil = useRecoilValue(TableViewRecoil)
@@ -553,12 +554,13 @@ function ChatModal(prop) {
     }
    
     return (
-        <div class="offcanvas border offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
 
 
             {
                 !getTableViewRecoil ?
-                    <>
+                    <>  
+                    {/* <NavBarHome /> */}
                         <div class="offcanvas-header border-bottom">
                           
                           <img src={pocaAImg} className='nexusImgChat'></img>
@@ -622,7 +624,7 @@ function ChatModal(prop) {
 
                     :
 
-                    <div className='ExpandedTableViewCnt overflow-hidden'>
+                    <div className='ExpandedTableViewCnt p-2 overflow-hidden'>
                         <ChartTableExtendedView />
                     </div>
             }

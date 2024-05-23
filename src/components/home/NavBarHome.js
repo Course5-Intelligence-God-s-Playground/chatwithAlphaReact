@@ -1,23 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './NavBarHome.scss'
 import HomeTitleImg from '../assets/newLogo.png'
-// import HomeTitleImg from '../assets/newLogo.png'
 import pocaAImg from '../assets/nexus.png'
-import NavBarHomeUser from './NavBarHomeUser'
-function NavBarHome(prop) {
-    const [inputvalue, setInputvalue] = useState(null)
-    function inputChangeHandler(e) {
-        setInputvalue(e.target.value)
-        e.target.value == '' ? setInputvalue(null) : setInputvalue(e.target.value)
 
-    }
-    function logoMenuMouseEnterHandle(){
-prop.setmenuHovered(true)
-    }
-    function logoMenuMouseLeaveHandle(){
-        prop.setmenuHovered(false)
+function NavBarHome() {
 
-    }
+   
+ 
     return (
         <div className='navHome-container'>
             <ul className='navHome-options bg-white  d-flex align-items-center justify-content-between gap-5 ps-0'>

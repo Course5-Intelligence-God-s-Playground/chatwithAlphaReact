@@ -176,7 +176,7 @@ function ChatAnswerCrad(prop) {
             <div className='answerHolder' dangerouslySetInnerHTML={{ __html: prop?.answer?.chat_text }}></div>
 
           </div>
-          <div className='answer-feature-iconhold d-flex justify-content-end w-100 gap-3 align-items-center'>
+          <div className='answer-feature-iconhold d-flex justify-content-end w-100  align-items-center'>
             {/* regenerate icon*/}
            { prop.answer?.chat_type == 'Answer' &&  <svg onClick={regenerateHandle} width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
@@ -218,7 +218,8 @@ function ChatAnswerCrad(prop) {
       {showDesign && <div className='ChartAndTableView justify-content-between'>
         <div></div>
         <div className='ChartViewCnt  rounded'><ChartView propChartView={propChartView} answer={prop?.answer} /></div>
-        {prop.answer.model_output != '' ? <div className='ChatTableViewCnt rounded'>
+        {prop.answer.model_output != '' ? 
+        <div className='ChatTableViewCnt rounded'>
           <div className='chartHolder'><ChatTableView modelOutput={prop.answer.model_output} model_output_type={prop.answer.model_output_type} ids={prop.answer.id} />
           </div>
         </div> : null}

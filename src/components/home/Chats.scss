@@ -65,12 +65,9 @@ $lg: 992px;
     }
     @include md{
         font-size: x-small;
-
-    }
-    @include mob{
         width: 40ch;
-        font-size: small;
     }
+   
 }
 
 .timeview{

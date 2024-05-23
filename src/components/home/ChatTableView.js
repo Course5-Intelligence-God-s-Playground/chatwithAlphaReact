@@ -34,7 +34,9 @@ useEffect(()=>{
                       <tr>
                         {
                           prop.modelOutput[oph].map((items) => (
-                            <td style={typeof items == 'number' ? items >=0?{textAlign:'center'}:{textAlign:'center',color:'red'} : {}}>{typeof items == 'number' ? <b>{items + '%'}</b> : items}</td>
+                            <td style={typeof items == 'number' ? items >=0?{textAlign:'center'}:{textAlign:'center',color:'red'} : {}}>{typeof items == 'number' ? 
+                            oph.toLowerCase().includes('rank')?<b>{items}</b>:<b>{items + '%'}</b> 
+                            : items}</td>
                           ))
                         }
                       </tr>
@@ -50,7 +52,9 @@ useEffect(()=>{
                   {headers.map((val, index) => (
                     <tr>
                       <td key={index} className='seriesarrayFrstCol fw-semibold text-white w-50'>{val}</td>
-                      <td key={index} style={typeof prop.modelOutput[val] == 'number' ? prop.modelOutput[val] >=0?{textAlign:'center'}:{textAlign:'center',color:'red'} : {}}>{typeof prop.modelOutput[val] == 'number' ? <b>{prop.modelOutput[val] + '%'}</b> : prop.modelOutput[val]}</td></tr>
+                      <td key={index} style={typeof prop.modelOutput[val] == 'number' ? prop.modelOutput[val] >=0?{textAlign:'center'}:{textAlign:'center',color:'red'} : {}}>{typeof prop.modelOutput[val] == 'number' ? 
+                     val.toLowerCase().includes('rank')? <b>{getTableDataRecoil.modelOutput[val] }</b> : <b>{getTableDataRecoil.modelOutput[val]+ '%' }</b> 
+                      : prop.modelOutput[val]}</td></tr>
                   ))}
                 </tbody>
               </table>

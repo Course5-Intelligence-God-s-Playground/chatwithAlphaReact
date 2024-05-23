@@ -28,13 +28,17 @@ $lg: 992px;
 
 #offcanvasScrolling {
     height: 85vh;
+    // height: 100vh;
     width: 93vw;
     margin-top: 14vh;
+    
     font-family: 'Segoe UI';
     border-radius: 1.5vw 0 1.5vw 1.5vw;
     @include md{
         width: 100vw;
-       
+    height:auto;
+  
+       background-color: transparent;
 
     }
     @include xxl{
@@ -48,14 +52,19 @@ $lg: 992px;
     display: flex;
    
     // height: 20vh;
-    @include mob{
-        
+    @include md{
+        background-color: white;
         flex-direction: column;
     }
   
 }
 .answer-feature-iconhold{
     transform: scale(0.9);
+   gap: 1vw;
+    @include md{
+    transform: scale(0.7);
+    gap: 5px;
+    }
 }
 .offcanvas-right{
     display: flex;
@@ -276,11 +285,6 @@ position: absolute;
         }
     }
 }
-
-// .ExpandedTableViewCnt{
-//     overflow: hidden !important;
-//     position: relative;
-// }
 
 
 @keyframes pulse {
