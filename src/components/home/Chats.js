@@ -10,6 +10,7 @@ function Chats(prop) {
     const getloginMailIdValue = useRecoilValue(loginMailId)
     
     useEffect(()=>{
+        console.log(prop?.qaChats)
         let userName ;
         switch (getloginMailIdValue) {
             case 'poca@course5i.com':
@@ -80,7 +81,7 @@ function Chats(prop) {
             </>
                 :
 
-                prop.qaChats.map((item)=>(
+                prop?.qaChats?.map((item)=>(
                     <div className='chatSection d-flex flex-column gap-5 pb-5'>
                        {item.chat_type=='Question'? 
                       <div className=' d-flex gap-2 chatQuestionSection'>

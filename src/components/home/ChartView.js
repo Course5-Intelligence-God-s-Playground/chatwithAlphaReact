@@ -17,7 +17,67 @@ function ChartView(prop) {
   },[])
 
 
-
+useEffect(()=>{
+  //to make chart data show numbers in % 
+  let graph_type = prop?.propChartView?.graph_type
+  if(graph_type == 'pie'){
+    setChartState({
+      ...prop.propChartView.graph_data,
+      options: {
+        ...prop.propChartView.graph_data.options,
+        tooltip: {
+          y: {
+            formatter: (val) => `${val}%`
+          }
+        }
+      }
+    })
+  }
+  else if(graph_type == 'line'){
+    setChartState({
+      ...prop.propChartView.graph_data,
+      options: {
+        ...prop.propChartView.graph_data.options,
+        yaxis: {
+          labels: {
+            formatter: (val) => `${val}%`
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          formatter: (val) => `${val}%`
+        },
+        tooltip: {
+          y: {
+            formatter: (val) => `${val}%`
+          }
+        }
+      }
+    })
+  }
+  else if(graph_type == 'bar'){
+    setChartState({
+      ...prop.propChartView.graph_data,
+      options: {
+        ...prop.propChartView.graph_data.options,
+        yaxis: {
+          labels: {
+            formatter: (val) => `${val}%`
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          formatter: (val) => `${val}%`
+        },
+        tooltip: {
+          y: {
+            formatter: (val) => `${val}%`
+          }
+        }
+      }
+    })
+  }
+},[])
 
   
   return (

@@ -155,7 +155,7 @@ function ChatModal(prop) {
 
         // const ws = new WebSocket("ws://0.tcp.in.ngrok.io:14182/ws/chat/");
         const ws = new WebSocket("wss://pocai-botbrainiacs.azurewebsites.net/ws/chat/");
-
+        
         ws.onopen = function () {
             console.log("Ws");
             ws.send(JSON.stringify({
