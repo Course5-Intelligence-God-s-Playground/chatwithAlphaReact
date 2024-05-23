@@ -33,7 +33,7 @@ $xxl: 1400px;
     width: 35vw;
     border-radius: 12px;
     &:hover{
-    border: 1px solid grey;
+    text-decoration: underline;
 
     }
     @include xxl{

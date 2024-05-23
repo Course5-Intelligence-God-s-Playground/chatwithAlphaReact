@@ -25,6 +25,7 @@ function ChatModal(prop) {
 
     
     // websocket 
+    const [timeStore,setTimeStore] = useState([])
     const [isRegnerate,setIsRegenerate] = useState(false)
     const [isGeneralQue,setIsGeneralQue] = useState(false)
     const [wsnTimeTaken,setWsTimeTaken] = useState({
@@ -209,7 +210,7 @@ function ChatModal(prop) {
             
             if (data.chunk && data.chunk != undefined && data.type == 'Answer') {
                 setIsloading(false);
-               
+                
                 let newArray = {
                     chat_text: data.chunk,
                     chat_type: "Answer",
@@ -379,9 +380,30 @@ function ChatModal(prop) {
             }
             else if(data.type == 'question_specificity'){ //i sgeneral question or not data
                 setIsGeneralQue(data.is_general_answer)
-                localStorage.removeItem(`${resp.id}SuccessTime`)
-                localStorage.setItem(`${resp.id}SuccessTime`,new Date())
-            // setWsTimeTaken({...wsnTimeTaken,endTime:new Date()})
+              
+                setTimeStore((prevChats) => {
+                    // Check if an object with the same id exists
+                    const index = prevChats.findIndex(chat => chat.id === resp.id);
+                
+                    if (index !== -1) {
+                        // Update chat_text if id exists
+                        return prevChats.map(chat => {
+                            if (chat.id === resp.id) {
+                               
+                                return {
+                                    ...chat,
+                                    time:new Date()
+                                };
+                            }
+                            else{
+                                return chat;
+                            }
+                            
+                        });
+                    }else{
+                        return [...prevChats, {id:resp.id,time:new Date()}];
+                    }
+                });
             }
             else if(data.type =='error'){
                 updateErrorMessage()
@@ -421,7 +443,7 @@ function ChatModal(prop) {
         try {
             let lastReq = qaChats[qaChats.length - 1]
             const scrollableDiv = document.getElementsByClassName('chatbodyqa')[0]
-            console.log(isRegnerate)
+            // console.log(isRegnerate)
            if(!isRegnerate){
            
             if (lastReq.chat_type == 'Question') {
@@ -563,6 +585,7 @@ function ChatModal(prop) {
                                     {
                                         !getfeedbackEmailContainer ?
                                             <Chats 
+                                            timeStore={timeStore}
                                              sendQuestion={sendQuestion}
                                             getfeedbackEmailContainerHandler={getfeedbackEmailContainerHandler} qaChats={qaChats} setValues={setValues} fieldvalues={fieldvalues} setqaChats={setqaChats} />
                                             :

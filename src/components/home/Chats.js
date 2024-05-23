@@ -10,7 +10,7 @@ function Chats(prop) {
     const getloginMailIdValue = useRecoilValue(loginMailId)
     
     useEffect(()=>{
-        console.log(prop?.qaChats)
+        // console.log(prop?.qaChats)
         let userName ;
         switch (getloginMailIdValue) {
             case 'poca@course5i.com':
@@ -96,6 +96,7 @@ function Chats(prop) {
                      
                         {
                             <ChatAnswerCrad 
+                            timeStore={prop?.timeStore}
                             sendQuestion={prop?.sendQuestion}
                             getfeedbackEmailContainerHandler={prop.getfeedbackEmailContainerHandler} answer={item} new={item.new} setValues={prop.setValues} fieldvalues={prop.fieldvalues}/>
                         }

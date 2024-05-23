@@ -21,6 +21,7 @@ function ChatAnswerCrad(prop) {
   const [showDesign, setshowDesign] = useState(false)
   const [readVoice, setReadVoice] = useState(true)
   const suggestiveHolderRef = useRef(null);
+
   const [wsTimeDiff, setWsTimeDiff] = useState(null)
   useEffect(() => {
 
@@ -105,9 +106,15 @@ function ChatAnswerCrad(prop) {
   }, [prop?.answer?.suggestive]);
 
   useEffect(() => {
-    const successTime = localStorage.getItem(`${prop?.answer?.id}SuccessTime`)
+    calculateTimeTaken()
+
+  }, [prop?.timeStore])
+
+  function calculateTimeTaken(){
     
-    const timeDifferenceInSeconds = ((new Date(successTime)) - (new Date(prop.answer.time_stamp))) / 1000;
+    let successTime = prop?.timeStore?.filter(itm=>itm.id == prop?.answer?.id)
+    
+    const timeDifferenceInSeconds = ((new Date(successTime[0]?.time)) - (new Date(prop.answer.time_stamp))) / 1000;
 
     let timeDisplay;
     if (timeDifferenceInSeconds < 60) {
@@ -119,10 +126,8 @@ function ChatAnswerCrad(prop) {
     }
 
     setWsTimeDiff(timeDisplay);
-
-
-  }, [])
-
+  
+  }
   function showFeedbackHandler() {
     prop.getfeedbackEmailContainerHandler(prop?.answer?.id, true)
 
@@ -158,7 +163,7 @@ function ChatAnswerCrad(prop) {
     
     let questionId = prop?.answer?.id+'question'
     prop?.sendQuestion(true,questionId)
-  
+    
   }
   return (
     <div className='d-flex flex-column align-items-end'>
