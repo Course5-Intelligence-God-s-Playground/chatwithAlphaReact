@@ -1,0 +1,578 @@
+$xxl: 1400px;
+
+//For Extra Extra Large
+@mixin xxl {
+  @media screen and (min-width: ($xxl)) {
+    @content;
+  }
+}
+
+$md: 768px;
+
+//For Medium
+@mixin md {
+  @media screen and (max-width: ($md)) {
+    @content;
+  }
+}
+
+.homePage {
+  background-color: #f5f6fa;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  font-family: 'Segoe UI';
+  font-size: small;
+  letter-spacing: 0.01vw;
+
+}
+
+
+.homePage-main {
+  width: 100vw;
+  height: 90vh;
+}
+
+.chatmodalHold {
+  z-index: 99999;
+  height: 60vh;
+}
+
+.homePage-maincontent {
+  display: flex;
+  position: relative;
+  top: -2vh;
+
+  @include md {
+    height: 90vh;
+  }
+}
+
+.holdercup {
+  display: flex;
+  width: 90%;
+  left: 8%;
+  top: 3vh;
+  border-radius: 25px;
+  gap: 1vw;
+  background-color: #33b0ea;
+  height: 80vh;
+  @include md{
+    left: 0%;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+
+}
+.mainscnd,.maintrd{
+  width: 50%;
+}
+.mainfrst,
+.holdercup {
+  position: absolute;
+}
+
+.maintrd {
+  border-radius: 25px;
+  @include md{
+    width: 100%;
+  }
+ 
+}
+.mainscnd{
+ 
+  @include md{
+    width: 100%;
+    height: 50%;
+  }
+ 
+}
+.mainfrst {
+  height: 85vh;
+  transition: width 0.5s;
+  overflow: hidden;
+  z-index: 9999;
+
+  @include md {
+    height: 60vh;
+  }
+}
+
+
+
+// HomeStartOptions  component 
+
+.HomeStartOptions-container {
+  list-style: none;
+  min-height: 80vh;
+  width: 17vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  // justify-content: space-around;
+  
+
+  @include md {
+    min-height: 60vh;
+  }
+
+}
+
+.home-side-option-icon {
+  height: 3vh;
+
+}
+.home-side-option{
+  height: 5vh;
+  background-color: rgb(248, 248, 248);
+  position: relative;
+  cursor: pointer;
+  &:active{
+    opacity: 0;
+  }
+  top: 6vh;
+}
+.HomeStartOption-cnt {
+  display: flex;
+  gap: 4vw;
+
+  &:hover {
+    background-color: rgb(248, 248, 248);
+
+    @include md {
+      background-color: transparent;
+
+    }
+
+  }
+}
+
+.HomeStartOption-hdng {
+  width: 9vw;
+  color: grey;
+  font-size: medium;
+  font-weight: 500;
+
+  @include md {
+    font-size: small;
+
+  }
+}
+
+.homelist {
+  border-left: 2px solid #27debf;
+  cursor: pointer;
+}
+
+.HomeStartOptionlasthdng {
+  font-size: small;
+}
+
+
+
+
+.home-side-option {
+
+  transition: background-position 0.5s;
+}
+
+.home-side-option::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -110%;
+  width: 100%;
+  height: 120%;
+  background: linear-gradient(90deg, transparent, white);
+  transform: skewX(-20deg);
+}
+
+.home-side-option {
+
+  background-position: 100% 0;
+}
+
+.home-side-option:hover::before {
+  animation: shine 1s linear;
+}
+
+@keyframes shine {
+  0% {
+    left: -110%;
+  }
+
+  50% {
+    left: 110%;
+  }
+
+  100% {
+    left: 110%;
+  }
+}
+
+
+// .chatBot {
+//   position: absolute;
+//   bottom: 2vh;
+//   left: 8vw;
+
+//   @include md {
+//     bottom:2vh;
+//   }
+
+// }
+
+
+// .chatBot_Img{
+//   mix-blend-mode: multiply;
+//   position: relative;
+//   width:12vw;
+//   top: -2.2vh;
+//   left: 1vw;
+//   cursor: pointer;
+//   @include md{
+//   width:42vw;
+//   left: -5vw;
+//     // background-color: white;
+//     // mix-blend-mode: initial;
+//   }
+// }
+
+// @keyframes chatBot_Img_ani {
+//   from {
+//     top: -11vh;
+//   }
+//   to {
+//       top: -7vh;
+//   }
+// }
+
+
+.chatBot{
+  position: absolute;
+  bottom: 5vh;
+  left: 8vw;
+  transform: scale(0.8);
+  width: 7vw;
+
+  cursor: pointer;
+  // mix-blend-mode: multiply;
+  @include md{
+  left: 2vw;
+  bottom: 0vh;
+  width: 25vw;
+
+  }
+}
+
+.chatBot_Img{
+  width: 7vw;
+  // mix-bled-mode: multiply;
+
+  @include md{
+    width: 30vw;
+  }
+
+}
+.chatBot_text{
+  width: 9vw;
+  position: relative;
+  left: -3.1vw;
+  top: -3.7vh;
+  @include md{
+    width: 35vw;
+    left: -11vw;
+    top: -3.3vh;
+  }
+}
+
+$md: 768px;
+$xxl: 1400px;
+//For Medium
+@mixin md {
+  @media screen and (max-width: ($md)) {
+    @content;
+  }
+}
+  @mixin xxl {
+    @media screen and (min-width: $xxl) {
+      @content;
+    }
+  }
+.storybrdHdng-StartTime {
+    font-size: smaller;
+    @include xxl{
+        font-size: medium;
+    }
+}
+
+.storybrdHdng-StartText {
+    border-bottom: 3px solid #27DEBF;
+}
+
+.storybrdHdng-end {
+    svg{
+        cursor: not-allowed;
+    }
+    // width: 12vw;
+    // border: 1px solid;
+    span {
+        font-size: medium;
+        user-select: none;
+    }
+
+    @include md{
+        // width: 32vw;
+    }
+
+}
+
+.storyboardCnt {
+    display: flex;
+    height: 25vh;
+    overflow-y: auto;
+    @include md{
+      overflow-y: hidden;
+    height:auto;
+      gap: 7vw;
+    }
+    @include xxl{
+      gap: 2vw;
+    }
+    // column-gap: 1vw;
+    // row-gap: 3vh;
+    flex-wrap: wrap;
+}
+.storyCardSectionContainer{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5vh;
+    gap: 4vh;
+   @include md{
+    height: 40vh;
+    overflow: scroll;
+    padding-bottom: 10vh;
+    margin-top: 0vh;
+    gap: 0vh;
+   }
+}
+
+.storyboardCards {
+    // width: 10vw;
+    height: 20vh;
+ aspect-ratio: 1;
+    // padding: 5px;
+    // flex: 0 0 33%; 
+    background-image: url('../assets/Home/storyCard.png');
+    background-size: cover;
+    background-position: center;
+    @include md {
+        flex: none;
+        height: 15vh;
+        // width: 35vw;
+    }
+    @include xxl{
+      height: 16vh;
+      transform: scale(1.1);
+
+    }
+}
+
+.storyboardCardTitle {
+    text-wrap: nowrap;
+    font-size: small;
+    @include md{
+      font-size: small;
+    }
+    @include xxl{
+      font-size: large;
+
+    }
+
+}
+.storybrdNumScnd{
+  background-color: #dae9f4;
+  font-size: x-small;
+  padding: 0.5px; 
+}
+.storybrdNum ,.cardSectionTitle{
+    font-size: small;
+    font-weight: bold;
+    @include xxl{
+        font-size: large;
+    }
+}
+
+.storyBoardImage {
+    aspect-ratio: 1;
+    width: 2vw;
+    @include md{
+        width: 6vw;
+    }
+    @include xxl{
+    width: 1.5vw;
+
+    }
+}
+
+.storyboardCard {
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    border: none;
+    // padding: 5px 20px;
+    @include xxl{
+        font-size:1vw;
+    }
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background-position 0.5s;
+}
+
+.storyboardCard::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -110%;
+    width: 50%;
+    height: 120%;
+    background: linear-gradient(90deg, transparent, white);
+    transform: skewX(-20deg);
+}
+
+.storyboardCard {
+    background-color: #f8f8fa;
+
+    background-position: 100% 0;
+}
+
+.storyboardCard:hover::before {
+    animation: shine 1s linear;
+}
+
+@keyframes shine {
+    0% {
+        left: -110%;
+    }
+
+    50% {
+        left: 110%;
+    }
+
+    100% {
+        left: 110%;
+    }
+}
+
+
+.radioItms{
+    input{
+        transform: scale(0.8);
+    }
+    span{
+        transform: scale(0.8);
+    }
+}
+
+$md: 768px;
+$xxl: 1400px;
+//For Medium
+@mixin md {
+  @media screen and (max-width: ($md)) {
+    @content;
+  }
+}
+  @mixin xxl {
+    @media screen and (min-width: $xxl) {
+      @content;
+    }
+  }
+.HomeMidCnt{
+      // background-color: red;
+    // width: 60vw;
+    @include md{
+        height: fit-content;
+        width: 100vw;
+    }
+}
+.HomeMidCnt-frst{
+      // background-color: red;
+      height: 90%;
+    overflow: hidden;
+    svg{
+        cursor: not-allowed;
+    }
+}
+.HomeMidCnt-frsthdng{
+      // background-color: red;
+      cursor: not-allowed;
+        background-color: transparent;
+        font-weight: 500;
+    opacity: 0.7;
+}
+.HomeMidCnt-frsthdngSel{
+      // background-color: red;
+      cursor: pointer;
+        border-bottom: 3px solid #27DEBF;
+    font-weight: 700;
+    opacity: 1;
+}
+.executiveInfoThirdLine-img{
+
+  height: 12vh;
+  
+  width: 40vw;
+  @include md{
+  height: 7vh;
+    width: 100%;
+  
+  }
+
+ 
+}
+.executiveInfo{
+    width: 100%;
+      // background-color: red;
+      height: 60vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    padding-top: 1vh;
+    gap: 3vh;
+    @include md{
+     padding-top: 0vh;
+        gap: 1vh;
+        font-size: small;
+      }
+    @include xxl{
+        padding-top: 3vh;
+        gap: 3vh;
+    } 
+}
+.executiveInfonumber{
+    // background-color: rgb(242, 242, 242);
+      // background-color: red;
+      font-size: small;
+    border: 1px solid black;
+    @include xxl{
+        font-size: medium;
+    } 
+ 
+    @include md{
+        font-size: smaller;
+    
+        }
+}
+.executiveInfoScndLine,.executiveInfoThirdLine,.executiveInfoul,.executiveInfo-instrction{
+      // background-color: red;
+      font-size: small;
+    @include md{
+    font-size: smaller;
+
+    }
+    @include xxl{
+        font-size: medium;
+    } 
+    
+}
+

@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import NavBarHome from './NavBarHome'
-import './Home.scss'
+import './HomeNewStyle.scss'
 import ChatModal from './ChatModal'
 import HomeStartOptions from './HomeStartOptions'
 import ExecutiveBoardSection from './ExecutiveBoardSection'
 import StoryBoard from './StoryBoard'
 import chatBot_text from '../assets/Home/chatbotani1.gif'
 import chatBot_image from '../assets/Home/chatBot_text.png'
-import HomeNew from './HomeNew'
 import Executive from './ExecutiveNew'
-function Home() {
+import StoryNew from './StoryNew'
+import botgifppt from '../assets/Home/botppt.gif'
+function HomeNew() {
     const [chatboxShow, setChatboxShow] = useState(false)
     const [menuHovered, setmenuHovered] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -50,14 +51,14 @@ function Home() {
                 {/* <div className='mainfrst bg-white rounded border' onMouseEnter={startOptMouseEnterHandle} onMouseLeave={startOptMouseLeaveHandle}><HomeStartOptions /></div> */}
                 <div className='mainfrst bg-white rounded border'><HomeStartOptions /></div>
 
-                    <div className='holdercup' style={!chatboxShow?{displey:'flex'}:{display:'none'}}>
+                    <div className='holdercup shadow' style={!chatboxShow?{displey:'flex'}:{display:'none'}}>
 
                       
-                       <div className='mainscnd bg-white border rounded' >
+                       <div className='mainscnd rounded' >
                             <Executive setIsLoading={setIsLoading} />
                         </div>
-                        <div className='maintrd bg-white px-2 rounded border'>
-                        <HomeNew setIsLoading={setIsLoading}/>
+                        <div className='maintrd bg-white px-2 border'>
+                        <StoryNew setIsLoading={setIsLoading}/>
                     </div>
                     </div >
                     
@@ -68,11 +69,14 @@ function Home() {
             </div>
 
             {/* chat bot icon  */}
-           {!chatboxShow && <div className='chatBot' >
+           {!chatboxShow && 
+           <img src={botgifppt} className='chatBot' onClick={chatbotClickHandle} data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></img>
+        //    <div className='chatBot' >
             
-                <img src={chatBot_text} className='chatBot_Img' onClick={chatbotClickHandle} data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></img>
-                <img src={chatBot_image} className='chatBot_text' onClick={chatbotClickHandle} data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></img>
-             </div>}
+        //         <img src={chatBot_text} className='chatBot_Img' onClick={chatbotClickHandle} data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></img>
+        //         <img src={chatBot_image} className='chatBot_text' onClick={chatbotClickHandle} data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></img>
+        //      </div>
+             }
 
             <div className='chatmodalHold'><ChatModal setChatboxShow={setChatboxShow} /></div>
 
@@ -85,4 +89,4 @@ function Home() {
     )
 }
 
-export default Home
+export default HomeNew
