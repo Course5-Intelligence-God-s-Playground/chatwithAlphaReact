@@ -10,7 +10,6 @@ import ChartTableExtendedView from './ChartTableExtendedView';
 import { ChatAnswerComponentData } from '../utilites/ChatAnswerCradRecoilData';
 import Feedback from './ChatModal/Feedback';
 import Switch from "react-switch";
-import NavBarHome from './NavBarHome';
 function ChatModal(prop) {
     const containerRef = useRef(null);
     const getTableViewRecoil = useRecoilValue(TableViewRecoil)
@@ -27,6 +26,7 @@ function ChatModal(prop) {
     
     // websocket 
     const [timeStore,setTimeStore] = useState([])
+    const [regenerateQueId,setRegenerateQueId] = useState(null)
     const [isRegnerate,setIsRegenerate] = useState(false)
     const [isGeneralQue,setIsGeneralQue] = useState(false)
     const [wsnTimeTaken,setWsTimeTaken] = useState({
@@ -88,6 +88,10 @@ function ChatModal(prop) {
         if (fieldvalues.question != '' || isRegenerate==true) {
             if(isRegenerate){
                 setIsRegenerate(true)
+                if(qaChats[qaChats.length - 1]?.id == oldQuestionId.replace('question','')){ // to check if regenerating answer is last answer or not
+                setRegenerateQueId(oldQuestionId.replace('question',''))
+
+                }
                 setChatAnswerComponentData( {
                     scrollType:oldQuestionId.replace('question',''),//stores user current scroll position in chatbot page so to retun to same spot after user returns from expanded table view
                     ShowAnimation:true, //chatbot answer text animation state, animation will appear only once and not after user enters from expanded table view page
@@ -356,7 +360,7 @@ function ChatModal(prop) {
             
             }
             else if(data.type == 'suggestive_questions_closed'){
-               
+                setRegenerateQueId(null)
                 setqaChats((prevChats) => {
                     // Check if an object with the same id exists
                     const index = prevChats.findIndex(chat => chat.id === resp.id);
@@ -407,7 +411,14 @@ function ChatModal(prop) {
                 });
             }
             else if(data.type =='error'){
-                updateErrorMessage()
+                qaChats.forEach((itm)=>{
+                    if(itm?.id == resp.id){
+                            if(!itm.suggestive_completed){
+                                updateErrorMessage()
+
+                            }
+                    }
+                })
             
             }
            } catch (error) {
@@ -445,7 +456,7 @@ function ChatModal(prop) {
             let lastReq = qaChats[qaChats.length - 1]
             const scrollableDiv = document.getElementsByClassName('chatbodyqa')[0]
             // console.log(isRegnerate)
-           if(!isRegnerate){
+           if(!isRegnerate || regenerateQueId!=null){
            
             if (lastReq.chat_type == 'Question') {
 
@@ -508,6 +519,12 @@ function ChatModal(prop) {
 
     function switchChangehandle() {
         setIsRegenerate(false)
+        let errorIdval = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000
+        setChatAnswerComponentData( {
+            scrollType:errorIdval,//stores user current scroll position in chatbot page so to retun to same spot after user returns from expanded table view
+            ShowAnimation:true, //chatbot answer text animation state, animation will appear only once and not after user enters from expanded table view page
+            closeBtnClick:!getChatAnswerComponentData.closeBtnClick //when user clicks close expanded table view button 
+        })
         let chatText;
         if (fieldvalues.scoring_type === 'Customer Journey POCA scoring (Discover, Learn, Buy & Engage)') {
             setValues({ ...fieldvalues, scoring_type: 'Standard POCA scoring (Marketing, Omnichannel, Ecommerce & Subscription)' })
@@ -518,7 +535,7 @@ function ChatModal(prop) {
             chatText = '<b className=`fw-bold`>You have Selected: </b>Customer Journey POCA scoring system (Discover, Learn, Buy & Engage)'
         }
         const currentDate = new Date()
-        let errorIdval = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000
+     
         let array = [
 
             {
@@ -540,11 +557,23 @@ function ChatModal(prop) {
             }
         ]
 
-        setqaChats((prevChats) => {
-            const updatedChats = [...prevChats, ...array];
-         
-            return updatedChats;
-        });
+        console.log(qaChats[qaChats.length -1].chat_type)
+        if(qaChats[qaChats.length -1].chat_type == 'msg'){
+            // if previous response is message then replace existing repsonse itself
+            setqaChats((prevChats) => {
+                const updatedChats = [...prevChats];
+                updatedChats[updatedChats.length - 1] = array[0];
+                return updatedChats;
+            });
+        }
+        else{
+            setqaChats((prevChats) => {
+                const updatedChats = [...prevChats, ...array];
+             
+                return updatedChats;
+            });
+        }
+        
     }
 
     function getfeedbackEmailContainerHandler(respId,feedBackState){

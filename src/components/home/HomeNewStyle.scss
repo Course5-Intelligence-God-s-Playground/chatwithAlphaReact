@@ -27,7 +27,39 @@ $md: 768px;
 
 }
 
+.question-container-wrap-cover{
+  display: flex;
+  position: relative;
+  width: 70%;
+  gap: 48%;
 
+  @include xxl{
+  width: 90%;
+
+  }
+  // justify-content: space-between;
+  @include xxl{
+    gap: 34%;
+  }
+  @include md{
+    display: none;
+  }
+}
+
+.question-text{
+  font-size: smaller;
+  color: white;
+}
+.question-text,.question-img{
+  position: absolute;
+  aspect-ratio: 2/1;
+  height: 13vh;
+  @include xxl{
+  height: 10vh;
+
+  }
+  // background-color: red;
+}
 .homePage-main {
   width: 100vw;
   height: 90vh;
@@ -212,50 +244,18 @@ $md: 768px;
 }
 
 
-// .chatBot {
-//   position: absolute;
-//   bottom: 2vh;
-//   left: 8vw;
-
-//   @include md {
-//     bottom:2vh;
-//   }
-
-// }
-
-
-// .chatBot_Img{
-//   mix-blend-mode: multiply;
-//   position: relative;
-//   width:12vw;
-//   top: -2.2vh;
-//   left: 1vw;
-//   cursor: pointer;
-//   @include md{
-//   width:42vw;
-//   left: -5vw;
-//     // background-color: white;
-//     // mix-blend-mode: initial;
-//   }
-// }
-
-// @keyframes chatBot_Img_ani {
-//   from {
-//     top: -11vh;
-//   }
-//   to {
-//       top: -7vh;
-//   }
-// }
-
-
 .chatBot{
   position: absolute;
-  bottom: 5vh;
-  left: 8vw;
+  bottom: 3vh;
+  left: 90vw;
   transform: scale(0.8);
   width: 7vw;
+  @include xxl{
+  bottom: 7vh;
+  left: 90vw;
+  transform: scale(1);
 
+  }
   cursor: pointer;
   // mix-blend-mode: multiply;
   @include md{
@@ -266,26 +266,6 @@ $md: 768px;
   }
 }
 
-.chatBot_Img{
-  width: 7vw;
-  // mix-bled-mode: multiply;
-
-  @include md{
-    width: 30vw;
-  }
-
-}
-.chatBot_text{
-  width: 9vw;
-  position: relative;
-  left: -3.1vw;
-  top: -3.7vh;
-  @include md{
-    width: 35vw;
-    left: -11vw;
-    top: -3.3vh;
-  }
-}
 
 $md: 768px;
 $xxl: 1400px;
@@ -315,22 +295,16 @@ $xxl: 1400px;
     svg{
         cursor: not-allowed;
     }
-    // width: 12vw;
-    // border: 1px solid;
     span {
         font-size: medium;
         user-select: none;
-    }
-
-    @include md{
-        // width: 32vw;
     }
 
 }
 
 .storyboardCnt {
     display: flex;
-    height: 25vh;
+    height: 20vh;
     overflow-y: auto;
     @include md{
       overflow-y: hidden;
@@ -340,9 +314,6 @@ $xxl: 1400px;
     @include xxl{
       gap: 2vw;
     }
-    // column-gap: 1vw;
-    // row-gap: 3vh;
-    flex-wrap: wrap;
 }
 .storyCardSectionContainer{
     display: flex;
@@ -359,34 +330,27 @@ $xxl: 1400px;
 }
 
 .storyboardCards {
-    // width: 10vw;
-    height: 20vh;
- aspect-ratio: 1;
-    // padding: 5px;
-    // flex: 0 0 33%; 
     background-image: url('../assets/Home/storyCard.png');
     background-size: cover;
     background-position: center;
+  
     @include md {
         flex: none;
         height: 15vh;
-        // width: 35vw;
     }
-    @include xxl{
-      height: 16vh;
-      transform: scale(1.1);
-
-    }
+  
 }
 
 .storyboardCardTitle {
     text-wrap: nowrap;
     font-size: small;
+    width: 8vw;
     @include md{
-      font-size: small;
+    width: 30vw;
+    font-size: small;
     }
     @include xxl{
-      font-size: large;
+      font-size: medium;
 
     }
 
@@ -420,7 +384,6 @@ $xxl: 1400px;
     background-size: 200% 100%;
     background-repeat: no-repeat;
     border: none;
-    // padding: 5px 20px;
     @include xxl{
         font-size:1vw;
     }
@@ -489,15 +452,12 @@ $xxl: 1400px;
     }
   }
 .HomeMidCnt{
-      // background-color: red;
-    // width: 60vw;
     @include md{
         height: fit-content;
         width: 100vw;
     }
 }
 .HomeMidCnt-frst{
-      // background-color: red;
       height: 90%;
     overflow: hidden;
     svg{
@@ -505,14 +465,12 @@ $xxl: 1400px;
     }
 }
 .HomeMidCnt-frsthdng{
-      // background-color: red;
       cursor: not-allowed;
         background-color: transparent;
         font-weight: 500;
     opacity: 0.7;
 }
 .HomeMidCnt-frsthdngSel{
-      // background-color: red;
       cursor: pointer;
         border-bottom: 3px solid #27DEBF;
     font-weight: 700;
@@ -533,7 +491,6 @@ $xxl: 1400px;
 }
 .executiveInfo{
     width: 100%;
-      // background-color: red;
       height: 60vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow: hidden;
@@ -550,21 +507,21 @@ $xxl: 1400px;
     } 
 }
 .executiveInfonumber{
-    // background-color: rgb(242, 242, 242);
-      // background-color: red;
+    background-color: #33b0ea;
+    color: white;
       font-size: small;
-    border: 1px solid black;
+      display: none;
+    border: 1px solid white;
     @include xxl{
         font-size: medium;
     } 
  
     @include md{
         font-size: smaller;
-    
+      display: block;
         }
 }
 .executiveInfoScndLine,.executiveInfoThirdLine,.executiveInfoul,.executiveInfo-instrction{
-      // background-color: red;
       font-size: small;
     @include md{
     font-size: smaller;

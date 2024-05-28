@@ -52,19 +52,19 @@ $lg: 992px;
     white-space: pre-line;
     // font-size: 1vw;
     width: 80ch;
-    font-size: 0.9vw;
+    font-size: 0.9vw !important;
    
    
     @include xxl{
-      font-size: medium;
+      font-size: medium !important;
         
     }
     @include lg{
-        font-size: x-small;
+        font-size: x-small !important;
 
     }
     @include md{
-        font-size: x-small;
+        font-size: x-small !important;
         width: 40ch;
     }
    

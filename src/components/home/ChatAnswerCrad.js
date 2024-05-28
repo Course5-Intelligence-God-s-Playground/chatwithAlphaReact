@@ -4,62 +4,21 @@ import ChatTableView from './ChatTableView'
 import ChartView from './ChartView';
 import { useRecoilState } from 'recoil';
 import { ChatAnswerComponentData } from '../utilites/ChatAnswerCradRecoilData';
-import TextAnimator from './Tables/TextAnimator';
 import lodingGif from '../assets/loading.gif'
-import FeedbackIcon from '../assets/chatpage/feedback.png'
 import { ReadAloud } from './ChatModal/ReadAloud';
 import { LikeDislikeComponent } from './ChatModal/LikeDislikeComponent';
-
 import botImage from '../assets/chatpage/botImage.png'
 import { saveResponseReceived } from './ChatModal/SaveOverallResponse';
 function ChatAnswerCrad(prop) {
 
   const [getChatAnswerComponentData, setChatAnswerComponentData] = useRecoilState(ChatAnswerComponentData)
-  const [currentAnswer, setCurrentAnswer] = useState('');
-  const [isAnswerFinished, setIsAnswerFinished] = useState(false);
-  const [displayedText, setDisplayedText] = useState('');
+
   const [showDesign, setshowDesign] = useState(false)
-  const [readVoice, setReadVoice] = useState(true)
   const suggestiveHolderRef = useRef(null);
 
   const [wsTimeDiff, setWsTimeDiff] = useState(null)
-  useEffect(() => {
 
-    let errorRespText = 'We apologize for any inconvenience. We were unable to determine exactly what you are seeking. Please rephrase your question and ask again.'
-    const content = prop.answer.chat_text == errorRespText ?
-      prop.answer.chat_text
-      :
-      prop.answer.general_question ?
-        prop.answer.chat_text
-        :
-        prop.answer.scoretype == 'Customer Journey POCA scoring (Discover, Learn, Buy & Engage)' ?
-          `Customer Journey POCA score consists of four key metrics aligned to a customer's purchase journey: Discover, Learn, Buy and Engage. \n\n ${prop.answer.chat_text}`
-          :
-          `Standard POCA score consists of four key metrics: Marketing, Omnichannel, E-Commerce and Subscription. \n\n${prop.answer.chat_text}`
 
-    setCurrentAnswer(prop.answer.chat_text)
-    if (getChatAnswerComponentData.ShowAnimation) {  //wether to show text animation or not 
-      let currentIndex = 0;
-      const streamingInterval = setInterval(() => {
-        if (currentIndex < content.length) {
-          setDisplayedText(content.substring(0, currentIndex + 1));
-          currentIndex++;
-        } else {
-          clearInterval(streamingInterval);
-          setIsAnswerFinished(true);
-        }
-      }, 15);
-
-    }
-    else if (getChatAnswerComponentData.ShowAnimation == false) {
-      setCurrentAnswer(content)
-      setDisplayedText(content)
-      setIsAnswerFinished(true);
-      setChatAnswerComponentData({ ...getChatAnswerComponentData, ShowAnimation: true })
-    }
-
-  }, [currentAnswer, isAnswerFinished, prop.answer]);
-  const showCursor = currentAnswer?.length < prop?.answer?.length;
 
   let propChartView = {//prop
     graph_type: prop.answer.graph_type,
@@ -170,13 +129,11 @@ function ChatAnswerCrad(prop) {
       <div className=' d-flex gap-2'>
         <div>
           <div className="chatAnswer ps-3 p-2 d-flex align-items-center">
-            {/* <span className='newElement'> </span> */}
 
-            {/* <TextAnimator dynamicText ={prop.new ? currentAnswer : prop.answer.chat_text}/> */}
             <div className='answerHolder' dangerouslySetInnerHTML={{ __html: prop?.answer?.chat_text }}></div>
 
           </div>
-          <div className='answer-feature-iconhold d-flex justify-content-end w-100  align-items-center'>
+          <div className='answer-feature-iconhold d-flex justify-content-end   align-items-center'>
             {/* regenerate icon*/}
            { prop.answer?.chat_type == 'Answer' &&  <svg onClick={regenerateHandle} width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
@@ -184,7 +141,6 @@ function ChatAnswerCrad(prop) {
             </svg> }
 
             {prop.answer?.chat_type == 'Answer' && 
-            // <img src={FeedbackIcon} onClick={showFeedbackHandler} className='answerIcons feedBackIcon'></img>
             <svg  width="16"  onClick={showFeedbackHandler} height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
             <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
           </svg>
@@ -256,7 +212,10 @@ function ChatAnswerCrad(prop) {
           </div>
         </div>
         :
-        null
+       prop?.answer?.chat_type=='Answer'? <div>
+        <span className='text-secondary fw-bold'>Generating follow-up questions</span>
+        <img src={lodingGif} className='chartLoader'></img>
+      </div>:null
       }
 
     </div>

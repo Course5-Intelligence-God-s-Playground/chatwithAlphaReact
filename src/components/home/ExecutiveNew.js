@@ -1,9 +1,10 @@
 import React from 'react'
 import './HomeNewStyle.scss'
 import questionsImg from '../assets/Home/questions.png'
+import questionbg from '../assets/Home/questionBg.png'
 import instructionIcon from '../assets/Home/instructionIcon.svg'
 function Executive() {
-
+    const sampleQuestions=['Who has the best POCA scores in FY24 in EMEA?','Which partners in Japan had the largest YoY differences in POCA scores?','Which capabilities are strongest and weakest in Norway in FY24?']
     return (
         <div className='HomeMidCnt h-100  w-100'>
 
@@ -20,13 +21,26 @@ function Executive() {
                             <span className='executiveInfoScndLine text-white'><span className=' fw-bold'>Welcome to Chat with Pi!</span> <br/>POCA is updated with FY24 data now. I'm your AI assistant and ask me anything about POCA.</span>
                       
                        <span className='executiveInfoThirdLine text-white'>For starters, you can ask me questions such as :</span>
-                                <img className='executiveInfoThirdLine-img' src={questionsImg} ></img>
-                            {/* <ol className='executiveInfonumber rounded py-2'>
-                             <li> Who has the best POCA scores in FY24 in EMEA?</li>
-                            <li>Which partners in Japan had the largest YoY differences in POCA scores?</li>
-                            <li>Which capabilities are strongest and weakest in Norway in FY24?</li>
-                            </ol> */}
-                          
+                                {/* <img className='executiveInfoThirdLine-img' src={questionsImg} ></img> */}
+                            <ol className='executiveInfonumber rounded ps-3 py-2'>
+                            {
+                                sampleQuestions?.map((value,key)=>(
+                                        <li key={key}>{value}</li>
+                                ))
+                            }
+                            </ol>
+                      
+                            <div className='question-container-wrap-cover'>
+                            {
+                                sampleQuestions?.map((value,key)=>(
+                                    <div className='question-container-wrap ' key={key}>
+                                    <img className='question-img' src={questionbg}></img>
+                                    <span className='question-text p-2'>{value}</span>
+                            </div>
+                                ))
+                            }
+                           
+                            </div>
                         </div>
                     </li>
                    

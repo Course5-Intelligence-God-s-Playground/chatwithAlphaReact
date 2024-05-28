@@ -49,7 +49,7 @@ export const ReadAloud = (prop) => {
                     const selectedVoice = enUSVoices.length > 0 ? enUSVoices[0] : null;
     
            
-            utterance.rate = 1.95; // Increase the rate to 1.5 for faster speech
+            utterance.rate = 1.3; // Increase the rate to 1.5 for faster speech
             utterance.voice = selectedVoice;
             speechSynthesis.speak(utterance);
                 };
@@ -59,7 +59,7 @@ export const ReadAloud = (prop) => {
             const selectedVoice = enUSVoices.length > 0 ? enUSVoices[0] : null;
     
            
-            utterance.rate = 1.95; // Increase the rate to 1.5 for faster speech
+            utterance.rate = 1.3; // Increase the rate to 1.5 for faster speech
             utterance.voice = selectedVoice;
             speechSynthesis.speak(utterance);
             }
