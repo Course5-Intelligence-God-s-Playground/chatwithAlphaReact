@@ -9,6 +9,7 @@ import { ReadAloud } from './ChatModal/ReadAloud';
 import { LikeDislikeComponent } from './ChatModal/LikeDislikeComponent';
 import botImage from '../assets/chatpage/botImage.png'
 import { saveResponseReceived } from './ChatModal/SaveOverallResponse';
+import ErrorBoundary from '../utilites/ErrorBoundary';
 function ChatAnswerCrad(prop) {
 
   const [getChatAnswerComponentData, setChatAnswerComponentData] = useRecoilState(ChatAnswerComponentData)
@@ -173,12 +174,17 @@ function ChatAnswerCrad(prop) {
       {/* show table and chart section  */}
       {showDesign && <div className='ChartAndTableView justify-content-between'>
         <div></div>
+        <ErrorBoundary>
         <div className='ChartViewCnt  rounded'><ChartView propChartView={propChartView} answer={prop?.answer} /></div>
+        </ErrorBoundary>
         {prop.answer.model_output != '' ? 
+        <ErrorBoundary>
         <div className='ChatTableViewCnt rounded'>
           <div className='chartHolder'><ChatTableView modelOutput={prop.answer.model_output} model_output_type={prop.answer.model_output_type} ids={prop.answer.id} />
           </div>
-        </div> : null}
+        </div>
+        </ErrorBoundary> 
+        : null}
 
       </div>}
 

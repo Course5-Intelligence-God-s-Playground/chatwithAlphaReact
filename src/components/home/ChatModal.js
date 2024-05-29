@@ -416,6 +416,7 @@ function ChatModal(prop) {
                
             
             }
+            
            } catch (error) {
             setIsloading(false)
             // updateErrorMessage()

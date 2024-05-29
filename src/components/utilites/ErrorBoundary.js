@@ -1,23 +1,30 @@
-import React, { useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+// ErrorBoundary.js
+import React, { Component } from 'react';
 
-const ErrorBoundary = () => {
-  const [hasError, setHasError] = useState(false);
-  const navigate = useNavigate(); // Renamed 'nav' to 'navigate'
-
-  const componentDidCatch = (error, errorInfo) => {
-    // You can log the error to an error tracking service here
-    // Example: sendErrorToService(error, errorInfo);
-    setHasError(true);
-  };
-
-  if (hasError) {
-    // Navigate to the root route on error
-    navigate('/'); // Use navigate to go to the root route
-    return null; // You may not need to render anything here
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
   }
 
-  return <Outlet />;
-};
+  static getDerivedStateFromError(error) {
+    // Update state so the next render shows the fallback UI.
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    // You can also log the error to an error reporting service
+    console.error("Error caught by ErrorBoundary:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <h6 className='text-warning'>oops! Something went wrong.</h6>;
+    }
+
+    return this.props.children; 
+  }
+}
 
 export default ErrorBoundary;
