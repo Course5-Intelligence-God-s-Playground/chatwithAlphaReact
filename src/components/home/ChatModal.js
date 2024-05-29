@@ -411,14 +411,9 @@ function ChatModal(prop) {
                 });
             }
             else if(data.type =='error'){
-                qaChats.forEach((itm)=>{
-                    if(itm?.id == resp.id){
-                            if(!itm.suggestive_completed){
-                                updateErrorMessage()
-
-                            }
-                    }
-                })
+            setIsloading(false)
+            updateErrorMessage()
+               
             
             }
            } catch (error) {

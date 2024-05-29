@@ -58,7 +58,6 @@ export const ReadAloud = (prop) => {
                     const enUSVoices = voices.filter(voice => (voice.lang == 'en-US' || voice.name.includes('English' || voice.name.includes('United States'))));
             const selectedVoice = enUSVoices.length > 0 ? enUSVoices[0] : null;
     
-           
             utterance.rate = 1.3; // Increase the rate to 1.5 for faster speech
             utterance.voice = selectedVoice;
             speechSynthesis.speak(utterance);

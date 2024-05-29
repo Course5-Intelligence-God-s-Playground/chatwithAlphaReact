@@ -212,10 +212,13 @@ function ChatAnswerCrad(prop) {
           </div>
         </div>
         :
-       prop?.answer?.chat_type=='Answer'? <div>
+       prop?.answer?.chat_type=='Answer'? 
+       prop?.answer?.suggestive_completed ?null:
+      <div>
         <span className='text-secondary fw-bold'>Generating follow-up questions</span>
         <img src={lodingGif} className='chartLoader'></img>
-      </div>:null
+      </div>
+      :null
       }
 
     </div>
