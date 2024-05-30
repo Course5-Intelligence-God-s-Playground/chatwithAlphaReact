@@ -331,7 +331,7 @@ $xxl: 1400px;
 
     overflow: scroll;
     padding-bottom: 10vh;
-    // margin-top: 3vh;
+    margin-top: 0vh;
     gap: 0vh;
    }
 }
@@ -390,56 +390,15 @@ $xxl: 1400px;
     }
 }
 
-.storyboardCard {
-    background-size: 200% 100%;
-    background-repeat: no-repeat;
-    border: none;
-    @include xxl{
-        font-size:1vw;
-    }
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: background-position 0.5s;
-}
-
-.storyboardCard::before {
-    content: "";
-    position: absolute;
-    top: -10px;
-    left: -110%;
-    width: 50%;
-    height: 120%;
-    background: linear-gradient(90deg, transparent, white);
-    transform: skewX(-20deg);
-}
-
-.storyboardCard {
-    background-color: #f8f8fa;
-
-    background-position: 100% 0;
-}
-
-.storyboardCard:hover::before {
-    animation: shine 1s linear;
-}
-
-@keyframes shine {
-    0% {
-        left: -110%;
-    }
-
-    50% {
-        left: 110%;
-    }
-
-    100% {
-        left: 110%;
-    }
-}
-
-
 .radioItms{
+  padding: 1vh 1vw;
+  border: 1px solid rgb(230, 226, 226);
+  box-shadow: 0 0 3px #b9f0ef;
+  @include md{
+    padding: 0%;
+    border: none;
+    // box-shadow: ;
+  }
     input{
         transform: scale(0.8);
         cursor: pointer;

@@ -74,7 +74,8 @@ function ChatModal(prop) {
                 general_question: true,
                 time_taken: '',
                 suggestive_completed:false,
-                chart_completed:false
+                chart_completed:false,
+                answer_closed:false
 
             }
         ]
@@ -188,7 +189,8 @@ function ChatModal(prop) {
                         general_question: false,
                         time_taken: '',
                         suggestive_completed:false,
-                        chart_completed:false
+                        chart_completed:false,
+                        answer_closed:false
                     };
                     if (index !== -1) {
                         // Update chat_text if id exists
@@ -231,7 +233,8 @@ function ChatModal(prop) {
                     general_question: isGeneralQue,
                     time_taken: '',
                     suggestive_completed:false,
-                    chart_completed:false
+                    chart_completed:false,
+                    answer_closed:false
                 };
                 
                 setqaChats((prevChats) => {
@@ -272,6 +275,7 @@ function ChatModal(prop) {
                 const updatedChats = prevChats.map(chat => {
                     return {
                         ...chat,
+                        answer_closed:true,
                         chat_text: chat.chat_text.replace(new RegExp(pulsingCursor + '$'), correctIcon) // Remove cursor if it exists
                     };
                 });
@@ -548,7 +552,8 @@ function ChatModal(prop) {
                 scoretype: chatText,
                 general_question: true,
                 time_taken: '',
-                suggestive_completed:false
+                suggestive_completed:false,
+                answer_closed:false
 
             }
         ]

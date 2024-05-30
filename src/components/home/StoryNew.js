@@ -76,24 +76,24 @@ function StoryNew(prop) {
                 </div>
                 <div className='storybrdHdng-end d-flex align-items-center gap-2 me-3'>
                     <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '30%' }}><path d="M5.66667 5.66699H1V10.3337H5.66667V5.66699Z" stroke="#A3A3A3" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3.3335 1V5.66667" stroke="#A3A3A3" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3.3335 10.334V19.6673" stroke="#A3A3A3" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12.6667 12.667H8V17.3337H12.6667V12.667Z" stroke="#A3A3A3" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10.3335 1V12.6667" stroke="#A3A3A3" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10.3335 17.334V19.6673" stroke="#A3A3A3" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19.6667 2.16699H15V6.83366H19.6667V2.16699Z" stroke="#A3A3A3" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path><path d="M17.3335 1V2.16667" stroke="#A3A3A3" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path><path d="M17.3335 6.83398V19.6673" stroke="#A3A3A3" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                    <div className='radioItms shadow-sm d-flex align-items-center border rounded-pill px-3 py-1'>
-                        <input type='radio' value='Asia' name='region' onClick={regionChangeHandler} /><span className='text-muted pe-2 fw-bold'>Asia</span>
-                        <input type='radio' value='Americas' name='region' defaultChecked onClick={regionChangeHandler} /><span className='text-muted pe-2 fw-bold'>Americas</span>
-                        <input type='radio' value='EMEA' name='region' onClick={regionChangeHandler} /><span className='text-muted pe-2 fw-bold'>EMEA</span>
+                    <div className='radioItms  d-flex align-items-center rounded-pill mt-2'>
+                        <input type='radio' value='Asia' name='region' onClick={regionChangeHandler} /><span className='text-muted  fw-bold'>Asia</span>
+                        <input type='radio' value='Americas' name='region' defaultChecked onClick={regionChangeHandler} /><span className='text-muted  fw-bold'>Americas</span>
+                        <input type='radio' value='EMEA' name='region' onClick={regionChangeHandler} /><span className='text-muted  fw-bold'>EMEA</span>
                     </div>
 
                 </div>
 
 
             </div>
-            <div className='storyCardSectionContainer  '>
+            <div className='storyCardSectionContainer '>
                 {boardData != null ?
                     boardData?.map((val) => (
                         <div>
                             {
                                 <div> {/* section*/}
-                                    <div className='my-4 fw-bold cardSectionTitle text-center' >Customer Journey POCA Scores</div>
-                                    <div className='storyboardCnt d-flex justify-content-center'> {/*  card holder */}
+                                    <div className='my-4 fw-bold  cardSectionTitle text-center' >Customer Journey POCA Scores</div>
+                                    <div className='storyboardCnt  d-flex justify-content-center'> {/*  card holder */}
                                         {
                                             val['Customer Journey POCA Scores'].map((itm) => (
                                                

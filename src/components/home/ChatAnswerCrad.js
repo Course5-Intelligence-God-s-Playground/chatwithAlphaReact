@@ -10,6 +10,7 @@ import { LikeDislikeComponent } from './ChatModal/LikeDislikeComponent';
 import botImage from '../assets/chatpage/botImage.png'
 import { saveResponseReceived } from './ChatModal/SaveOverallResponse';
 import ErrorBoundary from '../utilites/ErrorBoundary';
+import partyIcon from '../assets/chatpage/celebrate.gif'
 function ChatAnswerCrad(prop) {
 
   const [getChatAnswerComponentData, setChatAnswerComponentData] = useRecoilState(ChatAnswerComponentData)
@@ -18,7 +19,7 @@ function ChatAnswerCrad(prop) {
   const suggestiveHolderRef = useRef(null);
 
   const [wsTimeDiff, setWsTimeDiff] = useState(null)
-
+  const [showPartyIcon,setShowPartyIcon] = useState(false)
 
 
   let propChartView = {//prop
@@ -125,6 +126,19 @@ function ChatAnswerCrad(prop) {
     prop?.sendQuestion(true,questionId)
     
   }
+
+  useEffect(() => {
+    if (prop?.answer?.answer_closed) {
+      setShowPartyIcon(true);
+
+      const timer = setTimeout(() => {
+        setShowPartyIcon(false);
+      }, 5000);
+
+      // Cleanup the timeout if the component unmounts or prop changes
+      return () => clearTimeout(timer);
+    }
+  }, [prop?.answer?.answer_closed]);
   return (
     <div className='d-flex flex-column align-items-end'>
       <div className=' d-flex gap-2'>
@@ -156,7 +170,10 @@ function ChatAnswerCrad(prop) {
           </div>
         </div>
 
-        <img src={botImage} className='userBotChatImg' />
+       {showPartyIcon?
+       <img src={partyIcon} className='userBotChatImg border-0' />
+       : <img src={botImage} className='userBotChatImg' />}
+     
       </div>
 
       {/* table view/clipboard icon if there is either table or chart to show  */}
