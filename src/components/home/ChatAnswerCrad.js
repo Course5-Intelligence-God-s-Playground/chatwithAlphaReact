@@ -134,7 +134,21 @@ function ChatAnswerCrad(prop) {
       setShowPartyIcon(true)
         const timer = setTimeout(() => {
         setShowPartyIcon(false);
-       
+        prop.setqaChats((prevChats) => {
+      
+              // Update chat_text if id exists
+              return prevChats.map(chat => {
+               
+                     
+                      return {
+                          ...chat,
+                          answer_closed:false
+                      };
+                  
+                  
+              });
+          
+      });
       }, 5000);
 
       // Cleanup the timeout if the component unmounts or prop changes
