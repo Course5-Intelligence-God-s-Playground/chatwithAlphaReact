@@ -27,31 +27,30 @@ $lg: 992px;
 
 
 #offcanvasScrolling {
-    height: 85vh;
-    // height: 100vh;
+    height: 83vh;
     width: 93vw;
-    margin-top: 14vh;
+    margin-top: 16vh;
     
     font-family: 'Segoe UI';
     border-radius: 1.5vw 0 1.5vw 1.5vw;
     @include md{
         width: 100vw;
     height:auto;
+    margin-top: 14vh;
   
        background-color: transparent;
 
     }
     @include xxl{
-        margin-top: 12.5vh;
+    height: 83vh;
+        margin-top: 14.5vh;
         border-radius: 1vw 0 1vw 1vw;
     }
    
 }
 .offcanvas-header{
-    // background-color: red;
     display: flex;
    
-    // height: 20vh;
     @include md{
         background-color: white;
         flex-direction: column;
@@ -65,8 +64,6 @@ $lg: 992px;
     transform: scale(0.8);
     gap: 1.2vw;
     position: relative;
-    // width: 120%;
-    // background-color: red;
     }
 }
 .chatAnswer{
@@ -108,9 +105,6 @@ $lg: 992px;
     @include xxl{
         height: 5vh;
     }
-}
-.offcanvas-header-frst{
-    
 }
 .offcanvas-selectLabel{
     display: block;
@@ -167,7 +161,6 @@ $lg: 992px;
 }
 
 .chatbodyinput {
-    // border: 1px solid red;
     height: 75%;
    .chatbodyinputSendIcon{
     cursor: pointer;

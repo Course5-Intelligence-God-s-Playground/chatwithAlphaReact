@@ -67,15 +67,19 @@ $md: 768px;
 
 .chatmodalHold {
   z-index: 99999;
-  height: 60vh;
+  // height: 55vh;
 }
 
 .homePage-maincontent {
   display: flex;
   position: relative;
-  top: -2vh;
+  top: 14vh;
+  @include xxl{
+  top: 13vh;
 
+  }
   @include md {
+  top: 11vh;
     height: 90vh;
   }
 }
@@ -84,7 +88,7 @@ $md: 768px;
   display: flex;
   width: 90%;
   left: 8%;
-  top: 3vh;
+  top: 2vh;
   border-radius: 25px;
   gap: 1vw;
   background-color: #33b0ea;
@@ -246,13 +250,13 @@ $md: 768px;
 
 .chatBot{
   position: absolute;
-  bottom: 7vh;
-  left: 89vw;
+  bottom: 15vh;
+  left: 73vw;
   transform: scale(1.1);
   width: 7vw;
   @include xxl{
-  bottom: 6vh;
-  left: 90vw;
+  bottom: 17vh;
+  left: 73vw;
   transform: scale(1.1);
 
   }
@@ -307,14 +311,18 @@ $xxl: 1400px;
     display: flex;
     height: 20vh;
     overflow-y: auto;
+    justify-content: space-around;
     @include md{
       overflow-y: hidden;
     height:35vh;
+    flex-wrap: wrap;
+    justify-content: center;
       column-gap: 6vw;
       row-gap: 0vh;
     }
     @include xxl{
       gap: 2vw;
+      
     }
 }
 .storyCardSectionContainer{

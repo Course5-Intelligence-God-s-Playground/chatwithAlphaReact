@@ -19,8 +19,7 @@ $xxl: 1400px;
     @include md{
         flex-direction: column;
         gap: 1vh;
-        // background-color: black;
-        // width: 100%;
+       
         position: relative;
         left: 2%;
     }
@@ -69,13 +68,11 @@ $xxl: 1400px;
      width: 100%;
         
         position: relative;
-        // left: -15%;
     }
 }
 .chartHolder{
     @include md{
         display: flex;
-    // justify-content: end;
     }
 }
 .ChartViewCnt{

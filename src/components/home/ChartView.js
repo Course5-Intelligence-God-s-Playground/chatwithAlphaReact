@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Chart from "react-apexcharts";
-import { saveResponseReceived } from './ChatModal/SaveOverallResponse';
 
 function ChartView(prop) {
  

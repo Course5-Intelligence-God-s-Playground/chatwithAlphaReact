@@ -1,5 +1,5 @@
 import React from 'react'
-import './Home.scss'
+import './HomeNewStyle.scss'
 
 function HomeStartOptions() {
 

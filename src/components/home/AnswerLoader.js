@@ -32,7 +32,7 @@ function AnswerLoader(prop) {
         <div className='spinnerwhole  align-items-center justify-content-center d-flex'>
             <div className='ansLoaderCnt  d-flex align-items-center justify-content-center'>
                 <div className='d-flex flex-column align-items-center justify-content-center'>
-                    <img className='ansLoaderCntImg' src={spinnersImg}></img>
+                    <img className='ansLoaderCntImg' src={spinnersImg} alt='Loading gif'></img>
 
 
                     <p className=' text-muted rounded bg-white'>Generating response to your question...</p>

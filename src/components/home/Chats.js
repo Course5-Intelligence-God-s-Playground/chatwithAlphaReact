@@ -1,30 +1,13 @@
 import React, { useEffect } from 'react'
 import './Chats.scss'
 import ChatAnswerCrad from './ChatAnswerCrad'
-import { useRecoilValue } from 'recoil'
-import { loginMailId } from '../utilites/loginRecoil'
 
 import userImage from '../assets/chatpage/userImage.png'
 function Chats(prop) {
 
-    const getloginMailIdValue = useRecoilValue(loginMailId)
     
     useEffect(()=>{
-        // console.log(prop?.qaChats)
-        let userName ;
-        switch (getloginMailIdValue) {
-            case 'poca@course5i.com':
-                userName='George'
-                break;
-            case 'raiyer@microsoft.com':
-                userName='Ram Iyer'
-                break;
-            case 'patrickkerin@microsoft.com':
-                userName='Patrick'
-                break;
-            default:
-                break;
-        }
+     
         if(prop?.qaChats?.length<1){
             const currentDate = new Date()
         let errorIdval = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000

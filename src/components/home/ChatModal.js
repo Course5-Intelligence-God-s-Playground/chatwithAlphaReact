@@ -152,7 +152,7 @@ function ChatModal(prop) {
             } catch (error) { //if there is any error encountered , should be shown as 'normal' sorry chat reponse
                
                 updateErrorMessage()
-                console.error(error);
+                // console.error(error);
             }
 
         }
@@ -429,7 +429,7 @@ function ChatModal(prop) {
         };
         ws.onerror = function(e){
             setIsloading(false)
-            console.log('failed')
+            // console.log('failed')
             retryConnection(resp,currentDate)
         };
         // console.log(answerws)
@@ -496,7 +496,7 @@ function ChatModal(prop) {
             setIsloading(false)
         } catch (error) {
             setIsloading(false)
-            console.log(error)
+            // console.log(error)
         }
     }
 
@@ -558,7 +558,6 @@ function ChatModal(prop) {
             }
         ]
 
-        console.log(qaChats[qaChats.length -1].chat_type)
         if(qaChats[qaChats.length -1].chat_type == 'msg'){
             // if previous response is message then replace existing repsonse itself
             setqaChats((prevChats) => {
@@ -602,7 +601,7 @@ function ChatModal(prop) {
                                 <span className='fw-semibold text-success'>Customer Journey POCA</span>
                             </div>
                           <div className='d-flex align-items-center gap-2 justify-content-end  w-25 offcanvas-header-buttons'>
-                                <button className='btn btn-outline-secondary btn-sm clearchatbtn d-flex align-items-center' onClick={clearAllChatsHandler}>Clear</button>
+                                <button className='btn btn-outline-secondary btn-sm clearchatbtn d-flex justify-content-center align-items-center' onClick={clearAllChatsHandler}>Clear</button>
                                 <i class="bi bi-x-circle h4 modalClose mt-1" data-bs-dismiss="offcanvas" aria-label="Close" onClick={() => { prop.setChatboxShow(false) }}></i>
                             </div>
                         

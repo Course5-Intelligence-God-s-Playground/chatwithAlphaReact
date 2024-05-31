@@ -1,6 +1,5 @@
 import React from 'react'
 import './HomeNewStyle.scss'
-import questionsImg from '../assets/Home/questions.png'
 import questionbg from '../assets/Home/questionBg.png'
 import instructionIcon from '../assets/Home/instructionIcon.svg'
 function Executive() {
@@ -18,10 +17,9 @@ function Executive() {
                         <div className='executiveInfo d-flex flex-column'>
                             <ol className='executiveInfo-instrction text-white fw-bold '><img src={instructionIcon} width={15}></img> &nbsp;Instructions:<li className='executiveInfo-instrctionSm fw-normal ps-1 '>Ensure clarity and specificity when framing your questions to receive swift and effective answers.</li>
                             <li className='executiveInfo-instrctionSm fw-normal ps-1'>Please choose the 'POCA Scoring System' option in the chat window's toggle feature, Note that 'DLBE' is the default selection.</li></ol>
-                            <span className='executiveInfoScndLine text-white'><span className=' fw-bold'>Welcome to Chat with Pi!</span> <br/>POCA is updated with FY24 data now. I'm your AI assistant and ask me anything about POCA.</span>
+                            <span className='executiveInfoScndLine text-white'><span className=' fw-bold'>Welcome to Chat with Pi!</span> <br/>I'm your AI assistant and you can ask me anything about POCA</span>
                       
                        <span className='executiveInfoThirdLine text-white'>For starters, you can ask me questions such as :</span>
-                                {/* <img className='executiveInfoThirdLine-img' src={questionsImg} ></img> */}
                             <ol className='executiveInfonumber rounded ps-3 py-2'>
                             {
                                 sampleQuestions?.map((value,key)=>(

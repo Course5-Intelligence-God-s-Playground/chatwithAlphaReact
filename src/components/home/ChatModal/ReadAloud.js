@@ -45,7 +45,7 @@ export const ReadAloud = (prop) => {
                 speechSynthesis.onvoiceschanged = () => {
                     
                     const enUSVoices = voices.filter(voice => (voice.lang == 'en-US' || voice.name.includes('English' || voice.name.includes('United States'))));
-            console.log(enUSVoices)
+            // console.log(enUSVoices)
                     const selectedVoice = enUSVoices.length > 0 ? enUSVoices[0] : null;
     
            

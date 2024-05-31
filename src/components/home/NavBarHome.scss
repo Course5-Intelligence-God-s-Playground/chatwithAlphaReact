@@ -17,26 +17,26 @@ $searhfieldColor: #3535b4;
 }
 .navHome-container {
     width: 100vw;
+    position: fixed;
+    top: 0%;
    
 }
-
-.navHome-option-nexus{
-    display: flex;
-    &:hover{
-    background-color: $lightBackgroundColor;
-    cursor: not-allowed;
-    } 
-    // @include md{
-    //     display: none;
-    // }
-}
-
 .navHome-options {
     
     list-style: none;
     min-height: 12vh;
  
 }
+.navHome-option-nexus{
+    display: flex;
+    &:hover{
+    background-color: $lightBackgroundColor;
+    cursor: not-allowed;
+    } 
+   
+}
+
+
 
 .navHomeOption-menuIcon {
     height: 5vh;
@@ -142,22 +142,14 @@ $searhfieldColor: #3535b4;
     color: grey;
     font-weight: 600;
     font-size:0.5vw;
-    // border: 1px solid black;
     @include md{
         
         font-size: 1.9vw;
     }
 }
-// .navHome-optionlogoMenu{
-//     cursor: pointer; 
-//     &:hover{
-//         background-color: $lightBackgroundColor;
-//     }
-// }
+
 .nexusImg{
     width: 10vw;
-    // position: relative;
-    // top: -0.5vh;
     transform: scale(1.4);
     @include md{
         width: 22vw;

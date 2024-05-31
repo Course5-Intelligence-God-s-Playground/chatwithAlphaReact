@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect,useState } from 'react'
 import './HomeNewStyle.scss'
 
 import { Server } from '../utilites/ServerUrl'
-import StoryImage from '../assets/Home/cardImg.png'
 import StoryBoardCardImg from '../assets/Home/storyCard.png'
 import StoryBoardCardImg2 from '../assets/Home/storyCard2.png'
 
@@ -93,7 +92,7 @@ function StoryNew(prop) {
                             {
                                 <div> {/* section*/}
                                     <div className='my-4 fw-bold  cardSectionTitle text-center' >Customer Journey POCA Scores</div>
-                                    <div className='storyboardCnt  d-flex justify-content-center'> {/*  card holder */}
+                                    <div className='storyboardCnt d-flex '> {/*  card holder */}
                                         {
                                             val['Customer Journey POCA Scores'].map((itm) => (
                                                
