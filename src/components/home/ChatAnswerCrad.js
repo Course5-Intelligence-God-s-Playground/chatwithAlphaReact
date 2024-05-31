@@ -128,17 +128,23 @@ function ChatAnswerCrad(prop) {
   }
 
   useEffect(() => {
-    if (prop?.answer?.answer_closed) {
-      setShowPartyIcon(true);
-
-      const timer = setTimeout(() => {
+    const targetChat = prop.qaChats.filter((itm)=>itm.id == prop?.answer?.id)[0]
+    const latestChat = prop.qaChats[prop.qaChats.length -1]
+    if(latestChat.id == targetChat.id){
+      setShowPartyIcon(true)
+        const timer = setTimeout(() => {
         setShowPartyIcon(false);
+       
       }, 5000);
 
       // Cleanup the timeout if the component unmounts or prop changes
       return () => clearTimeout(timer);
     }
+    else setShowPartyIcon(false)
+    
   }, [prop?.answer?.answer_closed]);
+
+
   return (
     <div className='d-flex flex-column align-items-end'>
       <div className=' d-flex gap-2'>
@@ -170,7 +176,7 @@ function ChatAnswerCrad(prop) {
           </div>
         </div>
 
-       {showPartyIcon?
+       {showPartyIcon && prop?.answer?.answer_closed ?
        <img src={partyIcon} className='userBotChatImg border-0' />
        : <img src={botImage} className='userBotChatImg' />}
      

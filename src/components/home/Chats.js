@@ -98,6 +98,8 @@ function Chats(prop) {
                      
                         {
                             <ChatAnswerCrad 
+                            qaChats={prop?.qaChats}
+                            setqaChats={prop?.setqaChats}
                             timeStore={prop?.timeStore}
                             sendQuestion={prop?.sendQuestion}
                             getfeedbackEmailContainerHandler={prop.getfeedbackEmailContainerHandler} answer={item} new={item.new} setValues={prop.setValues} fieldvalues={prop.fieldvalues}/>
