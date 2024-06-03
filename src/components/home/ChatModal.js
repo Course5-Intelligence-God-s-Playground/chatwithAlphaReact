@@ -10,6 +10,7 @@ import ChartTableExtendedView from './ChartTableExtendedView';
 import { ChatAnswerComponentData } from '../utilites/ChatAnswerCradRecoilData';
 import Feedback from './ChatModal/Feedback';
 import Switch from "react-switch";
+import { saveResponseReceived } from './ChatModal/SaveOverallResponse';
 function ChatModal(prop) {
     const containerRef = useRef(null);
     const getTableViewRecoil = useRecoilValue(TableViewRecoil)
@@ -75,7 +76,9 @@ function ChatModal(prop) {
                 time_taken: '',
                 suggestive_completed:false,
                 chart_completed:false,
-                answer_closed:false
+                answer_closed:false,
+                isSaved:false,
+                chatCompleted:false
 
             }
         ]
@@ -190,7 +193,9 @@ function ChatModal(prop) {
                         time_taken: '',
                         suggestive_completed:false,
                         chart_completed:false,
-                        answer_closed:false
+                        answer_closed:false,
+                        isSaved:false,
+                        chatCompleted:false
                     };
                     if (index !== -1) {
                         // Update chat_text if id exists
@@ -234,7 +239,9 @@ function ChatModal(prop) {
                     time_taken: '',
                     suggestive_completed:false,
                     chart_completed:false,
-                    answer_closed:false
+                    answer_closed:false,
+                    isSaved:false,
+                    chatCompleted:false
                 };
                 
                 setqaChats((prevChats) => {
@@ -414,6 +421,32 @@ function ChatModal(prop) {
                     }
                 });
             }
+            else if(data.type == 'all_msg_complete'){
+                    console.log('hai')
+                    console.log(resp.id)
+                    console.log(qaChats)
+                    setqaChats((prevChats) => {
+                        // Check if an object with the same id exists
+                        const index = prevChats.findIndex(chat => chat.id === resp.id);
+                    
+                        if (index !== -1) {
+                            // Update chat_text if id exists
+                            return prevChats.map(chat => {
+                                if (chat.id === resp.id) {
+                                   
+                                    return {
+                                        ...chat,
+                                        chatCompleted:true
+                                    };
+                                }
+                                else{
+                                    return chat;
+                                }
+                                
+                            });
+                        }
+                    });
+            }
             else if(data.type =='error'){
             setIsloading(false)
             updateErrorMessage()
@@ -553,7 +586,9 @@ function ChatModal(prop) {
                 general_question: true,
                 time_taken: '',
                 suggestive_completed:false,
-                answer_closed:false
+                answer_closed:false,
+                isSaved:false,
+                chatCompleted:false
 
             }
         ]
@@ -581,7 +616,39 @@ function ChatModal(prop) {
         setfeedbackEmailContainer(feedBackState)
      
     }
-   
+    useEffect(() => {
+        let hasChanges = false;
+        
+        const updatedChats = qaChats.map(chat => {
+            if (chat.chat_type === 'Answer' && chat.chatCompleted && !chat.isSaved) {
+                let dataFormated = {
+                    response: {
+                        chat_answer: chat?.chat_text,
+                        id: chat?.id,
+                        suggestive: chat?.suggestive,
+                        model_output: chat?.model_output,
+                        model_output_type: chat?.model_output_type,
+                        graph_data: chat?.graph_data,
+                        graph_type: chat?.graph_type,
+                        scoretype: chat?.scoretype,
+                        general_question: chat?.general_question,
+                    }
+                };
+                saveResponseReceived(dataFormated);
+                hasChanges = true;
+                return {
+                    ...chat,
+                    isSaved: true
+                };
+            }
+            return chat;
+        });
+    
+        if (hasChanges) {
+            setqaChats(updatedChats);
+        }
+    }, [qaChats]);
+    
     return (
         <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
 

@@ -17,9 +17,7 @@ export async function saveResponseReceived(data, number_of_retries = 0) {
         if (!req.ok) {
             throw new Error('Request failed');
         }
-        else{
-            localStorage.setItem(`${data?.response?.id}detailsSaved`,data?.response?.id)
-        }
+       
         
     } catch (error) {
         if (number_of_retries < max_retry) {

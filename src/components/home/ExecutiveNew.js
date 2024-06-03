@@ -29,14 +29,10 @@ function Executive() {
                             </ol>
                       
                             <div className='question-container-wrap-cover'>
-                            {
-                                sampleQuestions?.map((value,key)=>(
-                                    <div className='question-container-wrap ' key={key}>
-                                    <img className='question-img' src={questionbg}></img>
-                                    <span className='question-text p-2'>{value}</span>
-                            </div>
-                                ))
-                            }
+                            <div className='question-text text-white p-2 '>Who has the best POCA scores in FY24 in EMEA?</div>
+                            <div className='question-text text-white p-2 '>Who has the best POCA scores in FY24 in EMEA?</div>
+                            <div className='question-text text-white p-2 '>Who has the best POCA scores in FY24 in EMEA?</div>
+
                            
                             </div>
                         </div>

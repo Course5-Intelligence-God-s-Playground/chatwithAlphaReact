@@ -8,7 +8,6 @@ import lodingGif from '../assets/loading.gif'
 import { ReadAloud } from './ChatModal/ReadAloud';
 import { LikeDislikeComponent } from './ChatModal/LikeDislikeComponent';
 import botImage from '../assets/chatpage/botImage.png'
-import { saveResponseReceived } from './ChatModal/SaveOverallResponse';
 import ErrorBoundary from '../utilites/ErrorBoundary';
 import partyIcon from '../assets/chatpage/celebrate.gif'
 function ChatAnswerCrad(prop) {
@@ -94,36 +93,14 @@ function ChatAnswerCrad(prop) {
 
   }
 
-  useEffect(() => { //save data to backend 
-
-    let isSaved = localStorage.getItem(`${prop?.answer?.id}detailsSaved`)
-    if (prop.answer.graph_data != '' && prop.answer.graph_type != '') {
-
-      let dataFormated = {
-        response: {
-          chat_answer: prop?.answer?.chat_text,
-          id: prop?.answer?.id,
-          suggestive: prop?.answer?.suggestive,
-          model_output: prop?.answer?.model_output,
-          model_output_type: prop?.answer?.model_output_type,
-          graph_data: prop?.answer?.graph_data,
-          graph_type: prop?.answer?.graph_type,
-          scoretype: prop?.answer?.scoretype,
-          general_question: prop?.answer?.general_question,
-
-        }
-      }
-      if (!isSaved) {
-        saveResponseReceived(dataFormated)
-      }
-
-    }
-  }, [prop?.answer?.chart_completed])
+  
 
   function regenerateHandle(){
-    
-    let questionId = prop?.answer?.id+'question'
-    prop?.sendQuestion(true,questionId)
+    if(prop?.answer?.chatCompleted){
+      let questionId = prop?.answer?.id+'question'
+      prop?.sendQuestion(true,questionId)
+      
+    }
     
   }
 
@@ -170,7 +147,7 @@ function ChatAnswerCrad(prop) {
           </div>
           <div className='answer-feature-iconhold d-flex justify-content-end   align-items-center'>
             {/* regenerate icon*/}
-           { prop.answer?.chat_type == 'Answer' &&  <svg onClick={regenerateHandle} width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+           { prop.answer?.chat_type == 'Answer' &&  <svg onClick={regenerateHandle} style={prop?.answer?.chatCompleted?{cursor:'pointer'}:{cursor:'not-allowed'}} width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
               <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
             </svg> }

@@ -27,7 +27,9 @@ function Chats(prop) {
                 general_question: true,
                 suggestive_completed:false,
                 chart_completed:false,
-                answer_closed:false
+                answer_closed:false,
+                isSaved:false,
+                chatCompleted:false
 
             }
             ,{
@@ -45,7 +47,9 @@ function Chats(prop) {
                 general_question: true,
                 suggestive_completed:false,
                 chart_completed:false,
-                answer_closed:false
+                answer_closed:false,
+                isSaved:false,
+                chatCompleted:false
 
             }
         ]
