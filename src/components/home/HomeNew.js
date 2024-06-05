@@ -43,7 +43,7 @@ function HomeNew() {
             <div className='homePage-content'>
                 <NavBarHome />
 
-                <div className='homePage-maincontent pt-2'>
+                <div className='homePage-maincontent'>
                 <div className='mainfrst bg-white rounded border'><HomeStartOptions /></div>
 
                     <div className='holdercup shadow' style={!chatboxShow?{displey:'flex'}:{display:'none'}}>

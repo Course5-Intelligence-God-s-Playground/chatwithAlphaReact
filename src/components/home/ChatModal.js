@@ -15,7 +15,9 @@ function ChatModal(prop) {
     const containerRef = useRef(null);
     const getTableViewRecoil = useRecoilValue(TableViewRecoil)
     const [qaChats, setqaChats] = useState([])
-    const [isloading, setIsloading] = useState(false)
+    const [isloading, setIsloading] = useState(false) //to show loading gif
+    const [isWebsocketRunning,setIsWebSocketRunning] = useState(false)//to disable textarea
+    const [hasUserScrolled,setHasUserScrolled] = useState(false)
     const [getfeedbackEmailContainer, setfeedbackEmailContainer] = useState(false)
     const [fieldvalues, setValues] = useState({
         question: '',
@@ -173,6 +175,7 @@ function ChatModal(prop) {
                 "scoring_type": resp.scoring_type,
                 "recent_chat": resp.data
             }));
+            setIsWebSocketRunning(true)
             if(isRegenerate){
                 setqaChats((prevChats) => {
                     // Check if an object with the same id exists
@@ -371,6 +374,7 @@ function ChatModal(prop) {
             
             }
             else if(data.type == 'suggestive_questions_closed'){
+                setIsWebSocketRunning(false)
                 setRegenerateQueId(null)
                 setqaChats((prevChats) => {
                     // Check if an object with the same id exists
@@ -422,9 +426,9 @@ function ChatModal(prop) {
                 });
             }
             else if(data.type == 'all_msg_complete'){
-                    console.log('hai')
-                    console.log(resp.id)
-                    console.log(qaChats)
+               console.log(qaChats)
+            setIsWebSocketRunning(false)
+
                     setqaChats((prevChats) => {
                         // Check if an object with the same id exists
                         const index = prevChats.findIndex(chat => chat.id === resp.id);
@@ -433,7 +437,7 @@ function ChatModal(prop) {
                             // Update chat_text if id exists
                             return prevChats.map(chat => {
                                 if (chat.id === resp.id) {
-                                   
+                                    
                                     return {
                                         ...chat,
                                         chatCompleted:true
@@ -450,18 +454,22 @@ function ChatModal(prop) {
             else if(data.type =='error'){
             setIsloading(false)
             updateErrorMessage()
-               
+            setIsWebSocketRunning(false)
             
             }
             
            } catch (error) {
             setIsloading(false)
+            setIsWebSocketRunning(false)
+
             // updateErrorMessage()
            }
             
         };
         ws.onerror = function(e){
             setIsloading(false)
+            setIsWebSocketRunning(false)
+
             // console.log('failed')
             retryConnection(resp,currentDate)
         };
@@ -481,6 +489,8 @@ function ChatModal(prop) {
             updateErrorMessage()
             console.log("Max retry attempts reached. Unable to establish WebSocket connection.");
             setIsloading(false);
+            setIsWebSocketRunning(false)
+
         }
     }
     useEffect(() => {
@@ -489,31 +499,64 @@ function ChatModal(prop) {
             let lastReq = qaChats[qaChats.length - 1]
             const scrollableDiv = document.getElementsByClassName('chatbodyqa')[0]
             // console.log(isRegnerate)
-           if(!isRegnerate || regenerateQueId!=null){
            
-            if (lastReq.chat_type == 'Question') {
-
-                // Scroll to the end of the scrollable div
-                scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
-            }
-            else {
-            
-                scrollableDiv.scrollTop = scrollableDiv.scrollHeight - 200;
-            }
-            for (let I = 0; I < qaChats.length; I++) {
-                if(qaChats[I].id){
+            if(!isRegnerate || regenerateQueId!=null){
+           
+                if (lastReq.chat_type == 'Question') {
     
+                    // Scroll to the end of the scrollable div
+                    scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+                    setHasUserScrolled(false)
                 }
-                
-            }
-           }
+                else {
+                    if(!hasUserScrolled){
+                    scrollableDiv.scrollTop = scrollableDiv.scrollHeight - 200;
+                    }
+                }
+                for (let I = 0; I < qaChats.length; I++) {
+                    if(qaChats[I].id){
         
+                    }
+                    
+                }
+               }
            
+        
+          
         } catch (error) {
 
         }
 
     }, [qaChats]);
+    useEffect(()=>{
+        const scrollableDiv = document.getElementsByClassName('chatbodyqa')[0];
+        const handleScroll = () => {
+           
+            const userScrolledUp = scrollableDiv?.scrollTop < (scrollableDiv?.scrollHeight - scrollableDiv?.clientHeight);
+            
+            // Check if the user has scrolled up
+            if (userScrolledUp) {
+                // User has scrolled up
+                console.log('up')
+            setHasUserScrolled(true)
+            // Add your logic here
+            }
+            else{
+                console.log('down')
+                setHasUserScrolled(false)
+            }
+            // Update state or perform actions based on scroll position
+            // For example, you can set a state variable to indicate whether the user has scrolled up
+        };
+    
+        scrollableDiv?.addEventListener('scroll', handleScroll);
+    
+        // Clean up the event listener
+        return () => {
+            scrollableDiv.removeEventListener('scroll', handleScroll);
+        };
+    },[])
+    
 
     async function clearAllChatsHandler() {  //delete all chats 
         setIsloading(true)
@@ -657,7 +700,7 @@ function ChatModal(prop) {
                 !getTableViewRecoil ?
                     <>  
                  
-                        <div class="offcanvas-header border-bottom">
+                        <div class="offcanvas-header">
                           
                           <img src={pocaAImg} className='nexusImgChat'></img>
                           <div className='offcanvas-right justify-content-end'>
@@ -707,7 +750,7 @@ function ChatModal(prop) {
                                     </li>
                                     {/* type question here  */}
                                     <div className='chatbodyinput w-100 d-flex align-items-center justify-content-center gap-4'>
-                                        <textarea className='chatbodyinput-txtarea p-2 border rounded' placeholder='Ask me anything...' value={fieldvalues.question} onChange={textAreaChangeHandle} onKeyDown={!isloading ? sendHandleonEnterKey : null} autoFocus={true} disabled={getfeedbackEmailContainer}></textarea>
+                                        <textarea className='chatbodyinput-txtarea p-2 border rounded' placeholder='Ask me anything...' value={fieldvalues.question} onChange={textAreaChangeHandle} onKeyDown={!isloading ? sendHandleonEnterKey : null} autoFocus={true} disabled={getfeedbackEmailContainer || isWebsocketRunning || isloading} style={getfeedbackEmailContainer || isWebsocketRunning || isloading?{cursor:'not-allowed'}:{cursor:"text"}}></textarea>
                                         <i class="bi bi-send fs-4 text-primary chatbodyinputSendIcon" onClick={!isloading ? () => { sendQuestion(false,null) } : null}></i>
                                     </div>
                                 </div>

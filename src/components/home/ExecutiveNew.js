@@ -1,6 +1,5 @@
 import React from 'react'
 import './HomeNewStyle.scss'
-import questionbg from '../assets/Home/questionBg.png'
 import instructionIcon from '../assets/Home/instructionIcon.svg'
 function Executive() {
     const sampleQuestions=['Who has the best POCA scores in FY24 in EMEA?','Which partners in Japan had the largest YoY differences in POCA scores?','Which capabilities are strongest and weakest in Norway in FY24?']
@@ -29,9 +28,9 @@ function Executive() {
                             </ol>
                       
                             <div className='question-container-wrap-cover'>
-                            <div className='question-text text-white p-2 '>Who has the best POCA scores in FY24 in EMEA?</div>
-                            <div className='question-text text-white p-2 '>Who has the best POCA scores in FY24 in EMEA?</div>
-                            <div className='question-text text-white p-2 '>Who has the best POCA scores in FY24 in EMEA?</div>
+                            <div className='question-text text-white p-2  '>Who has the best POCA scores in FY24 in EMEA?</div>
+                            <div className='question-text text-white p-2 '>Which partners in Japan had the largest YoY differences in POCA scores?</div>
+                            <div className='question-text text-white p-2 '>Which capabilities are strongest and weakest in Norway in FY24?</div>
 
                            
                             </div>

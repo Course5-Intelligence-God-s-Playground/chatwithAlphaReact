@@ -43,28 +43,28 @@ $lg: 992px;
     background-color: #d2ebfd;
 
 }
-.chatAnswer,.chatQuestion{
+
+.chatAnswer,
+.chatQuestion {
     border-radius: 15px;
-    
-    white-space: pre-line;
+    // white-space: pre-line;
+    white-space:inherit !important;
     width: 80ch;
     font-size: 0.9vw !important;
-   
-   
-    @include xxl{
-      font-size: medium !important;
-        
-    }
-    @include lg{
-        font-size: x-small !important;
 
+    @include xxl {
+        font-size: small !important;
     }
-    @include md{
+    @include lg {
+        font-size: x-small !important;
+    }
+    @include md {
         font-size: x-small !important;
         width: 40ch;
     }
-   
 }
+
+
 
 .timeview{
     font-size: small;

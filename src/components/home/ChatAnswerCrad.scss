@@ -15,7 +15,7 @@ $xxl: 1400px;
     background-color: #fafbfd;
     display: flex;
     flex-direction: row;
-    
+    white-space:inherit !important;
     @include md{
         flex-direction: column;
         gap: 1vh;
@@ -24,8 +24,12 @@ $xxl: 1400px;
         left: 2%;
     }
 }
+.suggestiveHolder{
+    white-space:inherit !important;
+}
 .suggestion{
     background-color: #0988e2;
+    white-space:inherit !important;
     font-size: smaller !important;
     cursor: pointer;
     color: white;

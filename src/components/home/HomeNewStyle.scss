@@ -37,15 +37,16 @@ $md: 768px;
   gap: 2vw;
   .question-text{
     background-image: url('../assets/Home/questionBg.png');
-    height: 10vh;
+    height: 11.5vh;
     background-size: cover;
+    transform: scale(0.9);
     background-position: bottom;
     border-top: 1.5px solid white;
     background-repeat: no-repeat;
     aspect-ratio: 3/1;
     font-size:smaller;
     @include xxl{
-      font-size: medium;
+      font-size: small;
       
     }
   }
@@ -66,6 +67,7 @@ $md: 768px;
 .homePage-maincontent {
   display: flex;
   position: relative;
+  padding-top: 2vh;
   top: 14vh;
   @include xxl{
   top: 13vh;
@@ -339,7 +341,12 @@ $xxl: 1400px;
     background-image: url('../assets/Home/storyCard.png');
     background-size: cover;
     background-position: center;
-  
+    
+    &:hover{
+      cursor: pointer;
+      transform: scale(0.99);
+     
+    }
     @include md {
         flex: none;
         height: 15vh;
@@ -356,7 +363,7 @@ $xxl: 1400px;
     font-size: small;
     }
     @include xxl{
-      font-size: large;
+      font-size: medium;
 
     }
 
@@ -373,7 +380,7 @@ $xxl: 1400px;
     font-size: small;
     font-weight: bold;
     @include xxl{
-        font-size: large;
+        font-size: small;
     }
 }
 
@@ -499,7 +506,7 @@ $xxl: 1400px;
 
     }
     @include xxl{
-        font-size: medium;
+        font-size: small;
     } 
     
 }

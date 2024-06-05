@@ -121,7 +121,7 @@ function StoryNew(prop) {
                             }
                         </div>
                     ))
-                    : <div className='text-muted mt-3 text-center'>Data Not Available</div>
+                    : <div className='text-muted mt-3 text-center fw-bold'>Fetching ...</div>
 
                 }
             </div>
