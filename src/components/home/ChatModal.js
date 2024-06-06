@@ -11,6 +11,7 @@ import { ChatAnswerComponentData } from '../utilites/ChatAnswerCradRecoilData';
 import Feedback from './ChatModal/Feedback';
 import Switch from "react-switch";
 import { saveResponseReceived } from './ChatModal/SaveOverallResponse';
+import Dictaphone from '../utilites/Speech2Text';
 function ChatModal(prop) {
     const containerRef = useRef(null);
     const getTableViewRecoil = useRecoilValue(TableViewRecoil)
@@ -25,7 +26,7 @@ function ChatModal(prop) {
     })
     const [getChatAnswerComponentData, setChatAnswerComponentData] = useRecoilState(ChatAnswerComponentData)
    const [feedBackId,setFeedBackId] = useState(null) //user selected answerID to send feedback for
-
+    const [speechEnabled,setSpeechEnabled] = useState(false)
     
     // websocket 
     const [timeStore,setTimeStore] = useState([])
@@ -426,7 +427,7 @@ function ChatModal(prop) {
                 });
             }
             else if(data.type == 'all_msg_complete'){
-               console.log(qaChats)
+            //    console.log(qaChats)
             setIsWebSocketRunning(false)
 
                     setqaChats((prevChats) => {
@@ -537,12 +538,12 @@ function ChatModal(prop) {
             // Check if the user has scrolled up
             if (userScrolledUp) {
                 // User has scrolled up
-                console.log('up')
+               
             setHasUserScrolled(true)
             // Add your logic here
             }
             else{
-                console.log('down')
+           
                 setHasUserScrolled(false)
             }
             // Update state or perform actions based on scroll position
@@ -692,6 +693,7 @@ function ChatModal(prop) {
         }
     }, [qaChats]);
     
+   
     return (
         <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
 
@@ -749,9 +751,17 @@ function ChatModal(prop) {
 
                                     </li>
                                     {/* type question here  */}
-                                    <div className='chatbodyinput w-100 d-flex align-items-center justify-content-center gap-4'>
-                                        <textarea className='chatbodyinput-txtarea p-2 border rounded' placeholder='Ask me anything...' value={fieldvalues.question} onChange={textAreaChangeHandle} onKeyDown={!isloading ? sendHandleonEnterKey : null} autoFocus={true} disabled={getfeedbackEmailContainer || isWebsocketRunning || isloading} style={getfeedbackEmailContainer || isWebsocketRunning || isloading?{cursor:'not-allowed'}:{cursor:"text"}}></textarea>
-                                        <i class="bi bi-send fs-4 text-primary chatbodyinputSendIcon" onClick={!isloading ? () => { sendQuestion(false,null) } : null}></i>
+                                    <div className='chatbodyinput w-100 d-flex align-items-center justify-content-center'>
+                                        <div className='chatInput-intermediate-hold d-flex align-items-center'>
+                                      
+                                       <div className=' h-100 speechIcon-holder pt-2 px-3'>
+                                        <Dictaphone setValues={setValues} fieldvalues={fieldvalues} speechEnabled={speechEnabled} setSpeechEnabled={setSpeechEnabled}/>
+                                        </div>
+                                        <textarea className='chatbodyinput-txtarea  w-100 p-1 pt-2 bg-transparent' rows={4} placeholder={!speechEnabled?'Type to Ask me...':'Speak now...'} value={fieldvalues.question} onChange={textAreaChangeHandle} onKeyDown={!isloading ? sendHandleonEnterKey : null} autoFocus={true} disabled={getfeedbackEmailContainer || isWebsocketRunning || isloading} style={getfeedbackEmailContainer || isWebsocketRunning || isloading?{cursor:'not-allowed'}:{cursor:"text"}}></textarea>
+                                      
+                                        <i class="bi bi-send fs-4 text-primary chatbodyinputSendIcon pe-3" onClick={!isloading ? () => { sendQuestion(false,null) } : null}></i>
+                                    
+                                        </div>
                                     </div>
                                 </div>
                             </div>

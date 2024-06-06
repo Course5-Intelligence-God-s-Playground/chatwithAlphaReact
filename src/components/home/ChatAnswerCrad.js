@@ -10,6 +10,7 @@ import { LikeDislikeComponent } from './ChatModal/LikeDislikeComponent';
 import botImage from '../assets/chatpage/botImage.png'
 import ErrorBoundary from '../utilites/ErrorBoundary';
 import partyIcon from '../assets/chatpage/celebrate.gif'
+import ErrorBoundaryTable from '../utilites/ErrorBoundaryTable';
 function ChatAnswerCrad(prop) {
 
   const [getChatAnswerComponentData, setChatAnswerComponentData] = useRecoilState(ChatAnswerComponentData)
@@ -192,12 +193,12 @@ function ChatAnswerCrad(prop) {
         <div className='ChartViewCnt  rounded'><ChartView propChartView={propChartView} answer={prop?.answer} /></div>
         </ErrorBoundary>
         {prop.answer.model_output != '' ? 
-        <ErrorBoundary>
+        <ErrorBoundaryTable>
         <div className='ChatTableViewCnt rounded'>
           <div className='chartHolder'><ChatTableView modelOutput={prop.answer.model_output} model_output_type={prop.answer.model_output_type} ids={prop.answer.id} />
           </div>
         </div>
-        </ErrorBoundary> 
+        </ErrorBoundaryTable> 
         : null}
 
       </div>}

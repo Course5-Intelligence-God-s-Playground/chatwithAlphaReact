@@ -172,16 +172,39 @@ $lg: 992px;
 
    
 }
-
-.chatbodyinput-txtarea {
+.chatInput-intermediate-hold{
+    height: 75%;
     width: 90%;
+    @include md{
+        width: 90%; 
+    }
+    background-color: #fafafa;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.speechIcon-holder{
+    .bi-mic,.bi-mic-mute-fill{
+        font-size: 1.5vw;
+        @include md{
+            font-size:large;
+        }
+        @include xxl{
+            font-size: x-large;
+        }
+        cursor: pointer;
+        &:active{
+            opacity: 0;
+        }
+    }
+}
+.chatbodyinput-txtarea {
+    width: 80%;
     max-height: 100%;
     min-height: 100%;
     outline: none;
     border: none;
-    background-color: #fafafa;
-    font-size: 1.1vw;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  resize: none;
+    font-size: small;
+    
     font-family: "Segoe UI";
     /* Customize the main scrollbar track */
     &::-webkit-scrollbar {
@@ -196,6 +219,8 @@ $lg: 992px;
     }
     @include md{
         font-size: small;
+        width: 60%;
+       
     }
 }
 

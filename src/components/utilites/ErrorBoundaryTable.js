@@ -1,7 +1,7 @@
 // ErrorBoundary.js
 import React, { Component } from 'react';
 
-class ErrorBoundary extends Component {
+class ErrorBoundaryTable extends Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
@@ -20,11 +20,11 @@ class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <h6>A valid <span className='fw-bold' style={{color:'#00c4c9'}}>Chart</span> wasn't generated for this response.</h6>;
+      return <h6>A valid <span className='fw-bold' style={{color:'#00c4c9'}}>Table</span> wasn't generated for this response.</h6>;
     }
 
     return this.props.children; 
   }
 }
 
-export default ErrorBoundary;
+export default ErrorBoundaryTable;
