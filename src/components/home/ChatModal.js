@@ -18,7 +18,7 @@ function ChatModal(prop) {
     const [qaChats, setqaChats] = useState([])
     const [isloading, setIsloading] = useState(false) //to show loading gif
     const [isWebsocketRunning,setIsWebSocketRunning] = useState(false)//to disable textarea
-    const [hasUserScrolled,setHasUserScrolled] = useState(false)
+    const [hasUserScrolled, setHasUserScrolled] = useState(true);
     const [getfeedbackEmailContainer, setfeedbackEmailContainer] = useState(false)
     const [fieldvalues, setValues] = useState({
         question: '',
@@ -375,7 +375,7 @@ function ChatModal(prop) {
             
             }
             else if(data.type == 'suggestive_questions_closed'){
-                setIsWebSocketRunning(false)
+                // setIsWebSocketRunning(false)
                 setRegenerateQueId(null)
                 setqaChats((prevChats) => {
                     // Check if an object with the same id exists
@@ -494,10 +494,13 @@ function ChatModal(prop) {
 
         }
     }
+
+
     useEffect(() => {
 
         try {
             let lastReq = qaChats[qaChats.length - 1]
+            let lastSecondReq = qaChats[qaChats.length - 2]
             const scrollableDiv = document.getElementsByClassName('chatbodyqa')[0]
             // console.log(isRegnerate)
            
@@ -507,11 +510,17 @@ function ChatModal(prop) {
     
                     // Scroll to the end of the scrollable div
                     scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+                    // if(lastSecondReq.chat_type == 'msg'){
+                    //     setHasUserScrolled(true)
+                    // }
+                    // else{
+                    //     setHasUserScrolled(false)
+                    // }
                     setHasUserScrolled(false)
                 }
                 else {
                     if(!hasUserScrolled){
-                    scrollableDiv.scrollTop = scrollableDiv.scrollHeight - 200;
+                    scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
                     }
                 }
                 for (let I = 0; I < qaChats.length; I++) {
@@ -529,23 +538,29 @@ function ChatModal(prop) {
         }
 
     }, [qaChats]);
+
+
     useEffect(()=>{
         const scrollableDiv = document.getElementsByClassName('chatbodyqa')[0];
         const handleScroll = () => {
            
             const userScrolledUp = scrollableDiv?.scrollTop < (scrollableDiv?.scrollHeight - scrollableDiv?.clientHeight);
-            
+            const percentageScrolled = (scrollableDiv.scrollTop / (scrollableDiv.scrollHeight - scrollableDiv.clientHeight)) * 100;
             // Check if the user has scrolled up
-            if (userScrolledUp) {
-                // User has scrolled up
-               
-            setHasUserScrolled(true)
-            // Add your logic here
-            }
-            else{
+            
+                if(percentageScrolled < 99.5 ){
+                  
+                    setHasUserScrolled(true)
+                }
+                else if(percentageScrolled >= 100){
+                   
+                    setHasUserScrolled(false)
+                }
+
            
-                setHasUserScrolled(false)
-            }
+            // Add your logic here
+            
+            
             // Update state or perform actions based on scroll position
             // For example, you can set a state variable to indicate whether the user has scrolled up
         };
@@ -557,7 +572,6 @@ function ChatModal(prop) {
             scrollableDiv.removeEventListener('scroll', handleScroll);
         };
     },[])
-    
 
     async function clearAllChatsHandler() {  //delete all chats 
         setIsloading(true)
@@ -724,7 +738,7 @@ function ChatModal(prop) {
                         <div class="offcanvas-body">
                             <div className='chatbody d-flex flex-column'>
 
-                                <div className='chatbodyqa rounded pt-1' ref={containerRef}>
+                                <div className='chatbodyqa rounded pt-1'  ref={containerRef} >
                                     {
                                         !getfeedbackEmailContainer ?
                                             <Chats 
@@ -754,10 +768,10 @@ function ChatModal(prop) {
                                     <div className='chatbodyinput w-100 d-flex align-items-center justify-content-center'>
                                         <div className='chatInput-intermediate-hold d-flex align-items-center'>
                                       
-                                       <div className=' h-100 speechIcon-holder pt-2 px-3'>
+                                       <div className=' h-100 speechIcon-holder pt-3 px-3'>
                                         <Dictaphone setValues={setValues} fieldvalues={fieldvalues} speechEnabled={speechEnabled} setSpeechEnabled={setSpeechEnabled}/>
                                         </div>
-                                        <textarea className='chatbodyinput-txtarea  w-100 p-1 pt-2 bg-transparent' rows={4} placeholder={!speechEnabled?'Type to Ask me...':'Speak now...'} value={fieldvalues.question} onChange={textAreaChangeHandle} onKeyDown={!isloading ? sendHandleonEnterKey : null} autoFocus={true} disabled={getfeedbackEmailContainer || isWebsocketRunning || isloading} style={getfeedbackEmailContainer || isWebsocketRunning || isloading?{cursor:'not-allowed'}:{cursor:"text"}}></textarea>
+                                        <textarea className='chatbodyinput-txtarea  w-100 p-1 pt-2 bg-transparent' rows={4} placeholder={!speechEnabled?'Type to Ask me...':'Speak now...'} value={fieldvalues.question} onChange={textAreaChangeHandle} onKeyDown={!isloading ? sendHandleonEnterKey : null} disabled={getfeedbackEmailContainer || isWebsocketRunning || isloading} style={getfeedbackEmailContainer || isWebsocketRunning || isloading?{cursor:'not-allowed'}:{cursor:"text"}}></textarea>
                                       
                                         <i class="bi bi-send fs-4 text-primary chatbodyinputSendIcon pe-3" onClick={!isloading ? () => { sendQuestion(false,null) } : null}></i>
                                     

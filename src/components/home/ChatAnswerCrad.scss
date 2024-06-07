@@ -125,20 +125,13 @@ $xxl: 1400px;
   }
 
   .answerIcons{
-    height: 2.5vh;
-    aspect-ratio: 1;
-    cursor: pointer;
-    &:active{
-        opacity: 0;
-    }
-    @include md{
-        height: 2vh;
-
-    }
+    color: grey;
+   cursor: pointer;
+   &:active{
+    opacity: 0;
+   }
   }
-  .voiceIcon{
-    opacity: 0.5;
-  }
+ 
 
  .modal-dialog{
     z-index: 99999;

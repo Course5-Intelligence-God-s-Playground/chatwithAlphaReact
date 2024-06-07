@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { TableDataRecoil, TableViewRecoil } from '../utilites/TableRecoil'
 import './ChartTableExtendedView.scss'
@@ -10,6 +10,38 @@ function ChartTableExtendedView() {
   const [getTableViewRecoil, setTableViewRecoil] = useRecoilState(TableViewRecoil)
   const [getChatAnswerComponentData, setChatAnswerComponentData] = useRecoilState(ChatAnswerComponentData)
   const getTableDataRecoil = useRecoilValue(TableDataRecoil)
+
+
+  const [orgData,setorgData] = useState(getTableDataRecoil.modelOutput)
+  const [formattedData,setFormattedData] = useState({})
+ 
+  useEffect(()=>{
+  
+  if(getTableDataRecoil?.model_output_type=='Series'){
+    
+  function isNumeric(value) {
+    return !isNaN(value) && !isNaN(parseFloat(value));
+}
+
+// Convert the object into an array of [key, value] pairs
+let outputArray = Object.entries(orgData);
+
+if (outputArray.every(([key, value]) => isNumeric(value))) {
+    // If all values are numeric, sort by values in descending order
+    outputArray.sort((a, b) => b[1] - a[1]);
+} else {
+    // Otherwise, sort by keys in ascending order
+    outputArray.sort((a, b) => a[0].localeCompare(b[0]));
+}
+
+// Convert the sorted array back into an object
+let sortedOutput = Object.fromEntries(outputArray);
+setFormattedData(sortedOutput)
+  }
+  },[orgData])
+
+
+
 
   function closeChatTableExtebdedView() {
     setChatAnswerComponentData({ ...getChatAnswerComponentData, closeBtnClick: !getChatAnswerComponentData.closeBtnClick })
@@ -26,40 +58,16 @@ function ChartTableExtendedView() {
           <DataFrameTable modelOutput={getTableDataRecoil.modelOutput} />
 
           :
-          getTableDataRecoil.model_output_type == 'Series' ?
-            Array.isArray(getTableDataRecoil.modelOutput[headers[0]]) ?
-              <table >
-                <tbody className='tableBody'>
-                  {
-                    headers.map((oph) => (
-                      <tr>
-                        {
-                          getTableDataRecoil.modelOutput[oph].map((items) => (
-                            <td className='text-center' style={typeof items == 'number' ? items >= 0 ? {} : { color: 'red' } : {}}>{typeof items == 'number' ? 
-                            oph.toLowerCase().includes('rank')?<b>{items}</b>:<b>{items + '%'}</b> 
-                            : items}</td>
-                          ))
-                        }
-                      </tr>
-                    ))
-                  }
-                </tbody>
-              </table>
-              :
+          <table>
 
-              <table>
-
-                <tbody className='tableBody'>
-                  {headers.map((val, index) => (
-                    <tr>
-                      <td key={index} className='seriesarrayFrstCol fw-semibold text-white w-50'>{val}</td>
-                      <td key={index} className='text-center' style={typeof getTableDataRecoil.modelOutput[val] == 'number' ? getTableDataRecoil.modelOutput[val] >= 0 ? {} : { color: 'red' } : {}}>{typeof getTableDataRecoil.modelOutput[val] == 'number' ? 
-                     val.toLowerCase().includes('rank')? <b>{getTableDataRecoil.modelOutput[val] }</b> : <b>{getTableDataRecoil.modelOutput[val]+ '%' }</b> 
-                      : getTableDataRecoil.modelOutput[val]}</td></tr>
-                  ))}
-                </tbody>
-              </table>
-            : null}
+          <tbody className='tableBody'>
+            {Object.keys(formattedData)?.map((val, index) => (
+              <tr>
+                <td key={index} className='seriesarrayFrstCol fw-semibold text-white w-50'>{val}</td>
+                <td key={index} style={typeof formattedData[val] == 'number' && formattedData[val]<0?{color:'red',textAlign:'center',fontWeight:'bold'}:{textAlign:'center',fontWeight:'bold'}} >{ formattedData[val]}</td></tr>
+            ))}
+          </tbody>
+        </table>}
       </div>
 
 

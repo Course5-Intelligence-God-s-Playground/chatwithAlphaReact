@@ -3,115 +3,136 @@ $xxl: 1400px;
 $mob: 576px;
 
 $lg: 992px;
+
 //For Medium
 @mixin md {
-  @media screen and (max-width: ($md)) {
-    @content;
-  }
+    @media screen and (max-width: ($md)) {
+        @content;
+    }
 }
+
 @mixin lg {
     @media screen and (max-width: ($lg)) {
-      @content;
+        @content;
     }
-  }
+}
+
 @mixin mob {
     @media screen and (max-width: ($mob)) {
-      @content;
+        @content;
     }
-  }
-  @mixin xxl {
+}
+
+@mixin xxl {
     @media screen and (min-width: $xxl) {
-      @content;
+        @content;
     }
-  }
+}
 
 
 #offcanvasScrolling {
     height: 83vh;
     width: 93vw;
     margin-top: 16vh;
-    
+
     font-family: 'Segoe UI';
     border-radius: 1.5vw 0 1.5vw 1.5vw;
-    @include md{
+
+    @include md {
         width: 100vw;
-    height:auto;
-    margin-top: 14vh;
-  
-       background-color: transparent;
+        height: auto;
+        margin-top: 14vh;
+
+        background-color: transparent;
 
     }
-    @include xxl{
-    height: 83vh;
+
+    @include xxl {
+        height: 83vh;
         margin-top: 15vh;
         border-radius: 1vw 0 1vw 1vw;
     }
-   
+
 }
-.offcanvas-header{
+
+.offcanvas-header {
     display: flex;
-   
-    @include md{
+
+    @include md {
         background-color: white;
         flex-direction: column;
     }
-  
+
 }
-.answer-feature-iconhold{
+
+.answer-feature-iconhold {
     transform: scale(0.9);
-   gap: 1vw;
-    @include md{
-    transform: scale(0.8);
-    gap: 1.2vw;
-    position: relative;
+    gap: 1vw;
+
+    @include md {
+        transform: scale(0.8);
+        gap: 1.2vw;
+        position: relative;
     }
 }
-.chatAnswer{
-    @include md{
+
+.chatAnswer {
+    @include md {
         position: relative;
         right: -1vw;
     }
 }
-.offcanvas-right{
+
+.offcanvas-right {
     display: flex;
-  
-    
-   width: 50%;
-    
-    @include md{
+
+
+    width: 50%;
+
+    @include md {
         flex-direction: row;
         width: 50%;
     }
-    @include lg{
+
+    @include lg {
         width: 60%;
     }
-    @include xxl{
+
+    @include xxl {
         flex-direction: row;
         width: 50%;
     }
-    @include mob{
+
+    @include mob {
         width: 100%;
-        
+
     }
 }
-.nexusImgChat{
+
+.nexusImgChat {
     height: 5vh;
-    @include mob{
+
+    @include mob {
         height: 1vh;
     }
-    @include md{
+
+    @include md {
         height: 3vh;
     }
-    @include xxl{
+
+    @include xxl {
         height: 5vh;
     }
 }
-.offcanvas-selectLabel{
+
+.offcanvas-selectLabel {
     display: block;
-    @include md{
+
+    @include md {
         display: none;
     }
 }
+
 .offcanvas-titleTxt {
     font-size: smaller;
     width: 10vw;
@@ -120,36 +141,46 @@ $lg: 992px;
 .bi-x-circle {
     cursor: pointer;
     color: red;
-    @include md{
+
+    @include md {
         position: relative;
         top: 2px;
     }
 }
-.modalClose,.clearchatbtn{
+
+.modalClose,
+.clearchatbtn {
     transform: scale(0.8);
-    @include xxl{
+
+    @include xxl {
         transform: scale(1);
         margin-left: 1vw;
     }
 }
+
 .chatbody {
     height: 100%;
 }
-.clearchatbtn{
-    @include md{
+
+.clearchatbtn {
+    @include md {
         width: 25vw;
         height: 3vh;
-        white-space: nowrap;       /* Prevent text from wrapping */
-        overflow: hidden;          /* Hide any overflowing text */
+        white-space: nowrap;
+        /* Prevent text from wrapping */
+        overflow: hidden;
+        /* Hide any overflowing text */
         text-overflow: ellipsis;
     }
 }
+
 .chatbodyqa {
     height: 80%;
     overflow: auto;
+
     /* Customize the main scrollbar track */
     &::-webkit-scrollbar {
-        width:5px;
+        width: 5px;
         border-radius: 5px;
     }
 
@@ -162,50 +193,72 @@ $lg: 992px;
 
 .chatbodyinput {
     height: 75%;
-   .chatbodyinputSendIcon{
-    cursor: pointer;
-    transform: rotate(45deg);
-    &:active{
-        transform: scale(1.1);
-    }
-   }
 
-   
+    .chatbodyinputSendIcon {
+        cursor: pointer;
+        transform: rotate(45deg);
+
+        &:active {
+            transform: scale(1.1);
+        }
+    }
+
+
 }
-.chatInput-intermediate-hold{
+
+.chatInput-intermediate-hold {
     height: 75%;
     width: 90%;
-    @include md{
-        width: 90%; 
+
+    @include md {
+        width: 90%;
     }
+
     background-color: #fafafa;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
-.speechIcon-holder{
-    .bi-mic,.bi-mic-mute-fill{
+
+.speechIcon-holder {
+
+    .bi-mic,
+    .bi-mic-mute-fill {
         font-size: 1.5vw;
-        @include md{
-            font-size:large;
+
+        @include md {
+            font-size: large;
         }
-        @include xxl{
+
+        @include xxl {
             font-size: x-large;
         }
+
         cursor: pointer;
-        &:active{
+
+        &:active {
             opacity: 0;
         }
     }
 }
+
 .chatbodyinput-txtarea {
     width: 80%;
     max-height: 100%;
     min-height: 100%;
     outline: none;
     border: none;
-  resize: none;
+    resize: none;
     font-size: small;
-    
+    &::placeholder{
+        padding-top: 12px;
+
+    }
+    &:focus::placeholder {
+        display: none;
+        opacity: 0;
+    }
+
     font-family: "Segoe UI";
+
     /* Customize the main scrollbar track */
     &::-webkit-scrollbar {
         width: 5px;
@@ -217,104 +270,121 @@ $lg: 992px;
         background: #666;
         border-radius: 5px;
     }
-    @include md{
+
+    @include md {
         font-size: small;
         width: 60%;
-       
+
     }
 }
 
-.spinner-border{
+.spinner-border {
     position: absolute;
     top: 50vh;
     left: 50%;
 }
 
-.chtbotSpinner{
-   position: absolute;
-   top: 60%;
- 
-   left: 40%;
-   @include md{
-    top: 50%;
-   left: 40%;
-   }
-  
+.chtbotSpinner {
+    position: absolute;
+    top: 60%;
+
+    left: 40%;
+
+    @include md {
+        top: 50%;
+        left: 40%;
+    }
+
 }
-.chtbotSpinnerfox,.chtbotSpinner2{
-position: absolute;
+
+.chtbotSpinnerfox,
+.chtbotSpinner2 {
+    position: absolute;
 }
-.chtbotSpinnerfox{
+
+.chtbotSpinnerfox {
     width: 17vw;
     transform: scale(2);
-    @include md{
+
+    @include md {
         transform: scale(8);
 
     }
 }
-.chtbotSpinner2{
+
+.chtbotSpinner2 {
     width: 17vw;
-    @include md{
-    width: 57vw;
-    position: relative;
-    left: -20vw;
-        
+
+    @include md {
+        width: 57vw;
+        position: relative;
+        left: -20vw;
+
     }
 }
 
 
 
 
-.form-select{
+.form-select {
     width: 25vw;
-    @include md{
+
+    @include md {
         width: 40vw;
     }
 }
-.offcanvas-header{
+
+.offcanvas-header {
     border-bottom: 0.5px solid rgb(219, 218, 218);
-    @include md{
-    border-top: 0.5px solid rgb(219, 218, 218);
+
+    @include md {
+        border-top: 0.5px solid rgb(219, 218, 218);
 
     }
 }
-.offcanvas-headerSection1{
+
+.offcanvas-headerSection1 {
     gap: 5%;
-   
+
 }
-.offcanvas-headerSection2{
+
+.offcanvas-headerSection2 {
     display: flex;
     flex-direction: row;
     align-items: center;
-    @include md{
+
+    @include md {
         flex-direction: column;
         align-items: flex-start;
     }
 }
 
-.feedbackEmailContainer{
+.feedbackEmailContainer {
     width: 50%;
-    @include md{
+
+    @include md {
         width: 100vw;
     }
 }
 
-.sendmailIcon:hover{
+.sendmailIcon:hover {
     cursor: not-allowed !important;
 }
 
 
-.toggleBtn{
+.toggleBtn {
 
-    .switchBtn{
+    .switchBtn {
         transform: scale(0.7);
     }
-    span{
-       
-        @include md{
+
+    span {
+
+        @include md {
             font-size: smaller;
         }
-        @include xxl{
+
+        @include xxl {
             font-size: medium;
         }
     }
@@ -326,17 +396,19 @@ position: absolute;
         transform: scale(1);
         opacity: 1;
     }
+
     50% {
         transform: scale(1.2);
         opacity: 0.7;
     }
+
     100% {
         transform: scale(1);
         opacity: 1;
     }
 }
 
-.bi-circle-fill{
+.bi-circle-fill {
     animation: pulse 1s infinite;
     padding-left: 5px;
 }
