@@ -7,40 +7,44 @@ const Dictaphone = (prop) => {
     listening,
   } = useSpeechRecognition();
 
- 
-  function speechHandler(e){
+
+  function speechHandler(e) {
     let speechType = e.target.id
-    if(speechType == 'stopSpeech'){
- 
+    if (!prop.states) {
+      if (speechType == 'stopSpeech') {
+
         SpeechRecognition.stopListening()
-        
-    }
-    else {
-       
+
+      }
+      else {
+
         SpeechRecognition.startListening()
+      }
     }
-}
 
-useEffect(()=>{
-    
-    prop.setValues({...prop.fieldvalues,question:transcript})
-},[transcript])
+  }
 
-useEffect(()=>{
+  useEffect(() => {
 
-        prop.setSpeechEnabled(listening)
-   
-},[listening])
+    prop.setValues({ ...prop.fieldvalues, question: transcript })
+  }, [transcript])
+
+  useEffect(() => {
+
+    prop.setSpeechEnabled(listening)
+
+  }, [listening])
+
   return (
     <div>
-    
-   
-      {listening?
-                                      
-                                      <i class="bi bi-mic-mute-fill text-danger"id='stopSpeech' onClick={speechHandler} ></i>
-                                      :<i class="bi bi-mic" id='startSpeech' onClick={speechHandler} ></i>
-                                      }
-      
+
+
+      {listening ?
+
+        <i class="bi bi-mic-mute-fill text-danger" id='stopSpeech' onClick={speechHandler} ></i>
+        : <i class="bi bi-mic" id='startSpeech' onClick={speechHandler} style={prop?.states ? { cursor: 'not-allowed' } : { cursor: 'pointer' }}></i>
+      }
+
     </div>
   );
 };

@@ -47,7 +47,6 @@ $lg: 992px;
 .chatAnswer,
 .chatQuestion {
     border-radius: 15px;
-    // white-space: pre-line;
     white-space:inherit !important;
     width: 80ch;
     font-size: 0.9vw !important;
@@ -75,6 +74,10 @@ $lg: 992px;
     height: 5vh;
    @include xxl{
     height: 3vh;
+   }
+   @include md{
+    height: 4vh;
+
    }
     border: 1px solid rgb(225, 223, 223);
     padding: 1px;

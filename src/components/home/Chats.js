@@ -78,6 +78,7 @@ function Chats(prop) {
                          <div>
                        <div className='chatQuestion rounded p-2 d-flex align-items-center text-capitalize'>{item.chat_text}</div>
                        <span className='timeview text-muted'>{ new Date(item.time_stamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit'})}</span>
+                      
                        </div>
                       </div>
                        :

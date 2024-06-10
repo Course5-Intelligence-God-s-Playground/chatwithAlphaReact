@@ -207,7 +207,7 @@ $lg: 992px;
 }
 
 .chatInput-intermediate-hold {
-    height: 75%;
+    height: 60%;
     width: 90%;
 
     @include md {
@@ -245,13 +245,14 @@ $lg: 992px;
     max-height: 100%;
     min-height: 100%;
     outline: none;
+    
     border: none;
     resize: none;
     font-size: small;
-    &::placeholder{
-        padding-top: 12px;
-
-    }
+    
+        padding-top: 15px;
+        padding-bottom: 5px;
+   
     &:focus::placeholder {
         display: none;
         opacity: 0;
