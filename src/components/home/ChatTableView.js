@@ -45,7 +45,9 @@ const [getChatAnswerComponentData,setChatAnswerComponentData] = useRecoilState(C
   }
 useEffect(()=>{
   setChatAnswerComponentData({...getChatAnswerComponentData,scrollType:prop.ids})
+ 
 },[])
+
   return (
     <div className=''>
       <i class="bi bi-arrows-angle-expand rounded ps-2" onClick={tableExpandHandle}></i>
@@ -60,7 +62,7 @@ useEffect(()=>{
            {Object.keys(formattedData)?.map((val, index) => (
              <tr>
                <td key={index} className='seriesarrayFrstCol fw-semibold text-white w-50'>{val}</td>
-               <td key={index} style={typeof formattedData[val] == 'number' && formattedData[val]<0?{color:'red',textAlign:'center',fontWeight:'bold'}:{textAlign:'center',fontWeight:'bold'}} >{ formattedData[val]}</td></tr>
+               <td key={index} style={typeof formattedData[val] == 'number' && formattedData[val]<0?{color:'red',textAlign:'center',fontWeight:'bold'}:{textAlign:'center',fontWeight:'bold'}} >{(typeof formattedData[val] == 'number' && !val?.toLowerCase().includes('rank'))? `${formattedData[val]}%`:`${formattedData[val]}`}</td></tr>
            ))}
          </tbody>
        </table>

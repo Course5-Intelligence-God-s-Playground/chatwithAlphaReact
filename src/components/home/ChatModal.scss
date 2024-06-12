@@ -196,6 +196,8 @@ $lg: 992px;
 
     .chatbodyinputSendIcon {
         cursor: pointer;
+        position: relative;
+        top: 5px;
         transform: rotate(45deg);
 
         &:active {
@@ -250,7 +252,7 @@ $lg: 992px;
     resize: none;
     font-size: small;
     
-        padding-top: 15px;
+        padding-top: 19px;
         padding-bottom: 5px;
    
     &:focus::placeholder {
