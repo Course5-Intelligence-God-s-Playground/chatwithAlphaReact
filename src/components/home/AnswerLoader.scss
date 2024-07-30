@@ -15,6 +15,7 @@ $md: 768px;
 	@include md{
 		height: fit-content;
 		top: 50%;
+		left: 0%;
 		background-color: white;
 	}
 }
