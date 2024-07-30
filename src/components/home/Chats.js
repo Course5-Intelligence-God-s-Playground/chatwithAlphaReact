@@ -32,26 +32,26 @@ function Chats(prop) {
                 chatCompleted:false
 
             }
-            ,{
-                chat_text: `<b>You have Selected: </b>${prop.fieldvalues.scoring_type==='Customer Journey POCA scoring (Discover, Learn, Buy & Engage)'?'Customer Journey POCA scoring system (Discover, Learn, Buy & Engage)':'Standard POCA scoring system (Marketing, Omnichannel, Ecommerce & Subscription)'}`,
-                chat_type: "msg",
-                time_stamp: currentDate,
-                new: true,
-                suggestive: '',
-                model_output: '',
-                model_output_type: '',
-                graph_data: '',
-                graph_type: '',
-                id: errorIdval+1,
-                scoretype: prop.fieldvalues.scoring_type,
-                general_question: true,
-                suggestive_completed:false,
-                chart_completed:false,
-                answer_closed:false,
-                isSaved:false,
-                chatCompleted:false
+            // ,{
+            //     chat_text: `<b>You have Selected: </b>${prop.fieldvalues.scoring_type==='Customer Journey POCA scoring (Discover, Learn, Buy & Engage)'?'Customer Journey POCA scoring system (Discover, Learn, Buy & Engage)':'Standard POCA scoring system (Marketing, Omnichannel, Ecommerce & Subscription)'}`,
+            //     chat_type: "msg",
+            //     time_stamp: currentDate,
+            //     new: true,
+            //     suggestive: '',
+            //     model_output: '',
+            //     model_output_type: '',
+            //     graph_data: '',
+            //     graph_type: '',
+            //     id: errorIdval+1,
+            //     scoretype: prop.fieldvalues.scoring_type,
+            //     general_question: true,
+            //     suggestive_completed:false,
+            //     chart_completed:false,
+            //     answer_closed:false,
+            //     isSaved:false,
+            //     chatCompleted:false
 
-            }
+            // }
         ]
 
         prop.setqaChats([...array,...prop.qaChats]);

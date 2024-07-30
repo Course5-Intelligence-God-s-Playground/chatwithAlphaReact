@@ -60,7 +60,7 @@ function ChatModal(prop) {
         const currentDate = new Date()
 
         let errorIdval = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000
-        let errorText = 'We apologize for any inconvenience. We were unable to determine exactly what you are seeking. Please rephrase your question and ask again.'
+        let errorText = 'Our AI companion is taking a little longer to produce the results. Please try asking your question again,consider rephrasing it, or use the regenerate button to submit the same query.'
         let array = [
 
             {
@@ -691,11 +691,12 @@ function ChatModal(prop) {
                           <img src={pocaAImg} className='nexusImgChat'></img>
                           <div className='offcanvas-right justify-content-end'>
                 
-                          <div className='toggleBtn d-flex align-items-center gap-1 ms-4'>
+                          {/* <div className='toggleBtn d-flex align-items-center gap-1 ms-4'>
                                 <span className='fw-semibold' style={{ color: '#612fa3' }}>Standard POCA</span>
                                 <Switch offColor='#612FA3' className='switchBtn' uncheckedIcon={false} checkedIcon={false} onChange={switchChangehandle} checked={fieldvalues.scoring_type == 'Customer Journey POCA scoring (Discover, Learn, Buy & Engage)' ? true : false} />
                                 <span className='fw-semibold text-success'>Customer Journey POCA</span>
-                            </div>
+                            </div> */}
+
                           <div className='d-flex align-items-center gap-2 justify-content-end  w-25 offcanvas-header-buttons'>
                                 <button className='btn btn-outline-secondary btn-sm clearchatbtn d-flex justify-content-center align-items-center' onClick={clearAllChatsHandler}>Clear</button>
                                 <i class="bi bi-x-circle h4 modalClose mt-1" data-bs-dismiss="offcanvas" aria-label="Close" onClick={() => { prop.setChatboxShow(false) }}></i>
