@@ -171,7 +171,7 @@ function ChatModal(prop) {
 
     function webso(resp,currentDate,isRegenerate) {
        
-        const ws = new WebSocket("ws://chat-with-alpha-ai-backend-h9c3g6gxabg9dph2.eastus-01.azurewebsites.net/ws/chat/");
+        const ws = new WebSocket("wss://chat-with-alpha-ai-backend-h9c3g6gxabg9dph2.eastus-01.azurewebsites.net/ws/chat/");
         
 
         ws.onopen = function () {
