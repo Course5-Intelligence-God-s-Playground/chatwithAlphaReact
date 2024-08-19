@@ -1,11 +1,11 @@
 export  let Server = {
-    getChats:'https://qa-discover-django.azurewebsites.net/home/get-chat/',
-    setChat:'https://qa-discover-django.azurewebsites.net/home/updated-save-chat/',
-    getExecutiveInfo:'https://qa-discover-django.azurewebsites.net/home/executive-summary/',
-    getStoryBoardsInfo:'https://qa-discover-django.azurewebsites.net/home/story-board/',
-    clearAllChats:'https://qa-discover-django.azurewebsites.net/home/delete-updated-chat/',
-    recentChat:'https://qa-discover-django.azurewebsites.net/home/recent-chat/',
-    likeDislike:'https://qa-discover-django.azurewebsites.net/home/like-or-dislike/',
-    feedBack:'https://qa-discover-django.azurewebsites.net/home/answer-feedback/',
-    saveQA:'https://qa-discover-django.azurewebsites.net/home/save-qa/'
+    getChats:'https://chat-with-alpha-djnago-bzf9b0b7gve5dkbe.eastus-01.azurewebsites.net/home/get-chat/',
+    setChat:'https://chat-with-alpha-djnago-bzf9b0b7gve5dkbe.eastus-01.azurewebsites.net/home/updated-save-chat/',
+    getExecutiveInfo:'https://chat-with-alpha-djnago-bzf9b0b7gve5dkbe.eastus-01.azurewebsites.net/home/executive-summary/',
+    getStoryBoardsInfo:'https://chat-with-alpha-djnago-bzf9b0b7gve5dkbe.eastus-01.azurewebsites.net/home/story-board/',
+    clearAllChats:'https://chat-with-alpha-djnago-bzf9b0b7gve5dkbe.eastus-01.azurewebsites.net/home/delete-updated-chat/',
+    recentChat:'https://chat-with-alpha-djnago-bzf9b0b7gve5dkbe.eastus-01.azurewebsites.net/home/recent-chat/',
+    likeDislike:'https://chat-with-alpha-djnago-bzf9b0b7gve5dkbe.eastus-01.azurewebsites.net/home/like-or-dislike/',
+    feedBack:'https://chat-with-alpha-djnago-bzf9b0b7gve5dkbe.eastus-01.azurewebsites.net/home/answer-feedback/',
+    saveQA:'https://chat-with-alpha-djnago-bzf9b0b7gve5dkbe.eastus-01.azurewebsites.net/home/save-qa/'
 }
