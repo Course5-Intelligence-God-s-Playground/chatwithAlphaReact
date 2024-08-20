@@ -91,7 +91,7 @@ function StoryNew(prop) {
                         <div>
                             {
                                 <div> {/* section*/}
-                                    <div className='my-4 fw-bold  cardSectionTitle text-center' >Customer Journey POCA Scores [FY-25]</div>
+                                    <div className='my-4 fw-bold  cardSectionTitle text-center' > FY25 Customer Journey POCA Scores</div>
                                     <div className='storyboardCnt d-flex '> {/*  card holder */}
                                         {
                                             val['Customer Journey POCA Scores'].map((itm) => (
@@ -102,10 +102,10 @@ function StoryNew(prop) {
                                                     </div>
                                                     <div className='storyboardCardEnd d-flex align-items-center justify-content-evenly'>
                                                         <div className='d-flex flex-column align-items-center'>
-                                                            <div className='storybrdNum text-white fs-6' >{itm.value1}%</div>
+                                                            <div className='storybrdNum text-white fs-6' >{itm.value1==0?'-':itm.value1+'%'}</div>
                                                             <div className='storybrdNumScnd px-1 fw-medium' style={itm.value2 >= 0 ? { color: 'green' } : { color: 'red' }}>
                                                                 {
-                                                                    itm.value2 >= 0 ? <>+{itm.value2}%</> : <>{itm.value2}%</>
+                                                                    itm.value2 > 0 ? <>+{itm.value2}%</> :itm.value2==0?'-': <>{itm.value2}%</>
                                                                 }
                                                             </div>
                                                         </div>
