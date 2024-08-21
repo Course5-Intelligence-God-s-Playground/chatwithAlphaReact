@@ -201,7 +201,8 @@ $lg: 992px;
         transform: rotate(45deg);
 
         &:active {
-            transform: scale(1.1);
+            transform: scale(0.9);
+            top: 0px;
         }
     }
 

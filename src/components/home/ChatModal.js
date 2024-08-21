@@ -13,6 +13,7 @@ import Switch from "react-switch";
 import { saveResponseReceived } from './ChatModal/SaveOverallResponse';
 import Dictaphone from '../utilites/Speech2Text';
 function ChatModal(prop) {
+    const wsRef = useRef(null);
     const containerRef = useRef(null);
     const getTableViewRecoil = useRecoilValue(TableViewRecoil)
     const [qaChats, setqaChats] = useState([])
@@ -29,6 +30,12 @@ function ChatModal(prop) {
     const [speechEnabled,setSpeechEnabled] = useState(false)
     
     // websocket 
+    const correctIcon = `<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="white" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+            <path d="m1.75 9.75 2.5 2.5m3.5-4 2.5-2.5m-4.5 4 2.5 2.5 6-6.5"/>
+            </svg>`
+    const pulsingCursor = `<svg  width="16" height="16" fill="#0988e2" class="bi bi-circle-fill" viewBox="0 0 16 16">
+    <circle cx="8" cy="8" r="8"/>
+  </svg>`;
     const [timeStore,setTimeStore] = useState([])
     const [regenerateQueId,setRegenerateQueId] = useState(null)
     const [isRegnerate,setIsRegenerate] = useState(false)
@@ -81,7 +88,8 @@ function ChatModal(prop) {
                 chart_completed:false,
                 answer_closed:false,
                 isSaved:false,
-                chatCompleted:false
+                chatCompleted:false,
+                has_percentage:false
 
             }
         ]
@@ -171,17 +179,17 @@ function ChatModal(prop) {
 
     function webso(resp,currentDate,isRegenerate) {
        
-        const ws = new WebSocket("wss://chat-with-alpha-ai-backend-h9c3g6gxabg9dph2.eastus-01.azurewebsites.net/ws/chat/");
+        wsRef.current = new WebSocket("wss://chat-with-alpha-ai-backend-h9c3g6gxabg9dph2.eastus-01.azurewebsites.net/ws/chat/");
         
 
-        ws.onopen = function () {
+        wsRef.current.onopen = function () {
             console.log("Ws");
-            ws.send(JSON.stringify({
+            wsRef.current.send(JSON.stringify({
                 "question":resp.question,
                 "scoring_type": resp.scoring_type,
                 "recent_chat": resp.data
             }));
-            setIsWebSocketRunning(true)
+            
             if(isRegenerate){
                 setqaChats((prevChats) => {
                     // Check if an object with the same id exists
@@ -204,7 +212,8 @@ function ChatModal(prop) {
                         chart_completed:false,
                         answer_closed:false,
                         isSaved:false,
-                        chatCompleted:false
+                        chatCompleted:false,
+                        has_percentage:false
                     };
                     if (index !== -1) {
                         // Update chat_text if id exists
@@ -222,16 +231,14 @@ function ChatModal(prop) {
           
         };
         
-        ws.onmessage = function (e) {
+        wsRef.current.onmessage = function (e) {
            try {
             const data = JSON.parse(e.data);
-            const pulsingCursor = `<svg  width="16" height="16" fill="#0988e2" class="bi bi-circle-fill" viewBox="0 0 16 16">
-            <circle cx="8" cy="8" r="8"/>
-          </svg>`;
+           
             
             if (data.chunk && data.chunk != undefined && data.type == 'Answer') {
                 setIsloading(false);
-                
+                setIsWebSocketRunning(true)
                 let newArray = {
                     chat_text: data.chunk,
                     chat_type: "Answer",
@@ -250,7 +257,8 @@ function ChatModal(prop) {
                     chart_completed:false,
                     answer_closed:false,
                     isSaved:false,
-                    chatCompleted:false
+                    chatCompleted:false,
+                    has_percentage:false
                 };
                 
                 setqaChats((prevChats) => {
@@ -283,9 +291,7 @@ function ChatModal(prop) {
                 });
             }
         else if(data.type == 'answer_closed'){
-            const correctIcon = `<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="white" stroke="green" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-            <path d="m1.75 9.75 2.5 2.5m3.5-4 2.5-2.5m-4.5 4 2.5 2.5 6-6.5"/>
-            </svg>`
+            
             setqaChats((prevChats) => {
                 // Remove cursor from all chats
                 const updatedChats = prevChats.map(chat => {
@@ -331,7 +337,7 @@ function ChatModal(prop) {
                 setqaChats((prevChats) => {
                             // Check if an object with the same id exists
                             const index = prevChats.findIndex(chat => chat.id === resp.id);
-                        
+                       
                             if (index !== -1) {
                                 // Update chat_text if id exists
                                 return prevChats.map(chat => {
@@ -343,6 +349,7 @@ function ChatModal(prop) {
                                             model_output_type:  isSingleEntry?'':data?.model_output_type,
                                             graph_data:   isSingleEntry?'':data?.graph_data,
                                             graph_type:  isSingleEntry?'':data?.graph_type,
+                                            has_percentage:data?.has_percentage
                                         };
                                     }
                                     else{
@@ -431,28 +438,8 @@ function ChatModal(prop) {
             }
             else if(data.type == 'all_msg_complete'){
             setIsWebSocketRunning(false)
-
-                    setqaChats((prevChats) => {
-                        // Check if an object with the same id exists
-                        const index = prevChats.findIndex(chat => chat.id === resp.id);
-                    
-                        if (index !== -1) {
-                            // Update chat_text if id exists
-                            return prevChats.map(chat => {
-                                if (chat.id === resp.id) {
-                                    
-                                    return {
-                                        ...chat,
-                                        chatCompleted:true
-                                    };
-                                }
-                                else{
-                                    return chat;
-                                }
-                                
-                            });
-                        }
-                    });
+            allMessageCompleted(resp.id)
+                   
             }
             else if(data.type =='error'){
             setIsloading(false)
@@ -468,7 +455,7 @@ function ChatModal(prop) {
            }
             
         };
-        ws.onerror = function(e){
+        wsRef.current.onerror = function(e){
             setIsloading(false)
             setIsWebSocketRunning(false)
             retryConnection(resp,currentDate)
@@ -579,66 +566,7 @@ function ChatModal(prop) {
         setfeedbackEmailContainer(true)
     }
 
-    function switchChangehandle() {
-        setIsRegenerate(false)
-        let errorIdval = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000
-        setChatAnswerComponentData( {
-            scrollType:errorIdval,//stores user current scroll position in chatbot page so to retun to same spot after user returns from expanded table view
-            ShowAnimation:true, //chatbot answer text animation state, animation will appear only once and not after user enters from expanded table view page
-            closeBtnClick:!getChatAnswerComponentData.closeBtnClick //when user clicks close expanded table view button 
-        })
-        let chatText;
-        if (fieldvalues.scoring_type === 'Customer Journey POCA scoring (Discover, Learn, Buy & Engage)') {
-            setValues({ ...fieldvalues, scoring_type: 'Standard POCA scoring (Marketing, Omnichannel, Ecommerce & Subscription)' })
-            chatText = '<b className=`fw-bold`>You have Selected: </b>Standard POCA scoring system (Marketing, Omnichannel, Ecommerce & Subscription)'
-        }
-        else {
-            setValues({ ...fieldvalues, scoring_type: 'Customer Journey POCA scoring (Discover, Learn, Buy & Engage)' })
-            chatText = '<b className=`fw-bold`>You have Selected: </b>Customer Journey POCA scoring system (Discover, Learn, Buy & Engage)'
-        }
-        const currentDate = new Date()
-     
-        let array = [
-
-            {
-                chat_text: chatText,
-                chat_type: "msg",
-                time_stamp: currentDate,
-                new: true,
-                suggestive: '',
-                model_output: '',
-                model_output_type: '',
-                graph_data: '',
-                graph_type: '',
-                id: errorIdval,
-                scoretype: chatText,
-                general_question: true,
-                time_taken: '',
-                suggestive_completed:false,
-                answer_closed:false,
-                isSaved:false,
-                chatCompleted:false
-
-            }
-        ]
-
-        if(qaChats[qaChats.length -1].chat_type == 'msg'){
-            // if previous response is message then replace existing repsonse itself
-            setqaChats((prevChats) => {
-                const updatedChats = [...prevChats];
-                updatedChats[updatedChats.length - 1] = array[0];
-                return updatedChats;
-            });
-        }
-        else{
-            setqaChats((prevChats) => {
-                const updatedChats = [...prevChats, ...array];
-             
-                return updatedChats;
-            });
-        }
-        
-    }
+   
 
     function getfeedbackEmailContainerHandler(respId,feedBackState){
         setFeedBackId(respId)
@@ -678,7 +606,43 @@ function ChatModal(prop) {
         }
     }, [qaChats]);
     
-   
+   function terminate(){
+    wsRef.current.close();
+    allMessageCompleted(qaChats[qaChats.length-1].id)
+   }
+   function allMessageCompleted(resp){
+    setqaChats((prevChats) => {
+        // Check if an object with the same id exists
+        setIsWebSocketRunning(false)
+        setIsloading(false)
+        const index = prevChats.findIndex(chat => chat.id === resp);
+        
+        if (index !== -1) {
+            // Update chat_text if id exists
+            return prevChats.map(chat => {
+                if (chat.id === resp) {
+                    let chatText = chat.chat_text.replace(new RegExp(pulsingCursor + '$')) // Remove cursor if it exists
+                    chatText=chatText.replace('undefined','')
+                    return {
+                        ...chat,
+                        chat_type: "msg",
+                        chatCompleted:true,
+                        suggestive_completed:true,
+                        chart_completed:true,
+                        answer_closed:false,
+                        chat_text: chatText
+                    };
+                }
+                else{
+                    return chat;
+                }
+                
+            });
+        }
+    });
+     wsRef.current.close();
+   }
+
     return (
         <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
 
@@ -692,11 +656,6 @@ function ChatModal(prop) {
                           <img src={pocaAImg} className='nexusImgChat'></img>
                           <div className='offcanvas-right justify-content-end'>
                 
-                          {/* <div className='toggleBtn d-flex align-items-center gap-1 ms-4'>
-                                <span className='fw-semibold' style={{ color: '#612fa3' }}>Standard POCA</span>
-                                <Switch offColor='#612FA3' className='switchBtn' uncheckedIcon={false} checkedIcon={false} onChange={switchChangehandle} checked={fieldvalues.scoring_type == 'Customer Journey POCA scoring (Discover, Learn, Buy & Engage)' ? true : false} />
-                                <span className='fw-semibold text-success'>Customer Journey POCA</span>
-                            </div> */}
 
                           <div className='d-flex align-items-center gap-2 justify-content-end  w-25 offcanvas-header-buttons'>
                                 <button className='btn btn-outline-secondary btn-sm clearchatbtn d-flex justify-content-center align-items-center' onClick={clearAllChatsHandler}>Clear</button>
@@ -745,9 +704,10 @@ function ChatModal(prop) {
                                         
                                         </div>
                                         <textarea className='chatbodyinput-txtarea bg-dansger w-100  bg-transparent' rows={4} placeholder={!speechEnabled?'Type to Ask me...':'Speak now...'} value={fieldvalues.question} onChange={textAreaChangeHandle} onKeyDown={!isloading ? sendHandleonEnterKey : null} disabled={getfeedbackEmailContainer || isWebsocketRunning || isloading} style={getfeedbackEmailContainer || isWebsocketRunning || isloading?{cursor:'not-allowed'}:{cursor:"text"}}></textarea>
-                                      
-                                        <i class="bi bi-send fs-4 text-primary chatbodyinputSendIcon pe-3" onClick={!isloading ? () => { sendQuestion(false,null) } : null}></i>
-                                    
+                                   
+                                       
+                                       {!isWebsocketRunning ? <i class="bi bi-send fs-4 text-primary chatbodyinputSendIcon pe-3" onClick={!isloading ? () => { sendQuestion(false,null) } : null}></i>
+                                            :<i onClick={terminate} class="bi bi-stop-circle fs-4 text-danger chatbodyinputSendIcon pe-3"></i>}
                                         </div>
                                     </div>
                                 </div>

@@ -138,6 +138,7 @@ function ChatAnswerCrad(prop) {
   }, [prop?.answer?.answer_closed]);
 
 
+
   return (
     <div className='d-flex flex-column align-items-end'>
       <div className=' d-flex gap-2'>

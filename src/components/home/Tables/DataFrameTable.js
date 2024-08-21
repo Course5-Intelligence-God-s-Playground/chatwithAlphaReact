@@ -47,7 +47,10 @@ const[formatedData,setFormatedData] = useState([])
                 <tr key={rowIndex}>
                     {row.map((cell, cellIndex) => (
                         <td className='text-center 'id={cellIndex} style={typeof cell === 'number' && cell < 0 ? { color: 'red' } : {}} key={cellIndex}>{typeof cell == 'number' ?
-                        <b>{!Object.keys(getTableOutput)[cellIndex]?.toLowerCase().includes('rank')?`${cell}%`:cell}</b>
+                        <b>
+                          {/* {!Object.keys(getTableOutput)[cellIndex]?.toLowerCase().includes('rank')?`${cell}%`:cell} */}
+                          {cell}
+                          </b>
                         :cell}</td>
                     ))}
                 </tr>

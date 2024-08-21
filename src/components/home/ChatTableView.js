@@ -62,7 +62,10 @@ useEffect(()=>{
            {Object.keys(formattedData)?.map((val, index) => (
              <tr>
                <td key={index} className='seriesarrayFrstCol fw-semibold text-white w-50'>{val}</td>
-               <td key={index} style={typeof formattedData[val] == 'number' && formattedData[val]<0?{color:'red',textAlign:'center',fontWeight:'bold'}:{textAlign:'center',fontWeight:'bold'}} >{(typeof formattedData[val] == 'number' && !val?.toLowerCase().includes('rank'))? `${formattedData[val]}%`:`${formattedData[val]}`}</td></tr>
+               <td key={index} style={typeof formattedData[val] == 'number' && formattedData[val]<0?{color:'red',textAlign:'center',fontWeight:'bold'}:{textAlign:'center',fontWeight:'bold'}} >
+               {/* {(typeof formattedData[val] == 'number' && !val?.toLowerCase().includes('rank'))? `${formattedData[val]}%`:`${formattedData[val]}`} */}
+               {formattedData[val]}
+               </td></tr>
            ))}
          </tbody>
        </table>

@@ -29,7 +29,8 @@ function Chats(prop) {
                 chart_completed:false,
                 answer_closed:false,
                 isSaved:false,
-                chatCompleted:false
+                chatCompleted:false,
+                has_percentage:false
 
             }
            
