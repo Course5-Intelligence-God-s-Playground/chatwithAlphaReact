@@ -179,9 +179,9 @@ function ChatModal(prop) {
 
     function webso(resp,currentDate,isRegenerate) {
     //    chat with alpha 
-        // wsRef.current = new WebSocket("wss://chat-with-alpha-ai-backend-h9c3g6gxabg9dph2.eastus-01.azurewebsites.net/ws/chat/");
+        wsRef.current = new WebSocket("wss://chat-with-alpha-ai-backend-h9c3g6gxabg9dph2.eastus-01.azurewebsites.net/ws/chat/");
         // chat with pi 
-        wsRef.current = new WebSocket("wss://pocai-botbrainiacs.azurewebsites.net/ws/chat/");
+        // wsRef.current = new WebSocket("wss://pocai-botbrainiacs.azurewebsites.net/ws/chat/");
 
         wsRef.current.onopen = function () {
             console.log("Ws");
