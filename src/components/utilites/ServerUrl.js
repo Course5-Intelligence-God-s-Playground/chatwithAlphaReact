@@ -14,5 +14,6 @@ export  let Server = {
 // chat with pi 
 // https://qa-discover-django.azurewebsites.net/home/
 
+
 // chat with alpha 
 // https://chat-with-alpha-djnago-bzf9b0b7gve5dkbe.eastus-01.azurewebsites.net/home/

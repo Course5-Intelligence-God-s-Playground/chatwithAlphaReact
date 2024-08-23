@@ -84,7 +84,6 @@ function StoryNew(prop) {
 
                 </div>
 
-
             </div>
             <div className='storyCardSectionContainer '>
                 {boardData != null ?

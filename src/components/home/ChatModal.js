@@ -183,6 +183,7 @@ function ChatModal(prop) {
         // chat with pi 
         // wsRef.current = new WebSocket("wss://pocai-botbrainiacs.azurewebsites.net/ws/chat/");
 
+        
         wsRef.current.onopen = function () {
             console.log("Ws");
             wsRef.current.send(JSON.stringify({
