@@ -17,3 +17,5 @@ export  let Server = {
 
 // chat with alpha 
 // https://chat-with-alpha-djnago-bzf9b0b7gve5dkbe.eastus-01.azurewebsites.net/home/
+
+// also change web socket link in chatModal page !!!!!!!!

@@ -485,24 +485,24 @@ $xxl: 1400px;
     } 
 }
 .executiveInfonumber{
-    background-color: #33b0ea;
+    // background-color: #33b0ea;
     color: white;
       font-size: small;
-      display: none;
+      // display: none;
     border: 1px solid white;
     @include xxl{
         font-size: medium;
     } 
  
     @include md{
-        font-size: smaller;
+        // font-size: smaller;
       display: block;
         }
 }
 .executiveInfoScndLine,.executiveInfoThirdLine,.executiveInfoul,.executiveInfo-instrction{
       font-size: small;
     @include md{
-    font-size: smaller;
+    // font-size: smaller;
 
     }
     @include xxl{

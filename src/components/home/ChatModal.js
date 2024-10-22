@@ -16,6 +16,7 @@ function ChatModal(prop) {
     const wsRef = useRef(null);
     const containerRef = useRef(null);
     const getTableViewRecoil = useRecoilValue(TableViewRecoil)
+    
     const [qaChats, setqaChats] = useState([])
     const [isloading, setIsloading] = useState(false) //to show loading gif
     const [isWebsocketRunning,setIsWebSocketRunning] = useState(false)//to disable textarea
@@ -44,7 +45,8 @@ function ChatModal(prop) {
         startTime:null,
         endTime:null
     })
-    let retryCount = 0;
+    let errorCount=0;//retry if error response is received
+    let retryCount = 0; //retry if unable to connect to database
     const maxRetries = 5;
     const retryInterval = 5000; // 5 seconds
     
@@ -185,7 +187,7 @@ function ChatModal(prop) {
 
         
         wsRef.current.onopen = function () {
-            console.log("Ws");
+            // console.log("Ws");
             wsRef.current.send(JSON.stringify({
                 "question":resp.question,
                 "scoring_type": resp.scoring_type,
@@ -293,7 +295,7 @@ function ChatModal(prop) {
                 });
             }
         else if(data.type == 'answer_closed'){
-            
+            errorCount=0
             setqaChats((prevChats) => {
                 // Remove cursor from all chats
                 const updatedChats = prevChats.map(chat => {
@@ -444,9 +446,19 @@ function ChatModal(prop) {
                    
             }
             else if(data.type =='error'){
+                terminate()
+                // console.log('retry'+errorCount)
+                errorCount++  //retry 5 times if received error instead of answer/expected output response
+           if(errorCount<=4){
+            setIsloading(true)
+           
+            webso(resp,currentDate);
+           }else{
             setIsloading(false)
             updateErrorMessage()
             setIsWebSocketRunning(false)
+           }
+           
             
             }
             
@@ -461,15 +473,16 @@ function ChatModal(prop) {
             setIsloading(false)
             setIsWebSocketRunning(false)
             retryConnection(resp,currentDate)
+            terminate()
         };
      
     }
-    function retryConnection(resp,currentDate) {
+    function retryConnection(resp,currentDate) { //retry 5 times if unable to connect to database
         if (retryCount < maxRetries) {
             setIsloading(true)
 
             retryCount++;
-            console.log(`Retrying WebSocket connection, attempt ${retryCount}`);
+            // console.log(`Retrying WebSocket connection, attempt ${retryCount}`);
             setTimeout(() => {
                 webso(resp,currentDate);
             }, retryInterval);
@@ -627,7 +640,6 @@ function ChatModal(prop) {
                     chatText=chatText.replace('undefined','')
                     return {
                         ...chat,
-                        chat_type: "msg",
                         chatCompleted:true,
                         suggestive_completed:true,
                         chart_completed:true,

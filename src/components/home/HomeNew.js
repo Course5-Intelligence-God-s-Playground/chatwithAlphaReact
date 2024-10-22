@@ -15,25 +15,25 @@ function HomeNew() {
         setChatboxShow(true)
     }
 
-   
+
 
     useEffect(() => {
         const screenWidth = window.innerWidth;
         let sideBarElement = document.getElementsByClassName('mainfrst')[0]
         if (menuHovered) {
-         if (screenWidth >= 768) {
-            sideBarElement.style.width = '18vw'
-        } else {
-            sideBarElement.style.width = '42vw'
-          }
+            if (screenWidth >= 768) {
+                sideBarElement.style.width = '18vw'
+            } else {
+                sideBarElement.style.width = '42vw'
+            }
         }
         else {
             if (screenWidth >= 768) {
                 sideBarElement.style.width = '6vw'
             } else {
                 sideBarElement.style.width = '0vw'
-              }
-         
+            }
+
         }
     }, [menuHovered])
 
@@ -44,32 +44,32 @@ function HomeNew() {
                 <NavBarHome />
 
                 <div className='homePage-maincontent'>
-                <div className='mainfrst bg-white rounded border'><HomeStartOptions /></div>
+                    <div className='mainfrst bg-white rounded border'><HomeStartOptions /></div>
 
-                    <div className='holdercup shadow' style={!chatboxShow?{displey:'flex'}:{display:'none'}}>
+                    <div className='holdercup shadow' style={!chatboxShow ? { displey: 'flex' } : { display: 'none' }}>
 
-                      
-                       <div className='mainscnd rounded' >
+
+                        <div className='mainscnd rounded' >
                             <Executive setIsLoading={setIsLoading} />
                         </div>
                         <div className='maintrd bg-white px-2 border'>
-                        <StoryNew setIsLoading={setIsLoading}/>
-                    </div>
+                            <StoryNew setIsLoading={setIsLoading} />
+                        </div>
                     </div >
-                    
-                     
+
+
                 </div>
 
 
             </div>
 
             {/* chat bot icon  */}
-           {!chatboxShow && 
-           <div className='chatBot-holder'>
-            <img src={botgifppt} className='chatBot' onClick={chatbotClickHandle} data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></img>
-           </div>
-        
-             }
+            {!chatboxShow &&
+                <div className='chatBot-holder'>
+                    <img src={botgifppt} className='chatBot' onClick={chatbotClickHandle} data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"></img>
+                </div>
+
+            }
 
             <div className='chatmodalHold'><ChatModal setChatboxShow={setChatboxShow} /></div>
 
@@ -78,7 +78,7 @@ function HomeNew() {
             </div>}
 
 
-           </div>
+        </div>
     )
 }
 
