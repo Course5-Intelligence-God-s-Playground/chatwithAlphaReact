@@ -19,6 +19,7 @@ function ChatModal(prop) {
     
     const [qaChats, setqaChats] = useState([])
     const [isloading, setIsloading] = useState(false) //to show loading gif
+    const [clearChat,setClearChat] = useState(false)
     const [isWebsocketRunning,setIsWebSocketRunning] = useState(false)//to disable textarea
     const [hasUserScrolled, setHasUserScrolled] = useState(false);
     const [getfeedbackEmailContainer, setfeedbackEmailContainer] = useState(false)
@@ -547,7 +548,7 @@ function ChatModal(prop) {
   
 
     async function clearAllChatsHandler() {  //delete all chats 
-        setIsloading(true)
+        setClearChat(true)
         try {
             let req = await fetch(Server.clearAllChats, {
                 method: 'DELETE'
@@ -557,9 +558,9 @@ function ChatModal(prop) {
                 setqaChats([])
                 
             }
-            setIsloading(false)
+            setClearChat(false)
         } catch (error) {
-            setIsloading(false)
+            setClearChat(false)
             // console.log(error)
         }
     }
@@ -727,9 +728,12 @@ function ChatModal(prop) {
                                 </div>
                             </div>
 
-                            {isloading && <AnswerLoader value={fieldvalues.scoring_type} />
-
-                            }
+                            
+                      
+                           { isloading && <AnswerLoader value='Generating response to your question...' />}
+                           { clearChat && <AnswerLoader  value='Clearing...'/>}
+                         
+                            
                         </div></>
 
                     :

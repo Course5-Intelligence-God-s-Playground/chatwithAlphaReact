@@ -35,7 +35,7 @@ function AnswerLoader(prop) {
                     <img className='ansLoaderCntImg' src={spinnersImg} alt='Loading gif'></img>
 
 
-                    <p className=' text-muted rounded bg-white'>Generating response to your question...</p>
+                    <p className=' text-muted rounded bg-white'>{prop.value}</p>
                     
                     {/* <p className='ansLoaderCntTxt shine border rounded p-2 text-center'>
                         <span className='text-secondary'>DID YOU KNOW?</span>
